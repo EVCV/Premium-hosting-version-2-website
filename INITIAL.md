@@ -749,6 +749,320 @@ To enable parallel development and design workflows, the initial build will proc
 -   **Reset Option**: Button to restore all defaults.
 -   **Privacy**: Respect user's privacy settings.
 
+#### Accessibility Integration Plan
+
+**Perfect Integration Plan for Accessibility Control Panel**
+
+This plan outlines a comprehensive 4-step approach to integrate accessibility logic into a custom Astro component system, using localStorage for persistence and creating a state manager for seamless user experience control.
+
+##### Step 1: Isolate the "Engine" - Create accessibilityEngine.ts
+
+**Purpose**: Extract all accessibility logic into a reusable, testable engine that handles preference detection, application, and management.
+
+**Location**: `/src/utils/accessibilityEngine.ts`
+
+**Key Features**:
+- **OS Preference Detection**: Automatically detects `prefers-reduced-motion`, `prefers-contrast`, `prefers-color-scheme`
+- **Preference Merging**: Combines OS preferences with user selections (user selections take priority)
+- **CSS Variable Management**: Dynamically updates CSS custom properties for font size, spacing, contrast
+- **Animation Control**: Manages motion preferences and applies them site-wide
+- **Theme Switching**: Handles light/dark/high-contrast theme transitions
+- **Persistence Layer**: Abstracts localStorage operations with error handling
+
+**Core API**:
+```typescript
+interface AccessibilityPreferences {
+  fontSize: 'small' | 'medium' | 'large' | 'extra-large';
+  contrast: 'default' | 'high-light' | 'high-dark' | 'dark';
+  motion: 'enabled' | 'reduced';
+  spacing: 'normal' | 'relaxed' | 'loose';
+  letterSpacing: boolean;
+  linkHighlighting: boolean;
+  readingGuide: boolean;
+  focusEnhancement: boolean;
+}
+
+class AccessibilityEngine {
+  static detectOSPreferences(): Partial<AccessibilityPreferences>;
+  static applyPreferences(preferences: AccessibilityPreferences): void;
+  static resetToDefaults(): void;
+  static getCurrentPreferences(): AccessibilityPreferences;
+  static savePreferences(preferences: AccessibilityPreferences): void;
+  static loadPreferences(): AccessibilityPreferences;
+}
+```
+
+##### Step 2: Create State Manager - accessibilityStore.ts
+
+**Purpose**: Provide reactive state management for accessibility preferences with event-driven updates.
+
+**Location**: `/src/utils/accessibilityStore.ts`
+
+**Key Features**:
+- **Reactive State**: Uses custom events for preference changes
+- **Event System**: Dispatches 'accessibility-changed' events for component updates
+- **Validation**: Ensures preference values are valid before application
+- **Observer Pattern**: Allows components to subscribe to preference changes
+- **Debounced Updates**: Prevents excessive DOM updates during rapid changes
+
+**Implementation**:
+```typescript
+class AccessibilityStore {
+  private preferences: AccessibilityPreferences;
+  private listeners: Set<(preferences: AccessibilityPreferences) => void>;
+
+  constructor() {
+    this.preferences = AccessibilityEngine.loadPreferences();
+    this.listeners = new Set();
+    this.setupOSPreferenceListeners();
+  }
+
+  updatePreferences(updates: Partial<AccessibilityPreferences>): void {
+    const newPreferences = { ...this.preferences, ...updates };
+    this.preferences = newPreferences;
+    AccessibilityEngine.savePreferences(newPreferences);
+    AccessibilityEngine.applyPreferences(newPreferences);
+    this.notifyListeners();
+  }
+
+  subscribe(callback: (preferences: AccessibilityPreferences) => void): () => void {
+    this.listeners.add(callback);
+    return () => this.listeners.delete(callback);
+  }
+
+  private notifyListeners(): void {
+    this.listeners.forEach(callback => callback(this.preferences));
+  }
+}
+
+export const accessibilityStore = new AccessibilityStore();
+```
+
+##### Step 3: Build Custom Astro Component - AccessibilityPanel.astro
+
+**Purpose**: Create a fully accessible modal component that integrates with the accessibility engine and store.
+
+**Location**: `/src/components/ui/AccessibilityPanel.astro`
+
+**Key Features**:
+- **Full Keyboard Navigation**: Tab order, arrow key navigation, ESC to close
+- **Screen Reader Support**: Proper ARIA labels, live regions for status updates
+- **Focus Management**: Focus trapping, restoration on close
+- **Responsive Design**: Mobile-friendly with touch targets meeting 44px minimum
+- **Real-time Preview**: Changes apply immediately with visual feedback
+- **Progressive Enhancement**: Works without JavaScript (graceful degradation)
+
+**Component Structure**:
+```astro
+---
+// AccessibilityPanel.astro
+import { accessibilityStore } from '../../utils/accessibilityStore';
+
+let isOpen = false;
+let currentPreferences = accessibilityStore.getCurrentPreferences();
+
+function togglePanel() {
+  isOpen = !isOpen;
+  // Focus management and ARIA updates
+}
+
+function updatePreference(key: keyof AccessibilityPreferences, value: any) {
+  accessibilityStore.updatePreferences({ [key]: value });
+  currentPreferences = accessibilityStore.getCurrentPreferences();
+}
+---
+
+<!-- Trigger Button -->
+<button
+  id="accessibility-trigger"
+  class="accessibility-trigger"
+  aria-label="Open accessibility options"
+  aria-expanded={isOpen}
+  onclick={togglePanel}
+>
+  Accessibility Options
+</button>
+
+<!-- Modal Panel -->
+<div
+  id="accessibility-panel"
+  class="accessibility-panel"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="panel-title"
+  aria-describedby="panel-description"
+  hidden={!isOpen}
+>
+  <header>
+    <h2 id="panel-title">Accessibility Options</h2>
+    <p id="panel-description">Customize your viewing experience</p>
+    <button
+      class="close-button"
+      aria-label="Close accessibility panel"
+      onclick={togglePanel}
+    >
+      ×
+    </button>
+  </header>
+
+  <!-- Font Size Controls -->
+  <section class="control-group">
+    <h3>Font Size</h3>
+    <div class="radio-group" role="radiogroup" aria-label="Font size options">
+      {['small', 'medium', 'large', 'extra-large'].map(size => (
+        <label class="radio-option">
+          <input
+            type="radio"
+            name="fontSize"
+            value={size}
+            checked={currentPreferences.fontSize === size}
+            onchange={(e) => updatePreference('fontSize', e.target.value)}
+          />
+          <span class="radio-label">{size.charAt(0).toUpperCase() + size.slice(1)}</span>
+        </label>
+      ))}
+    </div>
+  </section>
+
+  <!-- Additional control sections for contrast, motion, spacing, etc. -->
+
+  <footer>
+    <button
+      class="reset-button"
+      onclick={() => {
+        accessibilityStore.updatePreferences(AccessibilityEngine.getDefaults());
+        currentPreferences = accessibilityStore.getCurrentPreferences();
+      }}
+    >
+      Reset to Defaults
+    </button>
+  </footer>
+</div>
+
+<style>
+  .accessibility-trigger {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    /* Additional styling */
+  }
+
+  .accessibility-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Modal styling with proper focus indicators */
+  }
+
+  /* High contrast and focus styles */
+  @media (prefers-contrast: high) {
+    .accessibility-panel {
+      border: 2px solid;
+    }
+  }
+</style>
+```
+
+##### Step 4: Create Global Applier Script - applyAccessibility.ts
+
+**Purpose**: Initialize accessibility system on page load and handle global preference application.
+
+**Location**: `/src/utils/applyAccessibility.ts`
+
+**Key Features**:
+- **Page Load Initialization**: Automatically loads and applies saved preferences
+- **OS Preference Monitoring**: Listens for OS preference changes and updates accordingly
+- **Global CSS Injection**: Dynamically updates CSS custom properties
+- **Animation Management**: Controls CSS animations based on motion preferences
+- **Performance Optimized**: Debounces updates and minimizes DOM manipulations
+
+**Implementation**:
+```typescript
+// applyAccessibility.ts
+import { AccessibilityEngine } from './accessibilityEngine';
+import { accessibilityStore } from './accessibilityStore';
+
+export function initializeAccessibility(): void {
+  // Load and apply saved preferences
+  const preferences = AccessibilityEngine.loadPreferences();
+  AccessibilityEngine.applyPreferences(preferences);
+
+  // Set up OS preference change listeners
+  setupOSPreferenceListeners();
+
+  // Initialize store subscriptions
+  accessibilityStore.subscribe((newPreferences) => {
+    AccessibilityEngine.applyPreferences(newPreferences);
+  });
+}
+
+function setupOSPreferenceListeners(): void {
+  // Listen for OS preference changes
+  const mediaQueries = {
+    motion: window.matchMedia('(prefers-reduced-motion: reduce)'),
+    contrast: window.matchMedia('(prefers-contrast: high)'),
+    colorScheme: window.matchMedia('(prefers-color-scheme: dark)')
+  };
+
+  Object.entries(mediaQueries).forEach(([key, query]) => {
+    query.addEventListener('change', () => {
+      // Update preferences based on OS changes
+      const osPreferences = AccessibilityEngine.detectOSPreferences();
+      const currentPreferences = accessibilityStore.getCurrentPreferences();
+
+      // Merge OS preferences with user preferences (user takes priority)
+      const mergedPreferences = { ...osPreferences, ...currentPreferences };
+      accessibilityStore.updatePreferences(mergedPreferences);
+    });
+  });
+}
+
+// Auto-initialize on page load
+if (typeof window !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', initializeAccessibility);
+}
+```
+
+**Integration Points**:
+- **Main Layout**: Import and call `initializeAccessibility()` in root layout
+- **Component Integration**: Use `accessibilityStore.subscribe()` in components that need preference updates
+- **CSS Integration**: Define CSS custom properties that respond to preference changes
+- **Build Process**: Ensure accessibility scripts are included in the bundle
+
+**Benefits of This Architecture**:
+1. **Separation of Concerns**: Engine handles logic, store manages state, component handles UI
+2. **Testability**: Each layer can be unit tested independently
+3. **Performance**: Efficient updates with minimal DOM manipulation
+4. **Accessibility**: Built with accessibility best practices from the ground up
+5. **Maintainability**: Clear interfaces and modular design
+6. **Scalability**: Easy to extend with new preference types
+
+**CSS Custom Properties Integration**:
+```css
+:root {
+  --font-size-base: 16px;
+  --line-height-base: 1.5;
+  --letter-spacing-base: 0;
+  --contrast-text: #1a1a1a;
+  --contrast-bg: #ffffff;
+}
+
+/* Preference-based overrides */
+[data-accessibility-font-size="large"] {
+  --font-size-base: 18px;
+}
+
+[data-accessibility-motion="reduced"] * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+```
+
+This implementation provides a robust, accessible, and maintainable accessibility control system that integrates seamlessly with Astro's component architecture while maintaining WCAG 2.2 Level AA compliance.
+
 ### Content Management System
 
 ## Dynamic Content & Seasonal Logic
@@ -1632,191 +1946,191 @@ Always show “Was £X” for accessibility.
 
 ---
 
-## PAGE CONTENT
+## EXAMPLE PAGE CONTENT
 
--   Homepage -- `/.clinerules/pages/`
--   Shared Hosting -- `/.clinerules/pages/shared-hosting`
--   WordPress Hosting -- `/.clinerules/pages/wordpress`
--   Cloud Hosting -- `/.clinerules/pages/cloud-hosting`
--   Windows Hosting -- `/.clinerules/pages/windows`
--   Linux Hosting -- `/.clinerules/pages/linux`
--   VPS Hosting -- `/.clinerules/pages/vps`
--   Web Hosting -- `/.clinerules/pages/web-hosting`
--   Domain Hosting -- `/.clinerules/pages/domain-hosting`
--   Free Hosting -- `/.clinerules/pages/free-hosting`
--   Hosting Products Overview -- `/.clinerules/pages/hosting`
--   Additional Services -- `/.clinerules/pages/services`
--   SSL Certificates -- `/.clinerules/pages/certificates`
--   CDN Services -- `/.clinerules/pages/cdn`
--   Website Builder -- `/.clinerules/pages/website-builder`
--   Find Your Domain -- `/.clinerules/pages/domain`
--   Pricing -- `/.clinerules/pages/pricing`
--   Compare Plans -- `/.clinerules/pages/compare`
--   Business Email -- `/.clinerules/pages/business-email`
--   Email -- `/.clinerules/pages/email`
--   Dedicated Servers -- `/.clinerules/pages/dedicated-servers`
--   Managed Hosting Overview -- `/.clinerules/pages/managed-hosting`
--   Server Locations / Data Centers -- `/.clinerules/pages/data-centers`
--   Control Panel Overview (cPanel, Plesk, etc.) -- `/.clinerules/pages/control-panel`
--   Domain Transfers -- `/.clinerules/pages/domain-transfer`
--   DNS Management / DNS Services -- `/.clinerules/pages/dns`
--   WHOIS Lookup -- `/.clinerules/pages/whois`
--   Domain Privacy / Protection -- `/.clinerules/pages/domain-privacy`
--   Solutions Overview -- `/.clinerules/pages/solutions`
--   Business Hosting -- `/.clinerules/pages/solutions/business-hosting`
--   eCommerce Hosting -- `/.clinerules/pages/solutions/ecommerce-hosting`
--   Agency & Developer Hosting -- `/.clinerules/pages/solutions/agency-hosting`
--   High-Traffic & Scaling -- `/.clinerules/pages/solutions/high-traffic`
--   Enterprise Cloud Hosting -- `/.clinerules/pages/solutions/enterprise`
--   Managed Services & Care Plans -- `/.clinerules/pages/managed-services`
--   Website Services Overview -- `/.clinerules/pages/website-services`
--   Website Maintenance -- `/.clinerules/pages/website-maintenance`
--   Website Care Plans -- `/.clinerules/pages/website-care-plans`
--   Website Updates -- `/.clinerules/pages/website-updates`
--   Custom Development -- `/.clinerules/pages/custom-development`
--   Website Redesign -- `/.clinerules/pages/website-redesign`
--   Landing Pages -- `/.clinerules/pages/landing-pages`
--   eCommerce Development -- `/.clinerules/pages/ecommerce-development`
--   Portfolio / Showcase -- `/.clinerules/pages/portfolio`
--   Industries Served -- `/.clinerules/pages/industries`
--   Digital Marketing Overview -- `/.clinerules/pages/digital-marketing`
--   SEO Services -- `/.clinerules/pages/seo`
--   PPC Management -- `/.clinerules/pages/ppc`
--   Content Marketing -- `/.clinerules/pages/content-marketing`
--   Email Marketing -- `/.clinerules/pages/email-marketing`
--   Conversion Optimization -- `/.clinerules/pages/conversion-optimization`
--   Social Media Overview -- `/.clinerules/pages/social-media`
--   Social Media Management -- `/.clinerules/pages/social-media-management`
--   Social Media Advertising -- `/.clinerules/pages/social-media-ads`
--   Content Creation -- `/.clinerules/pages/content-creation`
--   Analytics & Tracking -- `/.clinerules/pages/analytics`
--   Marketing Automation -- `/.clinerules/pages/marketing-automation`
--   Brand Strategy / Positioning -- `/.clinerules/pages/brand-strategy`
--   Influencer Marketing -- `/.clinerules/pages/influencer-marketing`
--   Video Marketing -- `/.clinerules/pages/video-marketing`
--   Request a Quote / Proposal -- `/.clinerules/pages/request-quote`
--   Free Consultation -- `/.clinerules/pages/free-consultation`
--   Demos / Walkthroughs -- `/.clinerules/pages/demo`
--   Onboarding Process Overview -- `/.clinerules/pages/onboarding`
--   Business Communications Overview -- `/.clinerules/pages/business-communications`
--   Phone Answering Services -- `/.clinerules/pages/phone-answering`
--   Virtual Receptionist -- `/.clinerules/pages/virtual-receptionist`
--   Live Chat Services -- `/.clinerules/pages/live-chat`
--   Chatbot Solutions -- `/.clinerules/pages/chatbots`
--   Customer Support Services -- `/.clinerules/pages/customer-support-services`
--   Reputation Management -- `/.clinerules/pages/reputation-management`
--   Review Management -- `/.clinerules/pages/review-management`
--   Online Reputation -- `/.clinerules/pages/online-reputation`
--   Complete Website Solution -- `/.clinerules/pages/solutions/complete-website-solution`
--   Startup Package -- `/.clinerules/pages/solutions/startup-package`
--   Growth Package -- `/.clinerules/pages/solutions/growth-package`
--   All-in-One Business Package -- `/.clinerules/pages/solutions/all-in-one`
--   Website Package Bundle -- `/.clinerules/pages/coupons/website-package`
--   Marketing Bundle Deal -- `/.clinerules/pages/coupons/marketing-bundle`
--   Complete Solution Package -- `/.clinerules/pages/coupons/complete-solution`
--   Website Launch Checklist -- `/.clinerules/pages/guides/website-launch-checklist`
--   Digital Marketing Basics -- `/.clinerules/pages/guides/digital-marketing-basics`
--   Social Media Best Practices -- `/.clinerules/pages/guides/social-media-best-practices`
--   Knowledge Base -- `/.clinerules/pages/knowledge-base`
--   Migrations & Onboarding -- `/.clinerules/pages/migrations`
--   FAQs -- `/.clinerules/pages/faqs`
--   System Status -- `/.clinerules/pages/status`
--   Service Status History -- `/.clinerules/pages/status/history`
--   Trust Center -- `/.clinerules/pages/trust`
--   Infrastructure Overview -- `/.clinerules/pages/infrastructure`
--   Data Centers Map / Infrastructure Transparency -- `/.clinerules/pages/infrastructure-map`
--   Security & DDoS Protection -- `/.clinerules/pages/security`
--   Performance & Speed -- `/.clinerules/pages/performance`
--   Sustainability / Green Hosting -- `/.clinerules/pages/sustainability`
--   Platform Changelog / Updates -- `/.clinerules/pages/changelog`
--   Uptime Reports & Benchmarks -- `/.clinerules/pages/uptime`
--   Report Abuse / Security Issue -- `/.clinerules/pages/legal/report-abuse`
--   Contact Us -- `/.clinerules/pages/contact`
--   Client Login / Control Panel -- `/.clinerules/pages/login`
--   About Us -- `/.clinerules/pages/about`
--   Leadership / Team Page -- `/.clinerules/pages/team`
--   Awards & Certifications -- `/.clinerules/pages/awards`
--   Investors / Corporate Info -- `/.clinerules/pages/investors`
--   Events / Webinars -- `/.clinerules/pages/events`
--   Newsletter Signup / Resources Hub -- `/.clinerules/pages/newsletter`
--   Our Web Design & Development Agency -- `/.clinerules/pages/web-design-and-development`
--   Partners & Integrations -- `/.clinerules/pages/partners`
--   Affiliates -- `/.clinerules/pages/affiliates`
--   Careers -- `/.clinerules/pages/careers`
--   News & Pressroom -- `/.clinerules/pages/news`
--   Case Studies & Success Stories -- `/.clinerules/pages/case-studies`
--   Customer Reviews -- `/.clinerules/pages/reviews`
--   Legal Overview -- `/.clinerules/pages/legal`
--   Privacy Compliance Hub -- `/.clinerules/pages/legal/privacy-compliance`
--   Terms and Conditions -- `/.clinerules/pages/terms-and-conditions`
--   Website Terms of Use -- `/.clinerules/pages/legal/website-terms-of-use`
--   Privacy Policy -- `/.clinerules/pages/privacy-policy`
--   Cookie Policy -- `/.clinerules/pages/legal/cookie-policy`
--   GDPR Compliance -- `/.clinerules/pages/gdpr`
--   Data Processing Agreement (DPA) -- `/.clinerules/pages/legal/data-processing-agreement`
--   Acceptable Use Policy (AUP) -- `/.clinerules/pages/legal/acceptable-use-policy`
--   Abuse Policy -- `/.clinerules/pages/legal/abuse-policy`
--   DMCA / Copyright Policy -- `/.clinerules/pages/legal/dmca`
--   Affiliate Programme Terms -- `/.clinerules/pages/legal/affiliate-terms`
--   Security Responsible Disclosure Policy -- `/.clinerules/pages/legal/security-responsible-disclosure`
--   Responsible Disclosure / Bug Bounty -- `/.clinerules/pages/legal/responsible-disclosure`
--   Accessibility Statement -- `/.clinerules/pages/legal/accessibility`
--   Ethical AI / Technology Use Policy -- `/.clinerules/pages/legal/ai-policy`
--   Sustainability Statement -- `/.clinerules/pages/sustainability`
--   Service Change Log / Policy Updates -- `/.clinerules/pages/changelog`
--   Legal Archive / Version History -- `/.clinerules/pages/legal/archive`
--   Shared Hosting SLA -- `/.clinerules/pages/legal/shared-hosting-sla`
--   WordPress Hosting SLA -- `/.clinerules/pages/legal/wordpress-hosting-sla`
--   Cloud Hosting SLA -- `/.clinerules/pages/legal/cloud-hosting-sla`
--   VPS Service Level Agreement -- `/.clinerules/pages/legal/vps-service-level-agreement`
--   CDN Services SLA -- `/.clinerules/pages/legal/cdn-sla`
--   Coupons & Current Offers -- `/.clinerules/pages/coupons`
--   New Year Sale -- `/.clinerules/pages/coupons/new-year-sale`
--   Valentine's Day Sale -- `/.clinerules/pages/coupons/valentines`
--   Easter Hosting Deals -- `/.clinerules/pages/coupons/easter`
--   Financial Year-End Sale -- `/.clinerules/pages/coupons/financial-year-end`
--   Small Business Week -- `/.clinerules/pages/coupons/small-business-week`
--   Mid-Year Mega Sale -- `/.clinerules/pages/coupons/mid-year`
--   Prime Day Deals -- `/.clinerules/pages/coupons/prime-day`
--   Back to School / Business Deals -- `/.clinerules/pages/coupons/back-to-school`
--   Halloween Hosting Sale -- `/.clinerules/pages/coupons/halloween`
--   Black Friday Hosting Deals -- `/.clinerules/pages/coupons/black-friday`
--   Cyber Monday Discounts -- `/.clinerules/pages/cyber-monday`
--   Christmas Hosting Sale -- `/.clinerules/pages/coupons/christmas`
--   Boxing Day Sale -- `/.clinerules/pages/coupons/boxing-day`
--   Student Hosting Discounts -- `/.clinerules/pages/coupons/student`
--   Nonprofit & Charity Hosting -- `/.clinerules/pages/coupons/nonprofit`
--   Referral Rewards -- `/.clinerules/pages/coupons/referral`
--   Flash Deals & Time-Limited Offers -- `/.clinerules/pages/coupons/flash-deal`
--   New Customer Exclusive -- `/.clinerules/pages/coupons/new-customer`
--   Switch & Save / Free Migration -- `/.clinerules/pages/coupons/switch-save`
--   Long-Term Plan Discount -- `/.clinerules/pages/coupons/3-year-deal`
--   VPS Hosting Specials -- `/.clinerules/pages/coupons/vps-deals`
--   Dedicated Server Promotions -- `/.clinerules/pages/coupons/dedicated`
--   Managed WordPress Specials -- `/.clinerules/pages/coupons/managed-wp`
--   Domain & Hosting Bundle -- `/.clinerules/pages/coupons/bundle-deal`
--   Ecommerce Hosting Deals -- `/.clinerules/pages/coupons/ecommerce`
--   Agency & Reseller Discounts -- `/.clinerules/pages/coupons/reseller`
--   Developer Hosting Offers -- `/.clinerules/pages/coupons/developer`
--   Local Business Hosting Deals -- `/.clinerules/pages/coupons/local-business`
--   Blogger & Creator Specials -- `/.clinerules/pages/coupons/blog-creator`
--   Website Speed Check & Audit -- `/.clinerules/pages/free-audit`
--   Site Migration Checklist -- `/.clinerules/pages/guides/migration-checklist`
--   WordPress Security Guide -- `/.clinerules/pages/guides/wp-security`
--   Hosting Plan Recommendation Quiz -- `/.clinerules/pages/quiz/hosting-selector`
--   The Premium Hosting Fine Tuned Formula - 7 Steps to 90+ PageSpeed -- `/.clinerules/pages/7-steps-to-90-pagespeed`
+-   Homepage -- `/examples/pages/`
+-   Shared Hosting -- `/examples/pages/shared-hosting`
+-   WordPress Hosting -- `/examples/pages/wordpress`
+-   Cloud Hosting -- `/examples/pages/cloud-hosting`
+-   Windows Hosting -- `/examples/pages/windows`
+-   Linux Hosting -- `/examples/pages/linux`
+-   VPS Hosting -- `/examples/pages/vps`
+-   Web Hosting -- `/examples/pages/web-hosting`
+-   Domain Hosting -- `/examples/pages/domain-hosting`
+-   Free Hosting -- `/examples/pages/free-hosting`
+-   Hosting Products Overview -- `/examples/pages/hosting`
+-   Additional Services -- `/examples/pages/services`
+-   SSL Certificates -- `/examples/pages/certificates`
+-   CDN Services -- `/examples/pages/cdn`
+-   Website Builder -- `/examples/pages/website-builder`
+-   Find Your Domain -- `/examples/pages/domain`
+-   Pricing -- `/examples/pages/pricing`
+-   Compare Plans -- `/examples/pages/compare`
+-   Business Email -- `/examples/pages/business-email`
+-   Email -- `/examples/pages/email`
+-   Dedicated Servers -- `/examples/pages/dedicated-servers`
+-   Managed Hosting Overview -- `/examples/pages/managed-hosting`
+-   Server Locations / Data Centers -- `/examples/pages/data-centers`
+-   Control Panel Overview (cPanel, Plesk, etc.) -- `/examples/pages/control-panel`
+-   Domain Transfers -- `/examples/pages/domain-transfer`
+-   DNS Management / DNS Services -- `/examples/pages/dns`
+-   WHOIS Lookup -- `/examples/pages/whois`
+-   Domain Privacy / Protection -- `/examples/pages/domain-privacy`
+-   Solutions Overview -- `/examples/pages/solutions`
+-   Business Hosting -- `/examples/pages/solutions/business-hosting`
+-   eCommerce Hosting -- `/examples/pages/solutions/ecommerce-hosting`
+-   Agency & Developer Hosting -- `/examples/pages/solutions/agency-hosting`
+-   High-Traffic & Scaling -- `/examples/pages/solutions/high-traffic`
+-   Enterprise Cloud Hosting -- `/examples/pages/solutions/enterprise`
+-   Managed Services & Care Plans -- `/examples/pages/managed-services`
+-   Website Services Overview -- `/examples/pages/website-services`
+-   Website Maintenance -- `/examples/pages/website-maintenance`
+-   Website Care Plans -- `/examples/pages/website-care-plans`
+-   Website Updates -- `/examples/pages/website-updates`
+-   Custom Development -- `/examples/pages/custom-development`
+-   Website Redesign -- `/examples/pages/website-redesign`
+-   Landing Pages -- `/examples/pages/landing-pages`
+-   eCommerce Development -- `/examples/pages/ecommerce-development`
+-   Portfolio / Showcase -- `/examples/pages/portfolio`
+-   Industries Served -- `/examples/pages/industries`
+-   Digital Marketing Overview -- `/examples/pages/digital-marketing`
+-   SEO Services -- `/examples/pages/seo`
+-   PPC Management -- `/examples/pages/ppc`
+-   Content Marketing -- `/examples/pages/content-marketing`
+-   Email Marketing -- `/examples/pages/email-marketing`
+-   Conversion Optimization -- `/examples/pages/conversion-optimization`
+-   Social Media Overview -- `/examples/pages/social-media`
+-   Social Media Management -- `/examples/pages/social-media-management`
+-   Social Media Advertising -- `/examples/pages/social-media-ads`
+-   Content Creation -- `/examples/pages/content-creation`
+-   Analytics & Tracking -- `/examples/pages/analytics`
+-   Marketing Automation -- `/examples/pages/marketing-automation`
+-   Brand Strategy / Positioning -- `/examples/pages/brand-strategy`
+-   Influencer Marketing -- `/examples/pages/influencer-marketing`
+-   Video Marketing -- `/examples/pages/video-marketing`
+-   Request a Quote / Proposal -- `/examples/pages/request-quote`
+-   Free Consultation -- `/examples/pages/free-consultation`
+-   Demos / Walkthroughs -- `/examples/pages/demo`
+-   Onboarding Process Overview -- `/examples/pages/onboarding`
+-   Business Communications Overview -- `/examples/pages/business-communications`
+-   Phone Answering Services -- `/examples/pages/phone-answering`
+-   Virtual Receptionist -- `/examples/pages/virtual-receptionist`
+-   Live Chat Services -- `/examples/pages/live-chat`
+-   Chatbot Solutions -- `/examples/pages/chatbots`
+-   Customer Support Services -- `/examples/pages/customer-support-services`
+-   Reputation Management -- `/examples/pages/reputation-management`
+-   Review Management -- `/examples/pages/review-management`
+-   Online Reputation -- `/examples/pages/online-reputation`
+-   Complete Website Solution -- `/examples/pages/solutions/complete-website-solution`
+-   Startup Package -- `/examples/pages/solutions/startup-package`
+-   Growth Package -- `/examples/pages/solutions/growth-package`
+-   All-in-One Business Package -- `/examples/pages/solutions/all-in-one`
+-   Website Package Bundle -- `/examples/pages/coupons/website-package`
+-   Marketing Bundle Deal -- `/examples/pages/coupons/marketing-bundle`
+-   Complete Solution Package -- `/examples/pages/coupons/complete-solution`
+-   Website Launch Checklist -- `/examples/pages/guides/website-launch-checklist`
+-   Digital Marketing Basics -- `/examples/pages/guides/digital-marketing-basics`
+-   Social Media Best Practices -- `/examples/pages/guides/social-media-best-practices`
+-   Knowledge Base -- `/examples/pages/knowledge-base`
+-   Migrations & Onboarding -- `/examples/pages/migrations`
+-   FAQs -- `/examples/pages/faqs`
+-   System Status -- `/examples/pages/status`
+-   Service Status History -- `/examples/pages/status/history`
+-   Trust Center -- `/examples/pages/trust`
+-   Infrastructure Overview -- `/examples/pages/infrastructure`
+-   Data Centers Map / Infrastructure Transparency -- `/examples/pages/infrastructure-map`
+-   Security & DDoS Protection -- `/examples/pages/security`
+-   Performance & Speed -- `/examples/pages/performance`
+-   Sustainability / Green Hosting -- `/examples/pages/sustainability`
+-   Platform Changelog / Updates -- `/examples/pages/changelog`
+-   Uptime Reports & Benchmarks -- `/examples/pages/uptime`
+-   Report Abuse / Security Issue -- `/examples/pages/legal/report-abuse`
+-   Contact Us -- `/examples/pages/contact`
+-   Client Login / Control Panel -- `/examples/pages/login`
+-   About Us -- `/examples/pages/about`
+-   Leadership / Team Page -- `/examples/pages/team`
+-   Awards & Certifications -- `/examples/pages/awards`
+-   Investors / Corporate Info -- `/examples/pages/investors`
+-   Events / Webinars -- `/examples/pages/events`
+-   Newsletter Signup / Resources Hub -- `/examples/pages/newsletter`
+-   Our Web Design & Development Agency -- `/examples/pages/web-design-and-development`
+-   Partners & Integrations -- `/examples/pages/partners`
+-   Affiliates -- `/examples/pages/affiliates`
+-   Careers -- `/examples/pages/careers`
+-   News & Pressroom -- `/examples/pages/news`
+-   Case Studies & Success Stories -- `/examples/pages/case-studies`
+-   Customer Reviews -- `/examples/pages/reviews`
+-   Legal Overview -- `/examples/pages/legal`
+-   Privacy Compliance Hub -- `/examples/pages/legal/privacy-compliance`
+-   Terms and Conditions -- `/examples/pages/terms-and-conditions`
+-   Website Terms of Use -- `/examples/pages/legal/website-terms-of-use`
+-   Privacy Policy -- `/examples/pages/privacy-policy`
+-   Cookie Policy -- `/examples/pages/legal/cookie-policy`
+-   GDPR Compliance -- `/examples/pages/gdpr`
+-   Data Processing Agreement (DPA) -- `/examples/pages/legal/data-processing-agreement`
+-   Acceptable Use Policy (AUP) -- `/examples/pages/legal/acceptable-use-policy`
+-   Abuse Policy -- `/examples/pages/legal/abuse-policy`
+-   DMCA / Copyright Policy -- `/examples/pages/legal/dmca`
+-   Affiliate Programme Terms -- `/examples/pages/legal/affiliate-terms`
+-   Security Responsible Disclosure Policy -- `/examples/pages/legal/security-responsible-disclosure`
+-   Responsible Disclosure / Bug Bounty -- `/examples/pages/legal/responsible-disclosure`
+-   Accessibility Statement -- `/examples/pages/legal/accessibility`
+-   Ethical AI / Technology Use Policy -- `/examples/pages/legal/ai-policy`
+-   Sustainability Statement -- `/examples/pages/sustainability`
+-   Service Change Log / Policy Updates -- `/examples/pages/changelog`
+-   Legal Archive / Version History -- `/examples/pages/legal/archive`
+-   Shared Hosting SLA -- `/examples/pages/legal/shared-hosting-sla`
+-   WordPress Hosting SLA -- `/examples/pages/legal/wordpress-hosting-sla`
+-   Cloud Hosting SLA -- `/examples/pages/legal/cloud-hosting-sla`
+-   VPS Service Level Agreement -- `/examples/pages/legal/vps-service-level-agreement`
+-   CDN Services SLA -- `/examples/pages/legal/cdn-sla`
+-   Coupons & Current Offers -- `/examples/pages/coupons`
+-   New Year Sale -- `/examples/pages/coupons/new-year-sale`
+-   Valentine's Day Sale -- `/examples/pages/coupons/valentines`
+-   Easter Hosting Deals -- `/examples/pages/coupons/easter`
+-   Financial Year-End Sale -- `/examples/pages/coupons/financial-year-end`
+-   Small Business Week -- `/examples/pages/coupons/small-business-week`
+-   Mid-Year Mega Sale -- `/examples/pages/coupons/mid-year`
+-   Prime Day Deals -- `/examples/pages/coupons/prime-day`
+-   Back to School / Business Deals -- `/examples/pages/coupons/back-to-school`
+-   Halloween Hosting Sale -- `/examples/pages/coupons/halloween`
+-   Black Friday Hosting Deals -- `/examples/pages/coupons/black-friday`
+-   Cyber Monday Discounts -- `/examples/pages/cyber-monday`
+-   Christmas Hosting Sale -- `/examples/pages/coupons/christmas`
+-   Boxing Day Sale -- `/examples/pages/coupons/boxing-day`
+-   Student Hosting Discounts -- `/examples/pages/coupons/student`
+-   Nonprofit & Charity Hosting -- `/examples/pages/coupons/nonprofit`
+-   Referral Rewards -- `/examples/pages/coupons/referral`
+-   Flash Deals & Time-Limited Offers -- `/examples/pages/coupons/flash-deal`
+-   New Customer Exclusive -- `/examples/pages/coupons/new-customer`
+-   Switch & Save / Free Migration -- `/examples/pages/coupons/switch-save`
+-   Long-Term Plan Discount -- `/examples/pages/coupons/3-year-deal`
+-   VPS Hosting Specials -- `/examples/pages/coupons/vps-deals`
+-   Dedicated Server Promotions -- `/examples/pages/coupons/dedicated`
+-   Managed WordPress Specials -- `/examples/pages/coupons/managed-wp`
+-   Domain & Hosting Bundle -- `/examples/pages/coupons/bundle-deal`
+-   Ecommerce Hosting Deals -- `/examples/pages/coupons/ecommerce`
+-   Agency & Reseller Discounts -- `/examples/pages/coupons/reseller`
+-   Developer Hosting Offers -- `/examples/pages/coupons/developer`
+-   Local Business Hosting Deals -- `/examples/pages/coupons/local-business`
+-   Blogger & Creator Specials -- `/examples/pages/coupons/blog-creator`
+-   Website Speed Check & Audit -- `/examples/pages/free-audit`
+-   Site Migration Checklist -- `/examples/pages/guides/migration-checklist`
+-   WordPress Security Guide -- `/examples/pages/guides/wp-security`
+-   Hosting Plan Recommendation Quiz -- `/examples/pages/quiz/hosting-selector`
+-   The Premium Hosting Fine Tuned Formula - 7 Steps to 90+ PageSpeed -- `/examples/pages/7-steps-to-90-pagespeed`
 -   Support Portal (Login) -- `https://support.yoursite.tld/login`
 -   Knowledge Base -- `https://support.yoursite.tld/knowledge-base`
 -   Submit Ticket / Contact Support -- `https://support.yoursite.tld/tickets`
 -   System Status -- `https://status.yoursite.tld/`
--   Gaming Hub -- `/.clinerules/pages/gaming`
--   COD Mobile Stats -- `/.clinerules/pages/gaming/cod-mobile`
--   Gameplay Highlights / Clips -- `/.clinerules/pages/gaming/clips`
--   Setup / Gear -- `/.clinerules/pages/gaming/gear`
--   Game Servers (Coming Soon) -- `/.clinerules/pages/gaming/servers`
--   Game Server: Minecraft (Future) -- `/.clinerules/pages/gaming/servers/minecraft`
--   Voice / Discord / Bot Hosting (Future) -- `/.clinerules/pages/gaming/servers/voice`
--   Custom Private Server / Scrim Server (Future) -- `/.clinerules/pages/gaming/servers/custom`
+-   Gaming Hub -- `/examples/pages/gaming`
+-   COD Mobile Stats -- `/examples/pages/gaming/cod-mobile`
+-   Gameplay Highlights / Clips -- `/examples/pages/gaming/clips`
+-   Setup / Gear -- `/examples/pages/gaming/gear`
+-   Game Servers (Coming Soon) -- `/examples/pages/gaming/servers`
+-   Game Server: Minecraft (Future) -- `/examples/pages/gaming/servers/minecraft`
+-   Voice / Discord / Bot Hosting (Future) -- `/examples/pages/gaming/servers/voice`
+-   Custom Private Server / Scrim Server (Future) -- `/examples/pages/gaming/servers/custom`
 
 ## DOCUMENTATION
 
