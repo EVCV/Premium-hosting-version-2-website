@@ -20,7 +20,12 @@ This file covers:
 ## CURRENT IMPLEMENTATION STATUS
 
 ### ✅ Implemented
-- Astro v5.15.3 with Tailwind CSS v3.4.18
+- Astro v5.15.3 with Tailwind CSS v3.4.18 (latest stable versions)
+- @astrojs/check v0.9.5 (latest)
+- @astrojs/tailwind v6.0.2 (latest)
+- Lenis v1.3.13 (latest)
+- Swiper v12.0.3 (latest)
+- TypeScript v5.9.3 (latest)
 - File-based routing (pages in /src/pages/)
 - Component-based architecture with .astro components
 - Static HTML forms (no server-side processing)
@@ -1549,10 +1554,10 @@ Always show “Was £X” for accessibility.
 {
   "dependencies": {
     "@astrojs/check": "^0.9.5",
-    "@astrojs/tailwind": "^5.1.5",
+    "@astrojs/tailwind": "^6.0.2",
     "astro": "^5.15.3",
     "lenis": "^1.3.13",
-    "swiper": "^11.2.10",
+    "swiper": "^12.0.3",
     "tailwindcss": "^3.4.18",
     "typescript": "^5.9.3"
   }
