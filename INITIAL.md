@@ -32,7 +32,7 @@ Development of an ultra-modern, futuristic, and award-winning website for a host
 -   Enable easy content updates without sacrificing accessibility.
 -   Maintain excellent performance (Lighthouse score 95+).
 -   Support all major assistive technologies.
--   All page templates must be fully responsive and maintain visual integrity and full functionality from 320px wide up to large desktop and ultrawide viewports (≥1920px), with no horizontal scrolling at any supported size except for intentional overflow elements (e.g., code blocks).
+-   All page templates must use fluid responsive design and maintain visual integrity and full functionality from 320px wide up to 4K monitors (≥3840px), with no horizontal scrolling or excessive borders at any supported size except for intentional overflow elements (e.g., code blocks).
 
 ### Success Metrics
 -   WCAG 2.2 Level AA audit: 0 violations.
@@ -184,6 +184,7 @@ Company
 - Careers – url – `https://premium-hosting.co.uk/careers/`
 - News & Pressroom – url – `https://premium-hosting.co.uk/news/`
 - Platform Changelog / Updates – url – `https://premium-hosting.co.uk/changelog/`
+- Uptime Reports & Benchmarks – url – `https://premium-hosting.co.uk/uptime/`
 - Contact Us – url – `https://premium-hosting.co.uk/contact/`
 
 ---
@@ -239,8 +240,10 @@ Legal & Compliance
 - DMCA / Copyright Policy – url – `https://premium-hosting.co.uk/legal/dmca/`
 - Affiliate Programme Terms – url – `https://premium-hosting.co.uk/legal/affiliate-terms/`
 - Security Responsible Disclosure Policy – url – `https://premium-hosting.co.uk/legal/security-responsible-disclosure/`
+- Responsible Disclosure / Bug Bounty – url – `https://premium-hosting.co.uk/legal/responsible-disclosure/`
 - Sustainability Statement – url – `https://premium-hosting.co.uk/sustainability/`
 - Service Change Log / Policy Updates – url – `https://premium-hosting.co.uk/changelog/`
+- Legal Archive / Version History – url – `https://premium-hosting.co.uk/legal/archive/`
 
 ---
 
@@ -264,11 +267,6 @@ Gaming
 - Custom Private Server / Scrim Server (Future) – url – `https://premium-hosting.co.uk/gaming/servers/custom/`
 
 ---
-
-Optional / Future Expansion
-- Uptime Reports & Benchmarks – url – `https://premium-hosting.co.uk/uptime/`
-- Responsible Disclosure / Bug Bounty – url – `https://premium-hosting.co.uk/legal/responsible-disclosure/`
-- Legal Archive / Version History – url – `https://premium-hosting.co.uk/legal/archive/`
 
 #### URL ARCHITECTURE
 -   Clean, semantic URLs (no file extensions).
@@ -520,6 +518,11 @@ To enable parallel development and design workflows, the initial build will proc
 **2. Image Placeholders & Manifest:**
 -   All images within the site templates will initially use a dynamic placeholder service (e.g., `https://via.placeholder.com/`). This allows developers to build layouts with correctly sized images before final assets are available.
 -   A central manifest file, `IMAGE_MANIFEST.md`, will be created in the project root. This file will serve as the single source of truth for the design team, listing every required image, its context, dimensions, and a description of the required creative.
+
+**Image Naming Convention:**
+-   All images must follow the format `premium-hosting-[descriptive-name]` to maintain consistent branding and improve SEO.
+-   Examples: `premium-hosting-hero-background`, `premium-hosting-server-icon`, `premium-hosting-testimonial-quote`, `premium-hosting-wordpress-logo`.
+-   This naming convention must be applied to all image files in the manifest and final assets.
 
 **3. Default Pricing Data:**
 -   The central pricing file, `/src/data/pricing/plans.json`, will be created immediately and populated with placeholder plan data.
@@ -845,7 +848,7 @@ draft: false
 #### Media Management
 -   **Storage Location**: `/public/images/`.
 -   **Optimization**: Automatic responsive images (srcset).
--   **Alt Text**: Required in markdown: `![Alt text](image.jpg)`.
+-   **Alt Text Standards**: All images require alt text that complies with WCAG guidelines while incorporating SEO-relevant keywords. Alt text should answer 'what is this image showing?' and include primary keywords where contextually appropriate. Alt text must be concise (under 125 characters), descriptive, and avoid redundancy with surrounding content.
 -   **Supported Formats**: WebP with fallback to JPG/PNG.
 -   **Lazy Loading**: Enabled by default for images below fold.
 
@@ -875,7 +878,8 @@ draft: false
 #### Perceivable (Principle 1)
 
 **1.1.1 Non-text Content (Level A)**
--   All images have descriptive alt text.
+-   All images have descriptive alt text that is both WCAG compliant and SEO optimized.
+-   Alt text should be concise (under 125 characters), include relevant keywords naturally, and accurately describe the image's purpose and content.
 -   Decorative images use `alt=""`.
 -   Complex images (charts, diagrams) have long descriptions via `aria-describedby`.
 -   Form controls have associated labels.
@@ -1547,15 +1551,156 @@ Always show “Was £X” for accessibility.
 
 ---
 
-## EXAMPLES
+## PAGE CONTENT
 
-theme design - `examples\astro-storyblok-finance-starter-main`
-theme design - `examples\dockit-astro-main`
-theme design - `examples\folex-lite-astro-main`
-theme design - `examples\monakit-main`
-homepage ideas - `examples\gemini pro 2.5 pages_index.tsx`
-homepage ideas - `examples\new homepage 1.txt`
-homepage ideas - `examples\qwen coder pages_index.tsx`
+- Homepage – `/.clinerules/pages/`
+- WordPress Hosting – `/.clinerules/pages/wordpress`
+- Cloud Hosting – `/.clinerules/pages/cloud-hosting`
+- Cloud Hosting (Redirect from managed-vps) – `/.clinerules/pages/managed-vps`
+- VPS Hosting – `/.clinerules/pages/vps`
+- Free Hosting – `/.clinerules/pages/free-hosting`
+- Hosting Products Overview – `/.clinerules/pages/hosting`
+- Additional Services – `/.clinerules/pages/services`
+- SSL Certificates – `/.clinerules/pages/certificates`
+- CDN Services – `/.clinerules/pages/cdn`
+- Website Builder – `/.clinerules/pages/website-builder`
+- Find Your Domain – `/.clinerules/pages/domain`
+- Pricing – `/.clinerules/pages/pricing`
+- Compare Plans – `/.clinerules/pages/compare`
+- Business Email – `/.clinerules/pages/business-email`
+- Email – `/.clinerules/pages/email`
+- Solutions Overview – `/.clinerules/pages/solutions`
+- Business Hosting – `/.clinerules/pages/solutions/business-hosting`
+- eCommerce Hosting – `/.clinerules/pages/solutions/ecommerce-hosting`
+- Agency & Developer Hosting – `/.clinerules/pages/solutions/agency-hosting`
+- High-Traffic & Scaling – `/.clinerules/pages/solutions/high-traffic`
+- Enterprise Cloud Hosting – `/.clinerules/pages/solutions/enterprise`
+- Managed Services & Care Plans – `/.clinerules/pages/managed-services`
+- Website Services Overview – `/.clinerules/pages/website-services`
+- Website Maintenance – `/.clinerules/pages/website-maintenance`
+- Website Care Plans – `/.clinerules/pages/website-care-plans`
+- Website Updates – `/.clinerules/pages/website-updates`
+- Custom Development – `/.clinerules/pages/custom-development`
+- Website Redesign – `/.clinerules/pages/website-redesign`
+- Landing Pages – `/.clinerules/pages/landing-pages`
+- eCommerce Development – `/.clinerules/pages/ecommerce-development`
+- Digital Marketing Overview – `/.clinerules/pages/digital-marketing`
+- SEO Services – `/.clinerules/pages/seo`
+- PPC Management – `/.clinerules/pages/ppc`
+- Content Marketing – `/.clinerules/pages/content-marketing`
+- Email Marketing – `/.clinerules/pages/email-marketing`
+- Conversion Optimization – `/.clinerules/pages/conversion-optimization`
+- Social Media Overview – `/.clinerules/pages/social-media`
+- Social Media Management – `/.clinerules/pages/social-media-management`
+- Social Media Advertising – `/.clinerules/pages/social-media-ads`
+- Content Creation – `/.clinerules/pages/content-creation`
+- Business Communications Overview – `/.clinerules/pages/business-communications`
+- Phone Answering Services – `/.clinerules/pages/phone-answering`
+- Virtual Receptionist – `/.clinerules/pages/virtual-receptionist`
+- Live Chat Services – `/.clinerules/pages/live-chat`
+- Chatbot Solutions – `/.clinerules/pages/chatbots`
+- Customer Support Services – `/.clinerules/pages/customer-support-services`
+- Reputation Management – `/.clinerules/pages/reputation-management`
+- Review Management – `/.clinerules/pages/review-management`
+- Online Reputation – `/.clinerules/pages/online-reputation`
+- Complete Website Solution – `/.clinerules/pages/solutions/complete-website-solution`
+- Startup Package – `/.clinerules/pages/solutions/startup-package`
+- Growth Package – `/.clinerules/pages/solutions/growth-package`
+- All-in-One Business Package – `/.clinerules/pages/solutions/all-in-one`
+- Website Package Bundle – `/.clinerules/pages/coupons/website-package`
+- Marketing Bundle Deal – `/.clinerules/pages/coupons/marketing-bundle`
+- Complete Solution Package – `/.clinerules/pages/coupons/complete-solution`
+- Website Launch Checklist – `/.clinerules/pages/guides/website-launch-checklist`
+- Digital Marketing Basics – `/.clinerules/pages/guides/digital-marketing-basics`
+- Social Media Best Practices – `/.clinerules/pages/guides/social-media-best-practices`
+- Knowledge Base – `/.clinerules/pages/knowledge-base`
+- Migrations & Onboarding – `/.clinerules/pages/migrations`
+- FAQs – `/.clinerules/pages/faqs`
+- System Status – `/.clinerules/pages/status`
+- Report Abuse / Security Issue – `/.clinerules/pages/legal/report-abuse`
+- Contact Support – `/.clinerules/pages/contact`
+- Client Login / Control Panel – `/.clinerules/pages/login`
+- Trust Center – `/.clinerules/pages/trust`
+- Infrastructure Overview – `/.clinerules/pages/infrastructure`
+- Security & DDoS Protection – `/.clinerules/pages/security`
+- Performance & Speed – `/.clinerules/pages/performance`
+- Uptime / Network Status – `/.clinerules/pages/status`
+- Sustainability / Green Hosting – `/.clinerules/pages/sustainability`
+- Case Studies & Success Stories – `/.clinerules/pages/case-studies`
+- Customer Reviews – `/.clinerules/pages/reviews`
+- About Us – `/.clinerules/pages/about`
+- Our Web Design & Development Agency – `/.clinerules/pages/web-design-and-development`
+- Partners & Integrations – `/.clinerules/pages/partners`
+- Affiliates – `/.clinerules/pages/affiliates`
+- Careers – `/.clinerules/pages/careers`
+- News & Pressroom – `/.clinerules/pages/news`
+- Platform Changelog / Updates – `/.clinerules/pages/changelog`
+- Uptime Reports & Benchmarks – `/.clinerules/pages/uptime`
+- Contact Us – `/.clinerules/pages/contact`
+- Coupons & Current Offers – `/.clinerules/pages/coupons`
+- New Year Sale – `/.clinerules/pages/coupons/new-year-sale`
+- Valentine's Day Sale – `/.clinerules/pages/coupons/valentines`
+- Easter Hosting Deals – `/.clinerules/pages/coupons/easter`
+- Financial Year-End Sale – `/.clinerules/pages/coupons/financial-year-end`
+- Small Business Week – `/.clinerules/pages/coupons/small-business-week`
+- Mid-Year Mega Sale – `/.clinerules/pages/coupons/mid-year`
+- Prime Day Deals – `/.clinerules/pages/coupons/prime-day`
+- Back to School / Business Deals – `/.clinerules/pages/coupons/back-to-school`
+- Halloween Hosting Sale – `/.clinerules/pages/coupons/halloween`
+- Black Friday Hosting Deals – `/.clinerules/pages/coupons/black-friday`
+- Cyber Monday Discounts – `/.clinerules/pages/coupons/cyber-monday`
+- Christmas Hosting Sale – `/.clinerules/pages/coupons/christmas`
+- Boxing Day Sale – `/.clinerules/pages/coupons/boxing-day`
+- Student Hosting Discounts – `/.clinerules/pages/coupons/student`
+- Nonprofit & Charity Hosting – `/.clinerules/pages/coupons/nonprofit`
+- Referral Rewards – `/.clinerules/pages/coupons/referral`
+- Flash Deals & Time-Limited Offers – `/.clinerules/pages/coupons/flash-deal`
+- New Customer Exclusive – `/.clinerules/pages/coupons/new-customer`
+- Switch & Save / Free Migration – `/.clinerules/pages/coupons/switch-save`
+- Long-Term Plan Discount – `/.clinerules/pages/coupons/3-year-deal`
+- VPS Hosting Specials – `/.clinerules/pages/coupons/vps-deals`
+- Dedicated Server Promotions – `/.clinerules/pages/coupons/dedicated`
+- Managed WordPress Specials – `/.clinerules/pages/coupons/managed-wp`
+- Domain & Hosting Bundle – `/.clinerules/pages/coupons/bundle-deal`
+- Ecommerce Hosting Deals – `/.clinerules/pages/coupons/ecommerce`
+- Agency & Reseller Discounts – `/.clinerules/pages/coupons/reseller`
+- Developer Hosting Offers – `/.clinerules/pages/coupons/developer`
+- Local Business Hosting Deals – `/.clinerules/pages/coupons/local-business`
+- Blogger & Creator Specials – `/.clinerules/pages/coupons/blog-creator`
+- Website Speed Check & Audit – `/.clinerules/pages/free-audit`
+- Site Migration Checklist – `/.clinerules/pages/guides/migration-checklist`
+- WordPress Security Guide – `/.clinerules/pages/guides/wp-security`
+- Hosting Plan Recommendation Quiz – `/.clinerules/pages/quiz/hosting-selector`
+- The Premium Hosting Fine Tuned Formula - 7 Steps to 90+ PageSpeed – `/.clinerules/pages/7-steps-to-90-pagespeed`
+- Legal Overview – `/.clinerules/pages/legal`
+- Terms and Conditions – `/.clinerules/pages/terms-and-conditions`
+- Website Terms of Use – `/.clinerules/pages/legal/website-terms-of-use`
+- Privacy Policy – `/.clinerules/pages/privacy-policy`
+- Cookie Policy – `/.clinerules/pages/legal/cookie-policy`
+- GDPR Compliance – `/.clinerules/pages/gdpr`
+- Data Processing Agreement (DPA) – `/.clinerules/pages/legal/data-processing-agreement`
+- Acceptable Use Policy (AUP) – `/.clinerules/pages/legal/acceptable-use-policy`
+- Abuse Policy – `/.clinerules/pages/legal/abuse-policy`
+- DMCA / Copyright Policy – `/.clinerules/pages/legal/dmca`
+- Affiliate Programme Terms – `/.clinerules/pages/legal/affiliate-terms`
+- Security Responsible Disclosure Policy – `/.clinerules/pages/legal/security-responsible-disclosure`
+- Responsible Disclosure / Bug Bounty – `/.clinerules/pages/legal/responsible-disclosure`
+- Sustainability Statement – `/.clinerules/pages/sustainability`
+- Service Change Log / Policy Updates – `/.clinerules/pages/changelog`
+- Legal Archive / Version History – `/.clinerules/pages/legal/archive`
+- Shared Hosting SLA – `/.clinerules/pages/legal/shared-hosting-sla`
+- WordPress Hosting SLA – `/.clinerules/pages/legal/wordpress-hosting-sla`
+- Cloud Hosting SLA – `/.clinerules/pages/legal/cloud-hosting-sla`
+- VPS Service Level Agreement – `/.clinerules/pages/legal/vps-service-level-agreement`
+- CDN Services SLA – `/.clinerules/pages/legal/cdn-sla`
+- Gaming Hub – `/.clinerules/pages/gaming`
+- COD Mobile Stats – `/.clinerules/pages/gaming/cod-mobile`
+- Gameplay Highlights / Clips – `/.clinerules/pages/gaming/clips`
+- Setup / Gear – `/.clinerules/pages/gaming/gear`
+- Game Servers (Coming Soon) – `/.clinerules/pages/gaming/servers`
+- Game Server: Minecraft (Future) – `/.clinerules/pages/gaming/servers/minecraft`
+- Voice / Discord / Bot Hosting (Future) – `/.clinerules/pages/gaming/servers/voice`
+- Custom Private Server / Scrim Server (Future) – `/.clinerules/pages/gaming/servers/custom`
 
 ## DOCUMENTATION
 
