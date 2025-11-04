@@ -1,7 +1,10 @@
 <# 
   ensure-pages.ps1
-  Creates missing page directories under .\.clinerules\pages and an index.md for each.
-  External URLs are ignored. Front matter includes title, slug, and created timestamp.
+  Creates missing *.md files under .\.clinerules\pages while PRESERVING subfolder structure.
+  Examples:
+    "/.clinerules/pages/security" -> ".\.clinerules\pages\security.md"
+    "/.clinerules/pages/solutions/ecommerce-hosting" -> ".\.clinerules\pages\solutions\ecommerce-hosting.md"
+    "/.clinerules/pages/" (Homepage) -> ".\.clinerules\pages\homepage.md"
 #>
 
 param(
@@ -9,9 +12,7 @@ param(
   [string]$BaseDir = (Join-Path $PSScriptRoot '.clinerules\pages')
 )
 
-# ---- Input catalogue (Title, Path) ----
-# Paths starting with '/.clinerules/pages' will become <BaseDir>\<subpath>\index.md
-# External URLs (http/https) are skipped.
+# --- List (Title, Path) ---
 $catalogue = @(
   @{ Title='Homepage'; Path='/.clinerules/pages/' }
   @{ Title='Shared Hosting'; Path='/.clinerules/pages/shared-hosting' }
@@ -141,8 +142,8 @@ $catalogue = @(
   @{ Title='Responsible Disclosure / Bug Bounty'; Path='/.clinerules/pages/legal/responsible-disclosure' }
   @{ Title='Accessibility Statement'; Path='/.clinerules/pages/legal/accessibility' }
   @{ Title='Ethical AI / Technology Use Policy'; Path='/.clinerules/pages/legal/ai-policy' }
-  @{ Title='Sustainability Statement'; Path='/.clinerules/pages/sustainability' }             # duplicate path, will dedupe
-  @{ Title='Service Change Log / Policy Updates'; Path='/.clinerules/pages/changelog' }      # duplicate path, will dedupe
+  @{ Title='Sustainability Statement'; Path='/.clinerules/pages/sustainability' }
+  @{ Title='Service Change Log / Policy Updates'; Path='/.clinerules/pages/changelog' }
   @{ Title='Legal Archive / Version History'; Path='/.clinerules/pages/legal/archive' }
   @{ Title='Shared Hosting SLA'; Path='/.clinerules/pages/legal/shared-hosting-sla' }
   @{ Title='WordPress Hosting SLA'; Path='/.clinerules/pages/legal/wordpress-hosting-sla' }
@@ -160,7 +161,7 @@ $catalogue = @(
   @{ Title='Back to School / Business Deals'; Path='/.clinerules/pages/coupons/back-to-school' }
   @{ Title='Halloween Hosting Sale'; Path='/.clinerules/pages/coupons/halloween' }
   @{ Title='Black Friday Hosting Deals'; Path='/.clinerules/pages/coupons/black-friday' }
-  @{ Title='Cyber Monday Discounts'; Path='/.clinerules/pages/cyber-monday' }                 # note: not under /coupons in source list
+  @{ Title='Cyber Monday Discounts'; Path='/.clinerules/pages/cyber-monday' }
   @{ Title='Christmas Hosting Sale'; Path='/.clinerules/pages/coupons/christmas' }
   @{ Title='Boxing Day Sale'; Path='/.clinerules/pages/coupons/boxing-day' }
   @{ Title='Student Hosting Discounts'; Path='/.clinerules/pages/coupons/student' }
@@ -184,11 +185,11 @@ $catalogue = @(
   @{ Title='WordPress Security Guide'; Path='/.clinerules/pages/guides/wp-security' }
   @{ Title='Hosting Plan Recommendation Quiz'; Path='/.clinerules/pages/quiz/hosting-selector' }
   @{ Title='The Premium Hosting Fine Tuned Formula - 7 Steps to 90+ PageSpeed'; Path='/.clinerules/pages/7-steps-to-90-pagespeed' }
-  # External (skipped)
+  # External links (skip)
   @{ Title='Support Portal (Login)'; Path='https://support.yoursite.tld/login' }
-  @{ Title='Knowledge Base (External)'; Path='https://support.yoursite.tld/knowledge-base' }
-  @{ Title='Submit Ticket / Contact Support (External)'; Path='https://support.yoursite.tld/tickets' }
-  @{ Title='System Status (External)'; Path='https://status.yoursite.tld/' }
+  @{ Title='Knowledge Base'; Path='https://support.yoursite.tld/knowledge-base' }
+  @{ Title='Submit Ticket'; Path='https://support.yoursite.tld/tickets' }
+  @{ Title='System Status'; Path='https://status.yoursite.tld/' }
   # Gaming
   @{ Title='Gaming Hub'; Path='/.clinerules/pages/gaming' }
   @{ Title='COD Mobile Stats'; Path='/.clinerules/pages/gaming/cod-mobile' }
@@ -200,28 +201,36 @@ $catalogue = @(
   @{ Title='Custom Private Server / Scrim Server (Future)'; Path='/.clinerules/pages/gaming/servers/custom' }
 )
 
-# ---- Helpers ----
 $prefix = '/.clinerules/pages'
-$created = @()
-$already = @()
-$skipped = @()
-$errors  = @()
+$created, $already, $skipped, $errors = @(), @(), @(), @()
 
-function New-MarkdownIfMissing {
-  param(
-    [string]$Title,
-    [string]$RelDir    # relative directory (may be '')
-  )
-  $targetDir  = if ([string]::IsNullOrWhiteSpace($RelDir)) { $BaseDir } else { Join-Path $BaseDir $RelDir.TrimStart('\','/') }
-  $targetFile = Join-Path $targetDir 'index.md'
+function Get-TargetPath {
+  param([string]$Rel)
+  if ([string]::IsNullOrWhiteSpace($Rel)) {
+    # Homepage -> homepage.md in BaseDir
+    return @{
+      Dir  = $BaseDir
+      File = Join-Path $BaseDir 'homepage.md'
+    }
+  }
+  $rel = $Rel.Trim('/')
+  $parts = $rel -split '/'
+  $subdir = if ($parts.Length -gt 1) { [System.IO.Path]::Combine($parts[0..($parts.Length-2)]) } else { '' }
+  $dir = if ([string]::IsNullOrWhiteSpace($subdir)) { $BaseDir } else { Join-Path $BaseDir $subdir }
+  $file = Join-Path $dir ("{0}.md" -f $parts[-1])
+  return @{ Dir = $dir; File = $file }
+}
+
+function Ensure-Md {
+  param([string]$Title, [string]$Rel)
+  $target = Get-TargetPath -Rel $Rel
+  $dir = $target.Dir
+  $file = $target.File
 
   try {
-    if (-not (Test-Path -LiteralPath $targetFile)) {
-      New-Item -ItemType Directory -Path $targetDir -Force | Out-Null
-
-      # Build slug ("/" for homepage, otherwise "/<rel>")
-      $slug = if ([string]::IsNullOrWhiteSpace($RelDir)) { '/' } else { '/' + ($RelDir.TrimStart('\','/').Replace('\','/')) }
-
+    if (-not (Test-Path -LiteralPath $file)) {
+      New-Item -ItemType Directory -Path $dir -Force | Out-Null
+      $slug = if ([string]::IsNullOrWhiteSpace($Rel)) { '/' } else { '/' + $Rel.Trim('/') }
       $content = @"
 ---
 title: "$Title"
@@ -231,52 +240,40 @@ created: "$(Get-Date -Format o)"
 
 # $Title
 
-<!-- Write content for $Title here -->
+<!-- Content for $Title -->
 "@
-
-      $null = $content | Set-Content -LiteralPath $targetFile -Encoding UTF8
-      $script:created += $targetFile
+      $content | Set-Content -LiteralPath $file -Encoding UTF8
+      $script:created += $file
     } else {
-      $script:already += $targetFile
+      $script:already += $file
     }
-  }
-  catch {
-    $script:errors += "Error creating $targetFile : $($_.Exception.Message)"
+  } catch {
+    $script:errors += "Error creating $file : $($_.Exception.Message)"
   }
 }
 
-# ---- Validate / normalize list & process ----
-# Deduplicate by normalized page path (case-insensitive)
+# Process list (dedupe by final full path, skip externals)
 $seen = @{}
 foreach ($item in $catalogue) {
   $title = $item.Title
   $path  = $item.Path
 
-  if ($path -match '^(http|https)://') {
-    $skipped += "$title -> $path (external URL)"
-    continue
-  }
+  if ($path -match '^(http|https)://') { $skipped += "$title -> $path (external)"; continue }
 
   if (-not $path.StartsWith($prefix, [System.StringComparison]::OrdinalIgnoreCase)) {
-    $skipped += "$title -> $path (not under $prefix)"
-    continue
+    $skipped += "$title -> $path (outside $prefix)"; continue
   }
 
-  # Normalize: strip prefix and leading slashes, drop trailing slash for homepage detection later
-  $rel = $path.Substring($prefix.Length)
-  $rel = $rel.Trim('/')  # '' means homepage
-
-  # Dedupe key is the relative dir
-  $key = $rel.ToLowerInvariant()
-  if ($seen.ContainsKey($key)) {
-    continue
-  }
+  $rel = ($path.Substring($prefix.Length)).Trim('/')
+  $target = Get-TargetPath -Rel $rel
+  $key = $target.File.ToLowerInvariant()
+  if ($seen.ContainsKey($key)) { continue }
   $seen[$key] = $true
 
-  New-MarkdownIfMissing -Title $title -RelDir $rel
+  Ensure-Md -Title $title -Rel $rel
 }
 
-# ---- Report ----
+# Report
 Write-Host ""
 Write-Host "Base directory: $BaseDir" -ForegroundColor Cyan
 Write-Host "----------------------------------------------"
