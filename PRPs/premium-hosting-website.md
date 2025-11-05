@@ -3,6 +3,11 @@
 ## Overview
 Implementation of a WCAG 2.2 Level AA compliant, ultra-modern hosting website using Astro 5 with content collections, comprehensive accessibility features, and automated testing. The site features 100+ pages across hosting products, services, and company information with full content management system.
 
+**CONTENT SOURCING REQUIREMENTS:**
+- **MANDATORY**: All pricing data sourced from `examples\pricing\` directory
+- **MANDATORY**: All page content sourced from `examples\pages\` directory
+- Build system will automatically read and integrate content from these directories
+
 ## Requirements Summary
 - WCAG 2.2 Level AA compliance with user-controlled accessibility panel
 - 100+ pages across comprehensive sitemap structure
@@ -11,6 +16,52 @@ Implementation of a WCAG 2.2 Level AA compliant, ultra-modern hosting website us
 - Modern tech stack: Astro v5, TypeScript strict, Tailwind CSS
 - Testing: Vitest with 80%+ coverage, axe-core accessibility testing
 - Infrastructure-first approach: Build complete framework, then integrate content
+- **DESIGN PRESERVATION**: Maintain existing gold (#D4AF37)-black-white color scheme and 3D block effects throughout all new pages and components
+
+## Design Preservation Requirements
+
+### Color Scheme Standards
+**MANDATORY: All new components and pages must use the established color palette:**
+- **Gold**: `#D4AF37` (primary brand color, used for accents and highlights)
+- **Black**: `rgb(0, 0, 0)` and `#191a23` (text and dark backgrounds)
+- **White**: `#f3f3f3` (off-white for backgrounds and text)
+- **NO OTHER COLORS** unless specifically approved for functional purposes (error states, etc.)
+
+### 3D Block Effects Standards
+**MANDATORY: All cards and blocks must maintain the signature 3D appearance:**
+- **Shadow**: `shadow-[0px_5px_0px_#191a23]` (creates the 3D lifted effect)
+- **Border**: `border border-dark` (subtle definition)
+- **Border Radius**: `rounded-[45px]` (consistent rounded corners)
+- **Hover Effects**: Scale transforms (`transform scale-105`) on interactive elements
+
+### Typography & Spacing
+**MANDATORY: Preserve existing typography system:**
+- **Font Family**: Space Grotesk (already loaded)
+- **Button Styles**: Three variants with consistent hover effects
+- **Heading Classes**: `.greenhead`, `.whitehead`, `.blackhead` for colored text backgrounds
+
+### Component Architecture
+**MANDATORY: New components must extend existing patterns:**
+- **Card Component**: Base `Card.astro` with `isUnderline` prop for 3D effects
+- **Service Cards**: Three-background rotation (white/green/black)
+- **Buttons**: Primary, secondary, tertiary variants with gold accents
+- **Layout Consistency**: 45px border radius, 5px shadow offset
+
+### Implementation Guidelines
+- **CSS Variables**: Extract current design tokens to reusable CSS custom properties
+- **Component Library**: Create hosting-specific components that inherit base styles
+- **Content Collections**: Frontmatter must support design variant selection
+- **Testing**: Visual regression tests to ensure design consistency
+- **Accessibility**: All design elements must maintain WCAG 2.2 Level AA compliance
+
+### Success Criteria for Design Preservation
+- [ ] All new pages use gold (#D4AF37) as primary accent color
+- [ ] All cards maintain `shadow-[0px_5px_0px_#191a23]` 3D effect
+- [ ] Consistent 45px border radius across all components
+- [ ] Space Grotesk font used throughout all new content
+- [ ] Button hover effects include scale transforms
+- [ ] Three-card background rotation pattern maintained
+- [ ] No introduction of new colors without explicit approval
 
 ## Research Findings
 
@@ -179,20 +230,22 @@ Implementation of a WCAG 2.2 Level AA compliant, ultra-modern hosting website us
 ### Phase 5: Content Integration (Migrate from Examples)
 
 #### 5.1 Pricing Data Integration
-**Migrate pricing from /examples/pricing/ to production structure**
-- Description: Create `src/data/pricing/plans.json` from content in `/examples/pricing/` directory
+**MANDATORY: Source all pricing data from examples\pricing\ directory**
+- Description: Build system MUST read and integrate ALL pricing information from `examples\pricing\` folder
+- Create `src/data/pricing/plans.json` by processing content from `examples\pricing\` directory
 - Structure pricing data following PRD JSON schema examples (see INITIAL.md "Pricing Content Model")
 - Include promotional pricing overlays, billing toggles, and feature arrays
-- Files to create: `src/data/pricing/plans.json` (based on `/examples/pricing/` content)
+- Files to create: `src/data/pricing/plans.json` (directly sourced from `examples\pricing\` content)
 - Dependencies: Pricing infrastructure
 - Estimated effort: 1 day
 
 #### 5.2 Page Content Migration
-**Migrate pages from /examples/pages/ to content collections**
-- Description: Transform existing markdown files from `/examples/pages/` to `/src/content/pages/`
+**MANDATORY: Source all page content from examples\pages\ directory**
+- Description: Build system MUST read and integrate ALL page content from `examples\pages\` folder
+- Transform existing markdown files from `examples\pages\` to `/src/content/pages/`
 - Update frontmatter to match PRD schemas (see INITIAL.md "Markdown Content Models")
 - Add section arrays, metadata, and proper content structure per page type
-- Files to migrate: All .md files from `/examples/pages/` to `/src/content/pages/`
+- Files to migrate: All .md files from `examples\pages\` to `/src/content/pages/`
 - Dependencies: Content collections setup
 - Estimated effort: 2 days (100+ pages)
 
@@ -334,6 +387,13 @@ src/
 - [ ] Accessibility panel controls all preferences correctly
 - [ ] Load time: <2 seconds on 3G with real content
 - [ ] Cross-browser compatibility (Chrome, Firefox, Safari, Edge)
+- [ ] **DESIGN PRESERVATION**: All new pages use gold (#D4AF37) as primary accent color
+- [ ] **DESIGN PRESERVATION**: All cards maintain `shadow-[0px_5px_0px_#191a23]` 3D effect
+- [ ] **DESIGN PRESERVATION**: Consistent 45px border radius across all components
+- [ ] **DESIGN PRESERVATION**: Space Grotesk font used throughout all new content
+- [ ] **DESIGN PRESERVATION**: Button hover effects include scale transforms
+- [ ] **DESIGN PRESERVATION**: Three-card background rotation pattern maintained
+- [ ] **DESIGN PRESERVATION**: No introduction of new colors without explicit approval
 
 ## Notes and Considerations
 - **Infrastructure-First Approach**: Complete framework built before content integration
