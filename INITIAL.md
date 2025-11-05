@@ -1564,7 +1564,7 @@ draft: false
 ## TOOLS
 
 ### Static Site Generator
-**Astro v4.x**
+**Astro v5.x**
 
 **Rationale:**
 -   Zero JavaScript by default (opt-in only) - fewer accessibility issues.
