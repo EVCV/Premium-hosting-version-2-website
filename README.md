@@ -20,7 +20,7 @@ Kreatif is a high-performance Landing page made with Astro and Tailwind. It's ba
 ├── public/
 │   └── fonts
 │   └── premium-hosting-favicon.svg
-│   └── og.png
+│   └── premium-hosting-og.png
 ├── src/
 │   ├── components/
 │   │   └── sections/
