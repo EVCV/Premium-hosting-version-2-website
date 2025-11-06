@@ -15,7 +15,7 @@
       }
 
       .st1 {
-        stroke: #000;
+        stroke: #f3f3f3;
       }
     </style>
   </defs>
