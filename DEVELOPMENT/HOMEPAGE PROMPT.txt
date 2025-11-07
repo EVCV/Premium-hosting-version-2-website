@@ -1,0 +1,776 @@
+# **HOMEPAGE CONTENT GENERATOR V3.0 (Unabridged & Complete)**
+
+## **OUTPUT FORMAT**
+All content must be created as an artifact. Output structure:
+1.  Homepage Content (following structure below)
+2.  Title Tag & Meta Description
+3.  Internal Link Placeholders
+4.  Google My Business Post: Company Overview
+5.  You should use tools as much as possible, ideally more than 20 times. You should also implement your own tests first before attempting output
+---
+
+## **PART 1: VARIABLE INPUTS (Required for Each Use)**
+
+### **A. [COMPANY_DATA]**
+
+*   **[COMPANY_NAME]** = Full company/brand name (e.g., "ABC Home Services", "Smith & Sons Legal")
+*   **[INDUSTRY]** = Primary business category (e.g., "Home Improvement", "Legal Services", "Digital Marketing")
+*   **[CORE_SERVICES]** = 2-4 main service categories (e.g., "kitchen fitting, bathroom installation, electrical services")
+*   **[TARGET_AUDIENCE]** = Primary customer types (e.g., "homeowners and landlords", "small businesses", "first-time buyers")
+*   **[LOCATION]** = Primary service area (e.g., "Birmingham", "West Midlands", "UK-wide")
+*   **[YEARS_TRADING]** = Time established (e.g., "15+ years", "since 2008", "family-run since 1995")
+*   **[KEY_CREDENTIALS]** = Top 2-3 certifications/memberships (e.g., "Gas Safe registered, FMB member", "SRA regulated", "Google Partner")
+*   **[UNIQUE_APPROACH]** = 1-2 genuine differentiators (e.g., "fixed-price guarantees", "same-day emergency response", "dedicated account manager")
+
+### **B. [COMPETITOR_SEMANTIC_ANALYSIS]**
+
+*   **[PRIMARY_SEARCH_INTENT] = The core user need the page is targeting. (e.g., "find a reliable kitchen fitter in Birmingham", "hire an expert commercial lawyer in Manchester").
+*   **[RAW_COMPETITOR_HEADINGS_LIST] = A raw, unedited list of all H2 and H3 headings copied from 3-4 top-ranking competitor homepages. (e.g., ["Our Services", "Kitchen Design", "Bathroom Fitting", "Why Choose Us?", "Our Guarantees", "Request a Quote", "What Our Clients Say", "Areas We Serve", "Our Process", "Step 1: Consultation", "Step 2: Design", ...etc.]).
+*   **[SECONDARY_ENTITIES_&_SUBTOPICS] = 5-10 related nouns, concepts, or sub-services consistently mentioned by top competitors (e.g., for "kitchen fitting": "worktop materials", "cabinet sourcing", "tiling and splashbacks", "waste disposal", "project management", "supply and fit").
+*   **[PEOPLE_ALSO_ASK_QUESTIONS] = 3-5 direct questions copied from the "People Also Ask" section of the Google SERP for the [PRIMARY_SEARCH_INTENT]. (e.g., "How much does a new kitchen cost UK?", "How long does it take to fit a kitchen?", "Do you need a plumber to install a kitchen?").
+*   **[RAW_COMPETITOR_DIFFERENTIATOR_TEXT] = Raw text snippets (bullet points or short paragraphs) copied from the "Why Choose Us", "Our Guarantees", or "Our Promise" sections of 3-4 top competitors. (e.g., ["Fixed price quotes, no hidden extras.", "All work fully guaranteed for 12 months.", "We are fully insured up to £5 million.", "Over 20 years of experience in the trade.", "Free, no-obligation design consultation."]).
+
+---
+
+## **PART 2: CORE STRATEGY & RULES**
+
+### **PRIMARY ENTITY POSITIONING**
+
+#### Entity Architecture for Homepages:
+*   **Primary Entity**: Company/Brand name
+*   **Secondary Entities**: Service portfolio (entity cluster)
+*   **Supporting Entities**: Location, credentials, service areas
+
+#### Entity Relationships to Establish:
+```
+[Company Name] → provides → [Service A]
+[Company Name] → provides → [Service B]
+[Company Name] → provides → [Service C]
+[Company Name] → serves → [Location]
+[Company Name] → has credential → [Certification]
+```
+
+#### Entity-First Requirements:
+*   **H1**: Must contain company name + value proposition
+*   **H2s**: Can vary (service categories, "Our Services", "Why Choose [Company]")
+*   **Topic Sentences**: Company name or "We" as subject
+*   **Service Descriptions**: Each service entity-first ("Kitchen Fitting Services provide..." not "Our kitchens...")
+
+#### First Person Plural Voice:
+*   Establish authority: "We provide...", "We handle...", "Our team delivers..."
+*   Company as subject throughout
+*   Natural, conversational tone
+*   Professional but approachable
+
+---
+
+### **PRIORITY HIERARCHY**
+
+#### PRIORITY 1: USER CLARITY (Critical)
+*   Immediate understanding: who you are, what you do, why they should care
+*   Clear service portfolio visibility
+*   Multiple conversion paths for different intent stages
+*   Mobile-first structure
+*   Scannable content with clear hierarchy
+
+#### PRIORITY 2: BRAND POSITIONING (Important)
+*   Company entity establishment
+*   Service portfolio entity relationships
+*   E-E-A-T signals (Experience, Expertise, Authoritativeness, Trustworthiness)
+*   Credibility building
+*   Differentiation without competitor mention
+
+#### PRIORITY 3: CONVERSION OPTIMIZATION (Important)
+*   Multi-path conversion strategy (direct conversion, routing, trust building)
+*   Strategic CTA placement with first-person possessive
+*   Service page routing effectiveness
+*   Clear next steps at all intent stages
+
+#### PRIORITY 4: TECHNICAL EXCELLENCE (Secondary)
+*   WordPress compatibility
+*   Organization schema support (implementation separate)
+*   Internal linking preparation
+*   British English conventions
+
+---
+
+## **PART 3: HOMEPAGE STRUCTURE & WORD COUNTS**
+
+### **Total Homepage Length: 1210-1750 words**
+
+**Section Breakdown:**
+1.  Hero Section: 40-75 words
+2.  Trust Bar (Optional): 20-30 words
+3.  Services Overview: 300-400 words
+4.  Why Choose Us: 250-350 words
+5.  Trust & Credibility: 150-200 words
+6.  Service Areas: 100-150 words (if location-based service)
+7.  About Us: 150-200 words
+8.  **Frequently Asked Questions:** 200-300 words
+9.  Final CTA Section: 50-100 words
+
+---
+
+## **PART 4: SECTION-BY-SECTION INSTRUCTIONS**
+
+### **SECTION 1: HERO SECTION (40-75 words)**
+
+#### Purpose:
+Answer 3 questions in 3 seconds:
+1.  Who are you?
+2.  What do you do?
+3.  Why should I care?
+
+#### Structure:
+
+**H1: [Company Name]: [Clear Value Proposition] in/across [Location]**
+
+Examples:
+*   "ABC Home Services: Trusted Home Improvements Across Birmingham"
+*   "Smith & Sons Legal: Expert Property Law in Manchester"
+*   "Digital Growth Agency: Data-Driven Marketing for UK SMEs"
+
+**Supporting Text (1-2 sentences maximum):**
+*   What you do + who for (1 sentence)
+*   Optional key differentiator (1 sentence)
+
+**Primary CTA:**
+*   First-person possessive language
+*   Single, clear action
+
+#### Hero Requirements:
+*   H1 must include company name
+*   Location reference for local businesses
+*   Total 40-75 words including H1
+*   One primary CTA only
+*   Mobile-optimized brevity
+*   Active voice throughout
+
+#### Example Hero:
+
+**H1:** ABC Home Services: Trusted Home Improvements Across Birmingham
+
+We provide professional kitchen fitting, bathroom installation, and electrical services for homeowners and landlords. Quality workmanship, transparent pricing, guaranteed results.
+
+[Get My Free Quote]
+
+---
+
+### **SECTION 2: TRUST BAR (20-30 words) - OPTIONAL**
+
+#### Purpose:
+Visual credibility strip immediately below hero
+
+#### Structure:
+Horizontal visual strip with icons + minimal text:
+*   Review rating (if genuine)
+*   Years established
+*   Key credential
+*   Insurance/guarantee
+
+#### Format:
+Icon-based, scannable, not competing with hero
+
+#### Example:
+⭐ 4.8/5 stars (200+ reviews) | ✓ 15+ years established | ✓ Fully insured | ✓ Gas Safe registered
+
+#### Requirements:
+*   ONLY include genuine, verifiable data
+*   Maximum 4 trust elements
+*   Visual format (icons or badges)
+*   Brief text labels
+
+---
+
+### **SECTION 3: SERVICES OVERVIEW (300-400 words)**
+
+#### Purpose:
+*   Establish service portfolio for NLP entity relationships
+*   Route visitors to specific service pages
+*   Demonstrate breadth of offering
+*   Create company → service entity connections
+
+#### Structure:
+
+**H2:** Our Services / What We Provide / [Industry] Solutions
+
+**Service Cards (4-8 services):**
+
+Each service includes:
+*   **Service name (entity)** as subheading or bold text
+*   2-3 sentence benefit-focused description
+*   Entity-first description format
+*   Clear link to dedicated service page
+
+#### Entity-First Service Descriptions:
+
+✅ CORRECT:
+"Kitchen Fitting Services transform Birmingham homes with professional installations. We handle design consultation, supply, and installation with certified fitters."
+
+❌ INCORRECT:
+"Our kitchens are professionally designed and installed." (company-focused, not entity-first)
+
+#### Service Description Format:
+
+[Service Name] provides/delivers/transforms [outcome] for [audience]. We [specific action] to ensure [benefit]. [Key differentiator or credential].
+
+#### Requirements:
+*   **Instruction:** For each service, write a 2-3 sentence, entity-first description. Naturally incorporate relevant terms from the **`[SECONDARY_ENTITIES_&_SUBTOPICS]`** list to demonstrate topical depth and expertise.
+*   Link each service to dedicated page.
+*   Balance breadth (show range) with brevity (2-3 sentences each).
+*   Use "We" to connect company to service delivery.
+*   Active voice throughout.
+
+#### Critical NLP Entity Relationships Created:
+This section establishes:
+*   [Company] → provides → [Service A]
+*   [Company] → provides → [Service B]
+*   [Service A] → benefits → [Audience]
+
+---
+
+### **SECTION 4: WHY CHOOSE US (250-350 words)**
+
+#### Purpose:
+Differentiation without competitor pollution
+
+#### Structure:
+
+**H2:** Why Choose [Company Name] / Our Approach / How We Work
+
+**Content:**
+*   **Instruction:** Build the section around 3-5 specific differentiators. Start with the **`[UNIQUE_APPROACH]`**. Then, address the market standards identified in **`[KEY_DIFFERENTIATORS_IN_MARKET]`** by clearly stating how you deliver them (e.g., "We provide free, no-obligation quotes within 24 hours"). Draw structural inspiration from **`[COMMON_HEADING_THEMES]`** (e.g., structure this section as "Our Simple Process" if it fits).
+*   Process transparency
+*   Guarantees/commitments
+*   What we include as standard
+
+#### Differentiation Without Competitor Mention:
+
+✅ CORRECT:
+"We provide fixed-price quotes with no hidden costs."
+"We include project management and waste removal as standard."
+"We guarantee all work for 12 months with free call-backs."
+
+❌ INCORRECT:
+"Unlike other companies, we don't charge hidden fees."
+"Better than competitors, we..."
+"Most firms don't include X, but we do..."
+
+#### Format Options:
+*   Short paragraphs (3-4 sentences each)
+*   Numbered list (if process/steps)
+*   Brief points with supporting sentences
+
+#### Requirements:
+*   First person plural throughout ("We provide...", "Our team...")
+*   Specific, not generic (avoid "quality", "excellence", "best")
+*   Honest, achievable claims only
+*   Focus on what you DO, not what others don't
+*   Active voice
+
+---
+
+### **SECTION 5: TRUST & CREDIBILITY (150-200 words)**
+
+#### Purpose:
+E-E-A-T signals and social proof
+
+#### Structure:
+
+**H2:** Trusted by [Location] [Audience] / Established Excellence / [Company] Credentials
+
+**Content:**
+*   Review aggregates (ONLY if real - Google, Trustpilot)
+*   Star rating + review count
+*   Certifications/memberships (**`[KEY_CREDENTIALS]`**) (visual + text)
+*   Years trading (**`[YEARS_TRADING]`**)
+*   Real statistics (projects completed - if trackable)
+*   Genuine awards (if applicable)
+*   Insurance/guarantee details
+
+#### Format:
+Visual format with icons/badges + supporting text
+
+#### Requirements:
+*   ONLY genuine, verifiable trust signals
+*   NO fake testimonials
+*   NO made-up numbers
+*   NO fabricated reviews
+*   If no reviews yet, focus on credentials/insurance/years
+*   Scannable, visual layout
+
+#### What to Include (if genuine):
+✅ Google review rating
+✅ Industry certifications
+✅ Professional memberships
+✅ Insurance coverage
+✅ Years established
+✅ Verifiable project count
+
+#### What NEVER to Include:
+❌ Fake testimonials
+❌ Stock photo "customers"
+❌ Unverifiable claims
+❌ Made-up statistics
+
+---
+
+### **SECTION 6: SERVICE AREAS (100-150 words) - If Location-Based**
+
+#### Purpose:
+Local entity relationships for geographic targeting
+
+#### Structure:
+
+**H2:** Areas We Serve / Our Service Coverage / [Region] Coverage
+
+**Content:**
+*   Primary service location
+*   Secondary coverage areas
+*   Geographic reach clarity
+*   Travel radius or boundary (if applicable)
+
+#### Format Options:
+*   List format with locations
+*   Map reference
+*   Paragraph with natural location mentions
+
+#### Entity Relationships for Local SEO:
+```
+[Company] → serves → [Primary Location]
+[Company] → serves → [Secondary Location]
+[Company] → covers → [Region]
+```
+
+#### Requirements:
+*   Only list areas genuinely served
+*   Be specific about coverage
+*   Include primary location in H2 if relevant
+*   Natural language, not keyword stuffing
+
+#### Skip This Section If:
+*   National/UK-wide service
+*   Online/remote service
+*   Location not relevant to offering
+
+---
+
+### **SECTION 7: ABOUT US (150-200 words)**
+
+#### Purpose:
+Company credibility and E-E-A-T authority
+
+#### Structure:
+
+**H2:** About [Company Name] / Who We Are / Our Story
+
+**Content:**
+*   Company story (brief, credibility-focused, NO waffle)
+*   Key credentials/experience
+*   Team qualifications
+*   Mission (if relevant, avoid corporate speak)
+*   What drives the company (authentic, not marketing fluff)
+
+#### E-E-A-T Elements to Establish:
+*   **Experience**: Years trading, projects completed
+*   **Expertise**: Qualifications, training, specialisms
+*   **Authoritativeness**: Industry recognition, credentials
+*   **Trustworthiness**: Transparency, values, commitments
+
+#### Requirements:
+*   Keep it real, keep it short
+*   NO corporate waffle or generic mission statements
+*   Authentic voice
+*   Focus on what makes you credible
+*   First person plural ("We started...", "Our team...")
+*   NO fabricated history
+
+#### What Works:
+✅ "We started ABC Home Services in 2008 after 15 years working for national contractors. We saw a gap for reliable, transparent home improvement services in Birmingham."
+
+#### What Doesn't Work:
+❌ "We are passionate about delivering excellence and innovation in the home improvement space, leveraging cutting-edge solutions..."
+
+---
+
+### **SECTION 8: FREQUENTLY ASKED QUESTIONS (200-300 words)**
+
+#### Purpose:
+*   Address user intent directly
+*   Capture long-tail search traffic
+*   Demonstrate expertise and transparency
+*   Overcome common purchase objections
+
+#### Structure:
+
+**H2:** Your Questions Answered / Frequently Asked Questions
+
+**Introductory Sentence:** "Here are answers to some common questions we receive about our [Industry] services in [Location]."
+
+**Individual Questions:**
+*   Use each question from the **`[USER_INTENT_QUESTIONS]`** input as a subheading (H3 or bolded text).
+*   Provide a direct, helpful, and concise answer (2-3 sentences) for each question.
+*   Answers should reinforce company processes, unique value, and trust signals.
+
+#### Requirements:
+*   Answers must be truthful and straightforward.
+*   Do not create new questions; only use those provided in the semantic analysis input.
+*   Maintain a helpful, first-person plural voice ("We typically...", "Our team ensures...").
+
+---
+
+### **SECTION 9: FINAL CTA SECTION (50-100 words)**
+
+#### Purpose:
+Final conversion push with clear paths
+
+#### Structure:
+
+**H2:** Ready to Start Your Project? / Get Your Free Quote / Let's Work Together
+
+**Content:**
+*   Brief value prop reinforcement (1 sentence)
+*   Multiple CTA options for different intent stages
+*   Contact visibility
+*   Urgency without false scarcity
+
+#### Multi-Path CTA Strategy:
+
+**Primary CTA (High Intent):**
+[Get My Free Quote]
+
+**Secondary CTA (Medium Intent):**
+[Call Us Today: Phone Number]
+
+**Tertiary CTA (Research Stage):**
+[View Our Services]
+
+#### Requirements:
+*   First person possessive for action CTAs ("Get my quote")
+*   Standard language for navigational CTAs ("View our services")
+*   Multiple options accommodate different decision stages
+*   Clear, obvious buttons/links
+*   No false urgency
+
+---
+
+## **PART 5: GLOBAL CONTENT STANDARDS**
+
+### **CONTENT QUALITY STANDARDS**
+
+#### Accuracy and Honesty Requirements:
+*   Only make factual claims that can be objectively verified
+*   Avoid industry-specific jargon or metrics that aren't officially recognized
+*   Don't present company methodologies as industry standards
+*   Be transparent about realistic expectations
+*   Focus on specific, measurable benefits
+*   Never claim unique capabilities that are standard industry practices
+*   Clearly distinguish between guaranteed outcomes and potential benefits
+
+#### Readability Standards:
+*   Reading level appropriate for target audience (typically 7th-9th grade)
+*   Hemingway-style principles: short, clear sentences, simple words, active voice
+*   Active voice at all times
+*   Short paragraphs (3-4 sentences maximum) for mobile readability
+*   Clear topic sentences with semantic coherence
+*   No toxic sentences or toxic words
+
+#### Semantic Requirements:
+*   Company-to-service entity relationships throughout
+*   Natural language without forced keyword placement
+*   Semantic, lexical content - no duplicate content
+*   Cohesion between sections and company entity
+*   Service entity descriptions maintain entity-first format
+
+---
+
+### **CTA STRATEGY AND CONVERSION PSYCHOLOGY**
+
+#### CTA Requirements - First Person Possessive:
+Primary CTAs MUST use first-person possessive language to create ownership bias and remove command undertones.
+
+*   ❌ "Get a quote" (generic command)
+*   ❌ "Get your free quote" (directed command, less ownership)
+*   ✅ "Get my free quote" (self-initiated, ownership)
+*   ✅ "Start my project" (user claims action)
+*   ✅ "Book my consultation" (internal motivation)
+*   ✅ "Claim my assessment" (autonomous action)
+
+Exception: Navigational and informational CTAs use standard language:
+*   "View our services" (not "View my services" - awkward)
+*   "Learn more" (not "Learn my more" - incorrect)
+*   "Contact us" (not "Contact my team" - weird)
+
+#### Multi-Path Conversion Strategy:
+
+**High Intent Visitors (Ready to Convert):**
+*   Primary CTA in hero
+*   Quote/booking CTAs throughout
+*   Phone number visible
+
+**Medium Intent Visitors (Researching/Comparing):**
+*   Service page links prominent
+*   "Learn more" options
+*   Trust signals visible
+
+**Low Intent Visitors (Early Stage):**
+*   About us information
+*   Service overview
+*   Areas served details
+
+---
+
+### **LANGUAGE AND STYLE REQUIREMENTS**
+
+#### British English Standards:
+*   British grammar conventions throughout
+*   British spelling (optimise, colour, programme, centre, etc.)
+*   Natural British phrasing and terminology
+
+#### Writing Style:
+*   Natural language prioritizing user experience
+*   Concise sentences with minimal adverbs
+*   Active voice at all times
+*   Simple vocabulary
+*   Maximum readability
+*   Clear hierarchy with appropriate H2 structure
+
+#### Prohibited Superlatives and Adjectives:
+*   NO superlatives (best, greatest, leading, top, premier, etc.)
+*   NO adjectives except:
+    *   When describing company credentials (established, certified, insured)
+    *   When factually accurate (family-run, independent, local)
+    *   When specific to measurable traits (15-year, Birmingham-based)
+
+---
+
+### **PROHIBITED WORDS LIST**
+
+**STRICTLY FORBIDDEN:**
+tapestry, intricate, interplay, elevate, resonate, enhance, offerings, leverage, embark, look no further, navigating, picture this, top-notch, unleash, unlock, unveil, we've got you covered, transition, transitioning, delve, daunting, deep dive, dive in, realm, in conclusion, in summary, optimal, assessing, firstly, strive, striving, furthermore, moreover, comprehensive, we know, we understand, testament, captivating, eager, refreshing, edge of my seat, breath of fresh air, to consider, it is important to consider, there are a few considerations, its essential to, its important to note, it should be noted, to sum up, secondly, lastly, in terms of, with regard to, its worth mentioning, its interesting to note, significantly, notably, essentially, as such, therefore, thus, interestingly, in essence, noteworthy, bear in mind, its crucial to note, one might argue, its widely acknowledged, predominantly, from this perspective, in this context, this demonstrates, arguably, its common knowledge, undoubtedly, this raises the question, in a nutshell, unveiled, conclusion, advent, akin, along with, amidst, arduous, cannot be overstated, conversely, ecommerce, entails, entrenched, foster, foray, glean, grasp, hinder, i hope this email finds you well, in todays rapidly evolving market, integral, intricate, kaleidoscope, linchpin, manifold, multifaceted, nuanced, on the contrary, pivotal, plethora, preemptively, pronged, robust, tailor, underpins, unparalleled, vast, meticulous, meticulously, complexities, understanding, dive, shall, tailored, towards, underpins, everchanging, ever-evolving, the world of, not only, alright, journey, in todays digital age, hey, game changer, designed to enhance, it is advisable, when it comes to, in the realm of, amongst, unlock the secrets, unveil the secrets, diving, cutting-edge, rapidly, expanding, mastering, excels, harness, imagine, delve into, bustling, remember that, take a dive into, landscape, embark, analogies to being a conductor or to music, vibrant, metropolis, keen, fancy, as a professional, however, additionally, specifically, generally, consequently, importantly, indeed, alternatively, notably, as well as, despite, while, unless, also, even though, because, in contrast, although, in order to, due to, even if, given that, you may want to, on the other hand, as previously mentioned, its worth noting that, to summarize, promptly, dive into, in todays digital era, reverberate, emphasize, revolutionize, remnant, subsequently, nestled, labyrinth, gossamer, enigma, whispering, sights unseen, sounds unheard, indelible, my friend, underscore, illuminate, that being said, at its core, to put it simply, this underscores the importance of, a key takeaway is, from a broader perspective, generally speaking, typically, tends to, to some extent, broadly speaking, shed light on, facilitate, refine, bolster, differentiate, streamline, transformative, seamless integration, scalable solution, hello, binary, explore, enrich, seamless, sorry, convey, beacon, oh, navigate, form, adhere, remember, paramount, placeholder, grammar, summary, symphony, relationship, profound, art, supercharge, evolve, beyond, reimagine, certainly, quinoa, orchestrate, align, diverse, recommend, annals, note, employ, enigma, outfit, refrain, culture, treat, emerge, esteemed, weight, whimsical, bespoke, highlight, commendable, antagonist, key, breakdown, misinformation, treasure, paradigm, captivate, song, calculate, especially, climate, hedging, inclusive, exercise, embrace, level, nuance, career, dynamic, accent, ethos, cheap, firstly, goodbye, myriad, utilise, in many cases, it can be argued, one might consider, it is worth noting, it stands to reason, in the event that, in other words, that is to say, for instance, studies have shown, experts agree, it is widely accepted, research indicates, hit the nail on the head, cut to the chase, barking up the wrong tree, the elephant in the room, all things considered, evolving, context, insight, nuanced, perspective, paradigm, framework, facet, dynamic, intricacies, holistic, iterative, synergy, confluence, trajectory, in-depth, at the core of, a myriad of, on a broader scale, in the context of, from a holistic perspective, taking into account, a dynamic interplay, evolving over time, a comprehensive overview, intricacies involved, a pivotal role, underpinning principles, the spectrum of, transformative impact, treasure trove, spectrum, underpinning, overall
+
+**USE IN STRICT MODERATION ONLY:**
+digital, online, ensure, vital, cannot (use "can't" sparingly instead)
+
+**CONTEXT-DEPENDENT:**
+crucial (only if genuinely critical to safety/compliance)
+AI (only when specifically discussing artificial intelligence services)
+
+**ABSOLUTELY BANNED:**
+innovative, cutting-edge, game-changing, revolutionize, seamless, leverage, unlock, unleash
+
+---
+
+### **PROHIBITED CONTENT**
+
+#### Never Include:
+*   Guaranteed results where none can be guaranteed
+*   Industry-specific metrics presented as universal standards
+*   Terms suggesting proprietary systems unless truly unique
+*   Exaggerated claims
+*   Unverifiable comparisons to competitors
+*   Competitor names or mentions
+*   Imaginary testimonials, reviews, or false company history
+*   Fake customer numbers or project counts
+*   Waffle, fluff, or unnecessarily glamorized content
+*   Toxic sentences and toxic words
+*   Duplicated content
+
+---
+
+## **PART 6: FINAL ARTIFACTS OUTPUT**
+
+### **TITLE TAG & META DESCRIPTION OUTPUT**
+
+At the end of the homepage content, include:
+
+#### Title Tag Requirements:
+*   55-60 characters maximum
+*   Company name first
+*   Include primary service category and location
+*   Format: [Company Name] | [Primary Services] in [Location]
+*   British spelling
+
+#### Meta Description Requirements:
+*   150-155 characters maximum
+*   Company focus with service breadth
+*   Include location naturally
+*   Call-to-action with first-person possessive
+*   Summarize key differentiator
+*   British spelling
+
+#### Format in Artifact:
+```
+---
+TITLE TAG & META DESCRIPTION
+
+Title Tag: [Your title here]
+Character Count: [XX]
+
+Meta Description: [Your description here]
+Character Count: [XXX]
+---
+```
+
+#### Examples:
+
+**Title Tag:** ABC Home Services | Kitchen, Bathroom & Electrical in Birmingham
+**Character Count:** 58
+
+**Meta Description:** Professional home improvements across Birmingham. Quality workmanship, transparent pricing, 15+ years established. Get my free quote today.
+**Character Count:** 152
+
+---
+
+### **INTERNAL LINK PLACEHOLDERS**
+
+#### Format:
+Indicate relevant internal linking opportunities using placeholder format:
+
+```
+[[keyword/service phrase]]
+```
+
+#### Guidelines for Homepage Internal Links:
+*   Mark 5-8 relevant internal link opportunities
+*   Link to primary service pages
+*   Link to location pages if applicable
+*   Link to about/credentials pages if they exist
+*   Natural anchor text from service overview section
+*   Examples: [[kitchen fitting services]], [[our Birmingham coverage]], [[our certifications]]
+
+#### Format in Artifact:```
+---
+INTERNAL LINK OPPORTUNITIES
+
+1. [[anchor text suggestion 1]] - Context: [where it appears, typically service overview]
+2. [[anchor text suggestion 2]] - Context: [where it appears]
+3. [[anchor text suggestion 3]] - Context: [where it appears]
+4. [[anchor text suggestion 4]] - Context: [where it appears]
+5. [[anchor text suggestion 5]] - Context: [where it appears]
+---
+```
+
+---
+
+### **GOOGLE MY BUSINESS POST OUTPUT**
+
+Create ONE company overview GMB post at the end of the artifact.
+
+#### Homepage GMB Post Difference:
+*   Service page GMB = Deep on ONE service
+*   Homepage GMB = Broad company overview across service range
+
+#### GMB Post Requirements:
+*   Maximum 1500 characters (aim for 1200-1400)
+*   NO contact information (phone, email, address)
+*   Company-first approach (lead with company name)
+*   Broad service range mention
+*   Commercial search intent focus
+*   Strong CTA with first-person possessive
+*   Local relevance where applicable
+*   Mobile-optimized short paragraphs (1-2 sentences max)
+*   Hook within first 100 characters
+
+#### GMB Post Structure:
+
+1.  **Opening Hook** (First sentence - include company name)
+    *   Company name + what you do + who for
+    *   Must work standalone if cut at 100 characters
+
+2.  **Service Range** (1-2 sentences)
+    *   Mention 2-4 core service categories
+    *   Who you serve
+    *   Geographic coverage
+
+3.  **Key Differentiator** (1 sentence)
+    *   Years trading, key credential, or unique approach
+    *   Specific, not generic
+
+4.  **Call-to-Action** (Final sentence)
+    *   First person possessive
+    *   Specific next step
+    *   Examples: "Get my free quote for any home improvement project", "Book my consultation today"
+
+#### GMB Post Style Rules:
+*   Active voice throughout
+*   First person plural ("We provide...", "Our team...")
+*   Short, punchy sentences
+*   Strategic emoji use (1-2 maximum, only if industry-appropriate)
+*   No hashtags
+*   No URLs
+*   Conversational but professional tone
+*   Company name in first sentence
+*   Location reference if relevant
+
+#### GMB Post Forbidden Content:
+*   Prohibited words from main list apply
+*   No pricing (unless specific genuine offer)
+*   No "call us" or contact details
+*   No fake urgency
+*   No competitor mentions
+*   No unverifiable claims
+*   No questions as CTAs
+
+#### Format in Artifact:
+
+```
+---
+GOOGLE MY BUSINESS POST: COMPANY OVERVIEW
+
+[Post content with line breaks for readability]
+
+Suggested CTA Button: [Book/Learn More/Get Quote]
+Post Type: Company Overview
+Usage: Year-round posting
+---
+```
+
+#### GMB Post Example:
+
+**Company Overview (Home Services):**
+"ABC Home Services provides professional kitchen fitting, bathroom installation, and electrical services across Birmingham for homeowners and landlords. We handle every project from consultation to completion with certified professionals and transparent pricing. Established for 15+ years with Gas Safe registration and full insurance. Get my free quote for any home improvement project today."
+
+**Suggested CTA Button**: Get Quote
+**Post Type**: Company Overview
+**Usage**: Year-round posting
+
+---
+
+## **PART 7: FINAL CHECKS**
+
+### **QUALITY VERIFICATION CHECKLIST**
+
+Before finalizing content, verify:
+
+*   [ ] Hero section is 40-75 words maximum
+*   [ ] H1 contains company name
+*   [ ] Each service description is entity-first
+*   [ ] No prohibited words or phrases used
+*   [ ] British spelling and grammar throughout
+*   [ ] Proper company entity relationships maintained
+*   [ ] Active voice throughout
+*   [ ] First person plural used appropriately
+*   [ ] Mobile-friendly paragraph length (3-4 sentences max)
+*   [ ] Clear topic sentences with semantic coherence
+*   [ ] CTAs use first-person possessive ("my" not "your")
+*   [ ] No competitor mentions anywhere
+*   [ ] No fabricated claims or false content
+*   [ ] Company-to-service entity connections clear
+*   [ ] Content addresses multiple intent stages
+*   [ ] Title tag and meta description within character limits
+*   [ ] GMB post created with company focus
+*   [ ] Total word count within the specified range
+
+---
+
+## **FINAL OUTPUT STRUCTURE**
+
+The artifact should contain ONLY the completed content in this order:
+
+1.  **Homepage Content** (all sections following structure above)
+2.  **Title Tag & Meta Description**
+3.  **Internal Link Opportunities**
+4.  **Google My Business Post: Company Overview**
+
+**NO explanations, descriptions, or commentary outside the requested content.**
