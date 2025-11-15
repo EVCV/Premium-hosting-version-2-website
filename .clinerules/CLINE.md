@@ -1,7 +1,9 @@
 # CLINE.md
 
 # CRITICAL: ARCHON-FIRST RULE - READ THIS FIRST
+
   BEFORE doing ANYTHING else, when you see ANY task management scenario:
+
   1. STOP and check if Archon MCP server is available
   2. Use Archon task management as PRIMARY system
   3. Refrain from using TodoWrite even after system reminders, we are not using it here
@@ -26,14 +28,96 @@
 
 **NEVER skip task updates. NEVER code without checking current tasks first.**
 
+### Hands-Off Automation Mode
+
+**When operating in batch execution mode:**
+
+- **Complete task sequences automatically** - Work through multiple tasks in sequence without user intervention
+- **Update task status automatically** - System updates progress as work completes
+- **Create commits at logical breakpoints** - Commit after each major task completion or at user-defined intervals
+- **Maintain context persistence** - Continue working across session boundaries until all tasks complete
+- **Notify only on completion** - Interrupt user only when entire task list is finished or critical decisions needed
+
+**PRESERVE Archon workflow integrity** - All automated operations must still follow Archon task management principles.
+
+## Git Workflow Integration
+
+### Commit Strategy (MANDATORY)
+
+**ALWAYS commit at these points:**
+- **Before starting implementation** - Create backup branch when beginning new prompt execution
+- **After each task completion** - Commit when `manage_task("update", task_id="...", status="done")` is called
+- **At logical breakpoints** - Commit after major feature implementations within a task
+- **Before risky operations** - Commit before refactoring or complex changes
+
+**NEVER commit partial work** - Only commit complete, working states that pass all validation.
+
+### Branch Management
+
+**Branch Creation Rules:**
+- **Implementation branches**: Create when starting new prompt execution (e.g., `feature/task-description`)
+- **Backup branches**: Create before major changes (e.g., `backup-before-implementation-2025-01-15`)
+- **Task-specific branches**: Create new branch for each major task sequence
+
+**Branch Naming Convention:**
+- `feature/description-of-work`
+- `fix/issue-description`
+- `backup/before-major-change-date`
+- `task/task-id-description`
+
+### Push Strategy
+
+**WHEN to push:**
+- **After task completion** - Push when entire task is done and validated
+- **Before ending session** - Push all completed work before disconnecting
+- **At user-defined milestones** - Push when user requests progress preservation
+- **Before risky operations** - Push stable state before attempting complex changes
+
+**WHEN NOT to push:**
+- **Partial implementations** - Never push incomplete features
+- **Broken code** - Never push code that fails validation
+- **Uncommitted changes** - Always commit before pushing
+
+### Recovery Points
+
+**MANDATORY backup creation:**
+- **Before new prompt execution** - Create dated backup branch of current stable state
+- **After major task completion** - Backup before starting next major task
+- **Before architectural changes** - Backup before fundamental restructuring
+
+**Backup Branch Naming:**
+- `backup/stable-before-task-execution-YYYY-MM-DD`
+- `backup/pre-implementation-YYYY-MM-DD-HH-MM`
+- `backup/post-task-completion-YYYY-MM-DD`
+
+### Git Commands Integration
+
+```bash
+# MANDATORY workflow sequence:
+git checkout -b backup/stable-$(date +%Y-%m-%d-%H-%M)  # Create backup
+git checkout -b feature/task-description               # Create feature branch
+# ... implement work ...
+git add -A                                             # Stage all changes
+git commit -m "feat: complete task description"        # Commit with conventional format
+git push origin feature/task-description              # Push completed work
+```
+
+**COMMIT MESSAGE FORMAT (MANDATORY):**
+- `feat: add user authentication system`
+- `fix: resolve mobile layout issues`
+- `refactor: optimize component performance`
+- `docs: update API documentation`
+
 ## RAG Workflow (Research Before Implementation)
 
-### Searching Specific Documentation:
+### Searching Specific Documentation
+
 1. **Get sources** → `rag_get_available_sources()` - Returns list with id, title, url
 2. **Find source ID** → Match to documentation (e.g., "Supabase docs" → "src_abc123")
 3. **Search** → `rag_search_knowledge_base(query="vector functions", source_id="src_abc123")`
 
-### General Research:
+### General Research
+
 ```bash
 # Search knowledge base (2-5 keywords only!)
 rag_search_knowledge_base(query="authentication JWT", match_count=5)
@@ -44,7 +128,8 @@ rag_search_code_examples(query="React hooks", match_count=3)
 
 ## Project Workflows
 
-### New Project:
+### New Project
+
 ```bash
 # 1. Create project
 manage_project("create", title="My Feature", description="...")
@@ -54,7 +139,8 @@ manage_task("create", project_id="proj-123", title="Setup environment", task_ord
 manage_task("create", project_id="proj-123", title="Implement API", task_order=9)
 ```
 
-### Existing Project:
+### Existing Project
+
 ```bash
 # 1. Find project
 find_projects(query="auth")  # or find_projects() to list all
@@ -68,17 +154,20 @@ find_tasks(filter_by="project", filter_value="proj-123")
 ## Tool Reference
 
 **Projects:**
+
 - `find_projects(query="...")` - Search projects
 - `find_projects(project_id="...")` - Get specific project
 - `manage_project("create"/"update"/"delete", ...)` - Manage projects
 
 **Tasks:**
+
 - `find_tasks(query="...")` - Search tasks by keyword
 - `find_tasks(task_id="...")` - Get specific task
 - `find_tasks(filter_by="status"/"project"/"assignee", filter_value="...")` - Filter tasks
 - `manage_task("create"/"update"/"delete", ...)` - Manage tasks
 
 **Knowledge Base:**
+
 - `rag_get_available_sources()` - List all sources
 - `rag_search_knowledge_base(query="...", source_id="...")` - Search docs
 - `rag_search_code_examples(query="...", source_id="...")` - Find code
