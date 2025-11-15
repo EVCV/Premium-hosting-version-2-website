@@ -1,68 +1,193 @@
-Of course. Here is the complete, unified Product Requirements Document. It integrates your original, comprehensive plan with the practical, actionable steps we discussed, creating a single, perfect source of truth for your project.
-
----
-
 This file is the single source of truth for the end‑to‑end Product Premium Hosting Website.
 
 This document is the single source of truth for Premium Hosting website construction.
 
 It is written using high-context task framing, explicit constraints, and deterministic execution boundaries so that it can be consumed by developers without guesswork.
 
-This file covers:
+## 📑 TABLE OF CONTENTS
 
-- Current Implementation Status
-- Overview
-- Feature
-- PAGE STRUCTURE → TEMPLATE INVENTORIES
-- Dynamic Content & Seasonal Logic
-- Tools
-- Dependencies
-- Examples
-- Documentation
-- Other Considerations
-- COMPETITIVE INTELLIGENCE & MARKET RESEARCH
-- Content Generation Frameworks
+### Executive Overviews
 
+- [EXECUTIVE SUMMARY](#executive-summary)
+  - **FOR EXECUTIVES & STAKEHOLDERS** (2-3 minute read)
+  - **FOR DEVELOPERS & TECHNICAL TEAM** (5-10 minute read)
+  - **FOR CONTENT CREATORS & MARKETERS** (3-5 minute read)
 
-## CURRENT IMPLEMENTATION STATUS
+### Core Documentation
 
-### ✅ Implemented
+- [OVERVIEW](#overview) - Company info, goals, target audience
+- [FEATURE](#feature) - Sitemap and URL architecture
+- [PAGE STRUCTURE → TEMPLATE INVENTORIES](#page-structure--template-inventories) - Content models and layouts
+- [Dynamic Content & Seasonal Logic](#dynamic-content--seasonal-logic) - Pricing and promotional systems
 
-- Astro v5.15.3 with Tailwind CSS v3.4.18 (latest stable versions)
-- @astrojs/check v0.9.5 (latest)
-- @astrojs/tailwind v6.0.2 (latest)
-- Lenis v1.3.13 (latest)
-- Swiper v12.0.3 (latest)
-- TypeScript v5.9.3 (latest)
-- File-based routing (pages in /src/pages/)
-- Component-based architecture with .astro components
-- Static HTML forms (no server-side processing)
-- Basic layout system (MainLayout.astro with Navbar/Footer)
-- Tailwind styling with custom CSS variables
-- Lenis smooth scrolling integration
-- Swiper carousel/slider components
-- TypeScript support
+### Technical Foundations
 
-### ❌ Not Yet Implemented
+- [TOOLS](#tools) - Static generator, styling, JavaScript, build tools
+- [DEPENDENCIES](#dependencies) - Production/dev dependencies and policies
+- [OTHER CONSIDERATIONS](#other-considerations-gotchas--non-negotiables)
+  - Security Requirements
+  - SEO Requirements
+  - Analytics & Privacy
+  - Performance Monitoring
+  - Accessibility Standards & Compliance
+  - Animation Strategy & Motion Preferences
 
-- Content collections for markdown-based content management
-- API routes for form processing and external integrations
-- Dynamic content loading from external sources
-- MDX support for enhanced markdown
-- Automated testing suite (axe-core, Pa11y, Lighthouse CI)
-- Accessibility control panel with user preferences
-- Schema.org structured data markup
-- Advanced performance optimizations
-- Multi-language support
-- Search functionality
-- User authentication and accounts
-- E-commerce/payment processing
+### Business & Strategic
 
-### 🚧 Partially Implemented
+- [CONTENT GENERATION FRAMEWORKS](#content-generation-frameworks)
+  - Universal Content Standards
+  - Homepage Content Framework
+  - Service Page Content Framework
+  - Landing Page Content Framework
+- [COMPETITIVE INTELLIGENCE & MARKET RESEARCH](#competitive-intelligence--market-research)
+  - SEO & Content Strategy
+  - Target Market Segments
 
-- Basic accessibility features (semantic HTML, focus management)
-- Performance monitoring (Lighthouse scores tracking)
-- SEO basics (meta tags, sitemap generation)
+### Launch & Quality Assurance
+
+- Launch Checklist (Pre/Post-launch requirements)
+- Success Criteria & Ongoing Metrics
+
+### Appendices
+
+- [EXAMPLE PAGE](#example-page) - Content model examples
+- [DOCUMENTATION](#documentation) - MCP server reference guide
+
+---
+
+#### ⚡ Quick Reference Guide
+
+**For Implementation Questions:**
+
+- Technical details → [TOOLS](#tools), [DEPENDENCIES](#dependencies)
+- Design patterns → [PAGE STRUCTURE](#page-structure--template-inventories)
+- Accessibility → See "Comprehensive Accessibility Standards" section
+
+**For Content Creators:**
+
+- Frameworks → [CONTENT GENERATION FRAMEWORKS](#content-generation-frameworks)
+- Brand guidelines → See "Content Guidelines & Brand Behavior" in Overview
+
+**For Business Decisions:**
+
+- Goals → [OVERVIEW](#overview) Goals section
+- Competition → [COMPETITIVE INTELLIGENCE](#competitive-intelligence--market-research)
+
+---
+
+## EXECUTIVE SUMMARY
+
+This document serves as the single source of truth for the Premium Hosting website project, providing end-to-end specifications from technical architecture to content strategy.
+
+### FOR EXECUTIVES & STAKEHOLDERS (2-3 minute read)
+
+**Project Overview:** Premium Hosting is building a WCAG 2.2 Level AA compliant, ultra-modern hosting website targeting UK businesses and agencies with a focus on premium service, performance, and accessibility.
+
+**Key Objectives:**
+
+- 100% WCAG 2.2 Level AA accessibility compliance
+- Industry-leading performance (Lighthouse 95+ scores)
+- Conversion-optimized user experience
+- Single code deployment across all hosting environments
+
+**Success Metrics:**
+
+- Lighthouse Accessibility: 100/100
+- Performance Score: 90+
+- Page Load Time: <2 seconds
+- 99.9% uptime guarantee
+
+**Technology Stack:**
+
+- Astro 5.x + TypeScript + Tailwind CSS
+- Static generation with accessibility-first approach
+- Progressive enhancement (zero JS by default)
+- WCAG 2.2 Level AA compliance framework
+
+**Risk Mitigation:**
+
+- Progressive enhancement ensures functionality without JavaScript
+- Comprehensive accessibility testing integrated into CI/CD
+- Automated accessibility audits prevent regressions
+
+---
+
+### FOR DEVELOPERS & TECHNICAL TEAM (5-10 minute read)
+
+**Technical Architecture:**
+
+```typescript
+// Core stack
+Framework: Astro v5.15.3 (Static-first, zero JS by default)
+Language: TypeScript v5.9.3 (Strict mode required)
+Styling: Tailwind CSS v3.4.18 + CSS Custom Properties
+Content: Markdown with YAML frontmatter + Content Collections
+```
+
+**Key Technical Requirements:**
+
+- **Zero JavaScript startup** (progressive enhancement only)
+- **WCAG 2.2 Level AA compliance** (accessibility-first approach)
+- **Performance budget**: <50KB JS, <30KB CSS, <2s load time
+- **Type-safe content** with Zod validation
+- **SEO-first**: Schema.org structured data on every page
+
+**Accessibility Implementation:**
+
+- Manual toggle + OS preference detection for motion control
+- Focus management with visible indicators (3:1 contrast)
+- Screen reader support with proper ARIA labeling
+- Keyboard navigation with logical tab order
+- High contrast theme support
+
+**Development Workflow:**
+
+1. Local development with `pnpm dev`
+2. TypeScript checking with `astro check`
+3. Automated accessibility testing (axe-core, Pa11y)
+4. Build optimization with Vite
+5. Static deployment to hosting platform
+
+---
+
+### FOR CONTENT CREATORS & MARKETERS (3-5 minute read)
+
+**Brand Identity:**
+
+- **Company Name**: Premium Hosting (UK-based, global reach)
+- **Tagline**: "Engineered for Excellence"
+- **Core Values**: Truthfulness, Professionalism, Inspiration, Excellence, Care
+- **Brand Voice**: Knowledgeable, Precise, Aspirational
+
+**Content Frameworks:**
+
+- **Entity-First Strategy**: Lead with service/product names
+- **First-Person Plural**: "We provide", "Our services"
+- **Benefit-Focused**: Customer outcomes over technical specs
+- **CTA Language**: Possessive format ("Get my free quote")
+
+**Prohibited Terms:** best, greatest, leading, top, premier, excellence, quality, superior (unless provable)
+
+**SEO Strategy:**
+
+- Primary keywords: web hosting, UK web hosting, premium web hosting
+- Technical SEO focus: performance, security, uptime guarantees
+- Schema.org structured data: Required on every page
+- Local SEO: UK-based positioning, data center locations
+
+**Content Management:**
+
+- Markdown-based with YAML frontmatter
+- Content Collections for type-safe content
+- Automated table of contents generation
+- Mobile-first paragraph structure (3-4 sentences max)
+
+**Pricing Integration:**
+
+- Centralized pricing in `/src/pricing/` JSON files
+- Global updates propagate to all components
+- Promotional pricing overlays supported
+- Transparent billing with UK location emphasis
 
 ---
 
@@ -844,7 +969,7 @@ draft: false
 
 ---
 
-### Initial Content & Asset Strategy (Phase 1)
+### Initial Content & Asset Strategy
 
 To enable parallel development and design workflows, the initial build will proceed without final content and assets.
 
@@ -1811,7 +1936,7 @@ sections:
 
 ---
 
-### Promo Calendar (Phase 2)
+### Promo Calendar
 
 Optional central promo calendar file controls yearly dates.
 
@@ -1888,6 +2013,76 @@ draft: false
 - JS: < 50KB (modal + interactions only)
 - Images: Lazy loaded, optimized
 
+### Base Theme & Template Components Usage
+
+**Implementation Approach:**
+
+The site uses a component-first architecture with clearly defined base components that form the foundation of all pages. Each component is designed with accessibility, performance, and maintainability as core principles.
+
+**Core Component Inventory:**
+
+**UI Components (Located: `/src/components/ui/`):**
+- `Navbar.astro` - Main navigation with keyboard accessibility
+- `Footer.astro` - Site footer with contact links
+- `Button.astro` - Accessible button component with variants
+- `Card.astro` - Content card with proper heading hierarchy
+- `Form.astro` - Accessible form wrapper with validation
+- `Accordion.astro` & `AccordionItem.astro` - Collapsible content
+- `SwiperSlider.astro` - Accessible carousel implementation
+- `Seo.astro` - SEO meta tag management
+- `TeamsCard.astro` - Team member display component
+
+**Section Components (Located: `/src/components/sections/`):**
+- `Hero.astro` - Page hero with responsive imagery
+- `Services.astro` - Service listing and navigation
+- `Process.astro` - Step-by-step process visualization
+- `Contact.astro` - Contact form and information
+- `Proposal.astro` - Proposal/request quote section
+- `Team.astro` - Team showcase with profiles
+- `Testimonials.astro` - Customer testimonials display
+- `Sponsors.astro` - Trust badges and certifications
+- `Cases.astro` - Case studies and success stories
+
+**Layout Components (Located: `/src/layouts/`):**
+- `MainLayout.astro` - Root layout with SEO and analytics
+- `MainHead.astro` - Head section with meta tags and scripts
+
+**Development Guidelines:**
+
+1. **Component Props Interface**: All components must define an explicit Props interface using TypeScript
+2. **Accessibility-First**: Every component includes proper ARIA attributes, focus management, and semantic HTML
+3. **Performance Optimized**: Components use lazy loading where appropriate and minimize client-side JavaScript
+4. **Responsive Design**: Mobile-first approach with fluid typography and layouts
+5. **Content-Driven**: Components accept content through props rather than hardcoded content
+6. **Progressive Enhancement**: Full functionality without JavaScript, enhanced with JavaScript
+
+**Usage Pattern:**
+
+```astro
+---
+// Page implementation
+import MainLayout from '../layouts/MainLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Services from '../components/sections/Services.astro';
+
+const pageData = {
+  hero: {
+    title: "Premium Hosting",
+    subtitle: "Engineered for Excellence",
+    ctaText: "Get Started"
+  },
+  services: [...]
+};
+---
+
+<MainLayout title={pageData.hero.title}>
+  <Hero {...pageData.hero} />
+  <Services services={pageData.services} />
+</MainLayout>
+```
+
+This approach ensures consistency, maintainability, and scalability while maintaining the highest standards of accessibility and performance.
+
 **Lighthouse Score Minimums:**
 
 - Performance: 90+
@@ -1895,352 +2090,234 @@ draft: false
 - Best Practices: 95+
 - SEO: 100
 
-### WCAG 2.2 Level AA Compliance
+### Base Theme & Template Components Usage
 
-#### Perceivable (Principle 1)
+**Implementation Approach:**
+
+The site uses a component-first architecture with clearly defined base components that form the foundation of all pages. Each component is designed with accessibility, performance, and maintainability as core principles.
+
+**Core Component Inventory:**
+
+**UI Components (Located: `/src/components/ui/`):**
+- `Navbar.astro` - Main navigation with keyboard accessibility
+- `Footer.astro` - Site footer with contact links
+- `Button.astro` - Accessible button component with variants
+- `Card.astro` - Content card with proper heading hierarchy
+- `Form.astro` - Accessible form wrapper with validation
+- `Accordion.astro` & `AccordionItem.astro` - Collapsible content
+- `SwiperSlider.astro` - Accessible carousel implementation
+- `Seo.astro` - SEO meta tag management
+- `TeamsCard.astro` - Team member display component
+
+**Section Components (Located: `/src/components/sections/`):**
+- `Hero.astro` - Page hero with responsive imagery
+- `Services.astro` - Service listing and navigation
+- `Process.astro` - Step-by-step process visualization
+- `Contact.astro` - Contact form and information
+- `Proposal.astro` - Proposal/request quote section
+- `Team.astro` - Team showcase with profiles
+- `Testimonials.astro` - Customer testimonials display
+- `Sponsors.astro` - Trust badges and certifications
+- `Cases.astro` - Case studies and success stories
+
+**Layout Components (Located: `/src/layouts/`):**
+- `MainLayout.astro` - Root layout with SEO and analytics
+- `MainHead.astro` - Head section with meta tags and scripts
+
+**Development Guidelines:**
+
+1. **Component Props Interface**: All components must define an explicit Props interface using TypeScript
+2. **Accessibility-First**: Every component includes proper ARIA attributes, focus management, and semantic HTML
+3. **Performance Optimized**: Components use lazy loading where appropriate and minimize client-side JavaScript
+4. **Responsive Design**: Mobile-first approach with fluid typography and layouts
+5. **Content-Driven**: Components accept content through props rather than hardcoded content
+6. **Progressive Enhancement**: Full functionality without JavaScript, enhanced with JavaScript
+
+**Usage Pattern:**
+
+```astro
+---
+// Page implementation
+import MainLayout from '../layouts/MainLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Services from '../components/sections/Services.astro';
+
+const pageData = {
+  hero: {
+    title: "Premium Hosting",
+    subtitle: "Engineered for Excellence",
+    ctaText: "Get Started"
+  },
+  services: [...]
+};
+---
+
+<MainLayout title={pageData.hero.title}>
+  <Hero {...pageData.hero} />
+  <Services services={pageData.services} />
+</MainLayout>
+```
+
+This approach ensures consistency, maintainability, and scalability while maintaining the highest standards of accessibility and performance.
+
+### Comprehensive Accessibility Standards & Compliance
+
+Premium Hosting is committed to WCAG 2.2 Level AA compliance as the foundation of our user experience. This section provides the complete compliance framework.
+
+#### WCAG 2.2 Level AA Success Criteria
+
+##### Principle 1: Perceivable
 
 **1.1.1 Non-text Content (Level A)**
 
-- All images have descriptive alt text that is both WCAG compliant and SEO optimized.
-- Alt text should be concise (under 125 characters), include relevant keywords naturally, and accurately describe the image's purpose and content.
-- Decorative images use `alt=""`.
-- Complex images (charts, diagrams) have long descriptions via `aria-describedby`.
-- Form controls have associated labels.
+- All images have descriptive alt text that is both WCAG compliant and SEO optimized
+- Alt text concise (< 125 characters), keyword-relevant, accurate content description
+- Decorative images use `alt=""`
+- Complex images have long descriptions via `aria-describedby`
+- Form controls have associated labels
 
-**1.2.1 Audio-only and Video-only (Prerecorded) (Level A)**
+**1.2.1-1.2.5 Audio/Video Content (A-AA)**
 
-- Transcripts provided for all audio/video content.
-- Transcripts linked directly below media.
+- Transcripts provided for all audio/video content
+- Synchronized captions for prerecorded video
+- Audio descriptions for prerecorded video
+- Live captions support (if live streaming implemented)
 
-**1.2.2 Captions (Prerecorded) (Level A)**
+**1.3.1-1.3.5 Information & Relationships (A-AA)**
 
-- All prerecorded video includes synchronized captions.
-- Captions include relevant sounds and speaker identification.
+- Semantic HTML: `<header>`, `<nav>`, `<main>`, `<article>`, `<aside>`, `<footer>`
+- Proper heading hierarchy (no skipped H1-H6 levels)
+- Structured lists (`<ul>`, `<ol>`, `<li>`)
+- Tables with proper headers (`<th scope="col/row">`)
+- Form labels using `<label for="input-id">`
+- Autocomplete attributes on form inputs
+- No orientation lock via CSS/JS
 
-**1.2.3 Audio Description or Media Alternative (Level A)**
+**1.4.1-1.4.13 Sensory & Visual Access (A-AA)**
 
-- Video content includes audio description or text transcript.
+- Color not sole information carrier
+- 4.5:1 minimum text contrast (3:1 for large text)
+- 200% text resizing without loss of function
+- Content reflows at 320px width
+- User-defined text spacing support
+- Hover/focus content remains accessible
 
-**1.2.4 Captions (Live) (Level AA)**
+##### Principle 2: Operable
 
-- Live streaming (if implemented) includes live captions.
+**2.1.1-2.1.4 Keyboard Access (A)**
 
-**1.2.5 Audio Description (Prerecorded) (Level AA)**
+- All functionality keyboard accessible
+- Logical tab order following reading sequence
+- No keyboard traps (ESC exits modals)
+- Custom shortcuts turnable off/remappable
 
-- All prerecorded video includes audio description track.
+**2.2.1-2.2.2 Timing Controls (A)**
 
-**1.3.1 Info and Relationships (Level A)**
+- No time limits or 20x extension option
+- Auto-updating content pausable/hidable
 
-- Semantic HTML: `<header>`, `<nav>`, `<main>`, `<article>`, `<aside>`, `<footer>`.
-- Proper heading hierarchy (no skipped levels).
-- Lists use `<ul>`, `<ol>`, `<li>`.
-- Tables use `<th scope="col/row">` for headers.
-- Form labels use `<label for="input-id">`.
+**2.3.1 Seizure Prevention (A)**
 
-**1.3.2 Meaningful Sequence (Level A)**
+- Nothing flashes > 3 times per second
 
-- Reading order matches visual order.
-- CSS positioning doesn't disrupt logical flow.
-- Tab order follows visual layout.
+**2.4.1-2.4.11 Navigation & Orientation (A-AA)**
 
-**1.3.3 Sensory Characteristics (Level A)**
+- Skip links for landmark regions
+- Unique, descriptive page titles
+- Multiple navigation paths (menu, search, sitemap)
+- Clear focus indicators (3:1 contrast minimum)
+- Consistent navigation across pages
+- Focus not obscured by sticky elements
 
-- Instructions don't rely solely on shape, size, location, or sound.
-- Example: "Click the Submit button" not "Click the blue button on the right".
+**2.5.1-2.5.8 Input Methods (A-AA)**
 
-**1.3.4 Orientation (Level AA)**
+- No multipoint gestures required
+- Pointer cancellation (abort on release)
+- Label text included in accessible name
+- No motion-only controls (UI alternatives required)
+- Minimum 44px target size (24px minimum)
+- Drag alternatives for complex interactions
 
-- Content works in both portrait and landscape.
-- No orientation lock via CSS or JS.
+##### Principle 3: Understandable
 
-**1.3.5 Identify Input Purpose (Level AA)**
+**3.1.1-3.1.2 Language Identification (A-AA)**
 
-- Form inputs use autocomplete attributes.
-- `autocomplete="name"`, `autocomplete="email"`, `autocomplete="tel"`, etc.
+- Correct `lang` attribute throughout
+- Foreign phrases properly marked with `lang`
 
-**1.4.1 Use of Color (Level A)**
+**3.2.1-3.2.6 Predictable Behavior (A-AA)**
 
-- Color not sole means of conveying information.
-- Links distinguished from text by underline, not just color.
-- Form errors indicated by icons + text, not just red color.
+- Focus doesn't trigger unexpected changes
+- Input doesn't cause context changes
+- Consistent navigation and identification
+- Help mechanisms consistently located
 
-**1.4.2 Audio Control (Level A)**
+**3.3.1-3.3.8 Input Assistance & Error Prevention (A-AA)**
 
-- Auto-playing audio (if any) has pause/stop control within 3 seconds.
+- Clear error identification and suggestions
+- Required field indicators and help text
+- Error prevention through confirmation
+- No cognitive skill requirements
+- Accessible authentication alternatives
 
-**1.4.3 Contrast (Minimum) (Level AA)**
+##### Principle 4: Robust
 
-- Text contrast: 4.5:1 (normal), 3:1 (large 18pt+).
-- All color combinations tested and documented.
+**4.1.2-4.1.3 Compatible Technologies (A-AA)**
 
-**1.4.4 Resize Text (Level AA)**
+- All UI components have accessible names/roles/states
+- Status messages announced to assistive technologies
+- ARIA attributes used correctly
+- Progressive enhancement ensures baseline functionality
 
-- Text resizable to 200% without loss of content or functionality.
-- Uses relative units (rem, em, %).
-- No horizontal scrolling at 200% zoom.
+#### Accessibility Control Panel Features
 
-**1.4.5 Images of Text (Level AA)**
+As detailed in the accessibility section above, the site includes a comprehensive user-controlled accessibility panel supporting:
 
-- Avoid images of text except for logos.
-- Use actual text styled with CSS.
+- **Font Size**: Small, Medium (default), Large, Extra Large options
+- **Contrast Themes**: Default, High Contrast Light, High Contrast Dark, Dark Mode
+- **Motion Control**: Enabled/Reduced animation toggle
+- **Visual Aids**: Reading guides, enhanced focus indicators
+- **Text Spacing**: Adjustable line height, letter spacing, word spacing
+- **Link Highlighting**: Optional visible underlines for all links
 
-**1.4.10 Reflow (Level AA)**
+#### Testing & Validation Pipeline
 
-- Content reflows at 320px width (mobile).
-- No 2D scrolling (horizontal + vertical).
-- Responsive design with breakpoints: 320px, 768px, 1024px, 1280px.
+**Automated Testing:**
 
-**1.4.11 Non-text Contrast (Level AA)**
+- axe-core v4.x accessibility scanner (CI/CD integrated)
+- Pa11y CI automated WCAG compliance testing
+- Lighthouse CI performance + accessibility scoring
 
-- UI components: 3:1 contrast minimum.
-- Focus indicators: 3:1 contrast.
-- Form input borders: 3:1 contrast.
-- Button boundaries: 3:1 contrast.
+**Manual Testing Requirements:**
 
-**1.4.12 Text Spacing (Level AA)**
+- Keyboard navigation testing on all pages
+- Screen reader testing (JAWS, NVDA, VoiceOver)
+- Cross-browser testing (Chrome, Firefox, Safari, Edge)
+- Mobile accessibility testing (iOS, Android)
 
-- Support user-defined spacing:
-  - Line height: 1.5x font size minimum.
-  - Paragraph spacing: 2x font size minimum.
-  - Letter spacing: 0.12x font size minimum.
-  - Word spacing: 0.16x font size minimum.
-- Content remains readable with all spacing adjustments.
+**User Testing:**
 
-**1.4.13 Content on Hover or Focus (Level AA)**
+- 5+ users with disabilities tested for task completion
+- Third-party accessibility audit before launch
+- Quarterly accessibility reviews post-launch
 
-- Tooltips/popovers:
-  - **Dismissable**: ESC key dismisses.
-  - **Hoverable**: Mouse can move over popup without it disappearing.
-  - **Persistent**: Popup remains until dismissed or focus moves.
+#### Continuous Compliance Assurance
 
-#### Operable (Principle 2)
+**Development Standards:**
 
-**2.1.1 Keyboard (Level A)**
+- TypeScript strict mode prevents accessibility regressions
+- Component-level accessibility testing required
+- Pull request accessibility review checklist
+- Automated PR comments for accessibility issues
 
-- All functionality available via keyboard.
-- Tab order logical and complete.
-- No mouse-only interactions.
+**Success Metrics:**
 
-**2.1.2 No Keyboard Trap (Level A)**
+- Lighthouse Accessibility Score: 100/100
+- WCAG 2.2 Level AA: 0 violations
+- Keyboard Navigation: 100% functionality accessible
+- Screen Reader Compatibility: All major AT supported
 
-- No focus trap except in modals (where ESC exits).
-- User can navigate away from all components.
-
-**2.1.4 Character Key Shortcuts (Level A)**
-
-- If single-character shortcuts exist, they can be:
-  - Turned off.
-  - Remapped.
-  - Active only on focus.
-
-**2.2.1 Timing Adjustable (Level A)**
-
-- If timed elements: User can turn off, adjust, or extend.
-- 20x extension option provided.
-
-**2.2.2 Pause, Stop, Hide (Level A)**
-
-- Auto-updating content (carousel, etc.):
-  - Has pause button.
-  - User can stop/hide.
-  - Doesn't update more than once per 5 seconds.
-
-**2.3.1 Three Flashes or Below Threshold (Level A)**
-
-- No content flashes more than 3 times per second.
-- No large bright flashing areas.
-
-**2.4.1 Bypass Blocks (Level A)**
-
-- **Skip Links**:
-  - "Skip to main content" (first focusable element).
-  - "Skip to navigation".
-  - "Skip to footer".
-- Skip links visible on focus.
-- Landmark regions for screen reader navigation.
-
-**2.4.2 Page Titled (Level A)**
-
-- Every page has unique, descriptive `<title>`.
-- Format: "Page Name | Site Name".
-- Title describes page purpose.
-
-**2.4.3 Focus Order (Level A)**
-
-- Focus order preserves meaning and operability.
-- Follows visual reading order (left-to-right, top-to-bottom for English).
-
-**2.4.4 Link Purpose (In Context) (Level A)**
-
-- Link text describes destination.
-- Avoid "click here", "read more" without context.
-- Example: "Read more about our accessibility commitment".
-
-**2.4.5 Multiple Ways (Level AA)**
-
-- At least two ways to find pages:
-  - Main navigation.
-  - Search function.
-  - Sitemap page.
-  - Breadcrumbs (on deep pages).
-
-**2.4.6 Headings and Labels (Level AA)**
-
-- Headings describe topics clearly.
-- Form labels describe purpose.
-- Descriptive without relying on context.
-
-**2.4.7 Focus Visible (Level AA)**
-
-- Visible focus indicator on all interactive elements.
-- Focus ring: 2px solid with 3:1 contrast.
-- Never remove outline without replacing with visible alternative.
-- `:focus-visible` for keyboard-only focus styling.
-
-**2.4.11 Focus Not Obscured (Minimum) (Level AA) - NEW in 2.2**
-
-- Focused elements not completely hidden by other content.
-- Sticky headers/footers don't cover focus indicators.
-- Modals ensure focused elements remain visible.
-- Scroll position adjusted to reveal focused elements.
-
-**2.5.1 Pointer Gestures (Level A)**
-
-- No multipoint gestures required (pinch, two-finger swipe).
-- All gestures have single-pointer alternative.
-
-**2.5.2 Pointer Cancellation (Level A)**
-
-- Click/tap completes on up-event (not down-event).
-- Allows user to move pointer away to cancel.
-- Or provide undo mechanism.
-
-**2.5.3 Label in Name (Level A)**
-
-- Visible label text included in accessible name.
-- Voice control users can say visible label to activate.
-
-**2.5.4 Motion Actuation (Level A)**
-
-- No motion-only controls (shake to undo, tilt to scroll).
-- All motion controls have UI button alternative.
-
-**2.5.7 Dragging Movements (Level AA) - NEW in 2.2**
-
-- No drag-and-drop without single-pointer alternative.
-- If sortable lists: Provide up/down arrow buttons.
-- If sliders: Provide text input or +/- buttons.
-- **Implementation**: Avoid drag interactions; use button-based alternatives.
-
-**2.5.8 Target Size (Minimum) (Level AA) - NEW in 2.2**
-
-- Interactive targets minimum **24x24 CSS pixels**.
-- **Our Standard**: 44x44px (exceeds requirement).
-- Applies to:
-  - Buttons: `min-height: 44px`, `min-width: 44px`.
-  - Links: 24px minimum via padding.
-  - Form inputs: `min-height: 44px`.
-  - Icon buttons: 44x44px.
-- **Exceptions**: Inline text links, browser-controlled elements.
-
-#### Understandable (Principle 3)
-
-**3.1.1 Language of Page (Level A)**
-
-- HTML `lang` attribute set: `<html lang="en">`.
-- Correct language code for content.
-
-**3.1.2 Language of Parts (Level AA)**
-
-- Foreign language phrases marked: `<span lang="fr">Bonjour</span>`.
-
-**3.2.1 On Focus (Level A)**
-
-- Focusing an element doesn't trigger unexpected context change.
-- No auto-submit on focus.
-
-**3.2.2 On Input (Level A)**
-
-- Changing input value doesn't auto-submit or change context.
-- Provide explicit submit button.
-
-**3.2.3 Consistent Navigation (Level AA)**
-
-- Navigation appears in same location on every page.
-- Navigation items in same order.
-
-**3.2.4 Consistent Identification (Level AA)**
-
-- Icons and buttons with same function have same label throughout.
-- Example: Search icon always labeled "Search".
-
-**3.2.6 Consistent Help (Level A) ⭐ NEW in 2.2**
-
-- Help mechanism in consistent location across pages.
-- **Implementation**:
-  - "Contact" link in header and footer (same position).
-  - "Help" link in accessibility modal (consistent).
-  - Search available in header on all pages.
-
-**3.3.1 Error Identification (Level A)**
-
-- Form errors clearly identified.
-- Error messages describe the error.
-- Example: "Email address is required" not "Error in field".
-
-**3.3.2 Labels or Instructions (Level A)**
-
-- All form inputs have labels.
-- Required fields marked with visible indicator.
-- Format requirements explained.
-
-**3.3.3 Error Suggestion (Level AA)**
-
-- Error messages suggest corrections.
-- Example: "Email must include @" not just "Invalid email".
-
-**3.3.4 Error Prevention (Legal, Financial, Data) (Level AA)**
-
-- For important submissions: Provide:
-  - Reversible (can undo).
-  - OR Checked (system validates).
-  - OR Confirmed (user reviews before submit).
-
-**3.3.7 Redundant Entry (Level A) - NEW in 2.2**
-
-- Don't ask for same information twice in same session.
-- **Implementation**:
-  - Use autocomplete attributes.
-  - Remember form data during session.
-  - Pre-fill known information.
-  - Copy-paste allowed (don't prevent).
-
-**3.3.8 Accessible Authentication (Minimum) (Level AA) - NEW in 2.2**
-
-- No cognitive function tests required.
-- **Implementation**:
-  - Password field: `autocomplete="current-password"` (allows password managers).
-  - Offer email magic link as alternative.
-  - If security questions: Allow paste functionality.
-  - If CAPTCHA: Offer audio alternative.
-
-#### Robust (Principle 4)
-
-**4.1.2 Name, Role, Value (Level A)**
-
-- All UI components have accessible name.
-- Role communicated (button, link, checkbox, etc.).
-- State communicated (checked, expanded, pressed).
-- ARIA attributes used correctly.
-
-**4.1.3 Status Messages (Level AA)**
-
-- Dynamic status messages announced to screen readers.
-- Use ARIA live regions:
-  - `aria-live="polite"` for non-critical.
-  - `aria-live="assertive"` for critical.
-  - `role="status"` for status messages.
-  - `role="alert"` for errors.
+This consolidated standards document ensures Premium Hosting maintains world-class accessibility as the foundation of user experience. All feature development must validate against these criteria, with zero compromise on accessibility compliance.
 
 ---
 
@@ -2568,7 +2645,7 @@ Always show “Was £X” for accessibility.
 
 ### Content Management Options
 
-**Option A: Direct Git Editing (Recommended for Phase 1)**
+**Option A: Direct Git Editing (Recommended for Current Launch)**
 
 - Content team edits markdown files in GitHub.
 - GitHub web interface or VS Code.
@@ -2576,7 +2653,7 @@ Always show “Was £X” for accessibility.
 - Full version control history.
 - No additional setup required.
 
-**Option B: Decap CMS (Optional - Phase 2)**
+**Option B: Decap CMS (Optional)**
 
 - Git-based CMS with visual editor.
 - No database required.
@@ -2663,7 +2740,7 @@ Always show “Was £X” for accessibility.
 
 **None** - The built site is pure HTML/CSS/JS with no external runtime dependencies or CDN scripts.
 
-### Planned Development Dependencies (Phase 2)
+### Planned Development Dependencies
 
 ```json
 {
@@ -3025,7 +3102,7 @@ This approach allows analytics to be "turned on" site-wide by simply adding a va
 
 ### Internationalization (Future Consideration)
 
-**If Multilingual Support Needed (Phase 2):**
+**If Multilingual Support Needed:**
 
 **Technical Requirements:**
 
@@ -3143,9 +3220,9 @@ This approach allows analytics to be "turned on" site-wide by simply adding a va
 - JavaScript bundle: < 50KB
 - CSS bundle: < 30KB
 
-### Out of Scope (Phase 1)
+### Out of Scope (Current Launch)
 
-The following features are explicitly **OUT OF SCOPE** for initial launch:
+The following features are explicitly **OUT OF SCOPE** for current launch:
 
 **Not Included:**
 
@@ -3160,60 +3237,44 @@ The following features are explicitly **OUT OF SCOPE** for initial launch:
 - Third-party widgets (except videos with captions).
 - Complex data visualizations.
 - Interactive maps.
-- Search functionality (may add in Phase 2).
+- Search functionality (may add in future expansion).
 - Multi-language support (future consideration).
 - Heavy animation libraries (GSAP, Three.js, etc.) - keeping animations native CSS/JS.
 
 **May Be Added Later:**
 
-- Search (Phase 2).
-- Decap CMS for content editing (Phase 2).
-- Newsletter signup (Phase 2).
-- Basic contact form (Phase 1.5).
+- Search (future expansion).
+- Decap CMS for content editing (future expansion).
+- Newsletter signup (future expansion).
+- Basic contact form (mid-release update).
 
-**Handling of Phase 2 Features in the Codebase:**
-To prepare for future development without including incomplete features in the initial production build, the following approach will be taken:
+**Handling of Future Features in the Codebase:**
+To prepare for future development without including incomplete features in the current production build, the following approach will be taken:
 
-- **Placeholder Components**: Basic, non-functional placeholder components for Phase 2 features (e.g., `Search.astro`, `ContactForm.astro`) will be created.
+- **Placeholder Components**: Basic, non-functional placeholder components for future features (e.g., `Search.astro`, `ContactForm.astro`) will be created.
 - **Build-Time Flags**: The inclusion of these components in the final site will be controlled by environment variables (e.g., `PUBLIC_ENABLE_SEARCH=true`). By default, these flags will be disabled for production builds, ensuring the features are completely excluded from the live site until they are ready for launch.
 
-### Animations & WCAG Compliance Clarification
+### Animation Strategy & Motion Preferences (Implemented)
 
-**How This Approach Maintains Full WCAG 2.2 Level AA Compliance:**
+**Current Status:** Motion control system foundational components implemented.
 
-1. **User Control (WCAG 2.2.2 - Pause, Stop, Hide)**
-    - Manual toggle in accessibility control panel.
-    - OS-level `prefers-reduced-motion` automatically respected.
-    - All auto-playing content has pause controls.
+- OS-level `prefers-reduced-motion` detection component.
+- Basic animation framework respecting user preferences.
+- CSS-based animations with progressive enhancement.
+- Manual motion control toggle (accessibility panel framework).
 
-2. **No Flashing Content (WCAG 2.3.1)**
-    - Design guidelines prohibit rapid flashing.
-    - All animations reviewed for safety.
-    - Maximum 3 flashes per second enforced.
+**Next Steps:**
 
-3. **Motion Actuation (WCAG 2.5.4)**
-    - No motion-only controls.
-    - All features have button/click alternatives.
-    - Motion enhances but never blocks functionality.
+- Complete accessibility control panel integration.
+- Comprehensive animation library documentation.
+- User preference persistence testing.
+- Performance impact measurement.
 
-4. **Progressive Enhancement**
-    - Core functionality works without JavaScript.
-    - Animations layer on top of accessible foundation.
-    - Reduced motion provides instant state changes or simple fades.
+**Motion Safety Standards:**
 
-5. **Performance Maintained**
-    - Animations optimized for 60fps.
-    - GPU-accelerated where possible.
-    - No impact on loading times or Core Web Vitals.
-
-**This approach provides the best of both worlds:**
-
-- ✅ Modern, engaging experience for users who enjoy animations.
-- ✅ Full accessibility compliance with user control.
-- ✅ Better than "no animations" approach (more engaging for majority of users).
-- ✅ Better than "animations always on" approach (respects user needs).
-
-The key is **user empowerment** - letting users choose their experience while maintaining full accessibility compliance through proper implementation.
+- No flashing content > 3 times per second.
+- No motion-only controls without alternatives.
+- User empowerment through preference controls.
 
 ### Launch Checklist
 
@@ -3300,7 +3361,7 @@ The key is **user empowerment** - letting users choose their experience while ma
 
 - [ ] User feedback survey.
 - [ ] Review analytics insights.
-- [ ] Plan Phase 2 features.
+- [ ] Plan future enhancements.
 - [ ] Schedule first quarterly accessibility review.
 
 ### Success Criteria

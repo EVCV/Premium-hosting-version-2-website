@@ -5,20 +5,21 @@ argument-hint: [requirements-file-path]
 
 # Create Implementation Plan from Requirements
 
-> **Purpose**  
-> To generate a self-contained, research-backed, AI-executable plan that enables an autonomous coding agent to implement a feature or requirement in one pass with built-in validation.  
->  
-> The human researcher performs the deep research, analysis, and review.  
+> **Purpose**
+> To generate a self-contained, research-backed, AI-executable plan that enables an autonomous coding agent to implement a feature or requirement in one pass with built-in validation.
+>
+> The human researcher performs the deep research, analysis, and review.
 > The AI agent executes sequentially and self-validates.
 
 ---
 
 ## Step 1. Read and Analyze Requirements
 
-**Input:**  
+**Input:**
 Read the requirements document from: $ARGUMENTS
 
 Extract and understand:
+
 - Core feature requests and objectives
 - Technical requirements and constraints
 - Expected outcomes and success criteria
@@ -26,7 +27,7 @@ Extract and understand:
 - Performance and scalability requirements
 - Any specific technologies or frameworks mentioned
 
-**Goal:**  
+**Goal:**
 Produce a complete PRP saved to `PRPs/{feature-name}.md` that contains all context, references, and validation gates required for one-pass autonomous implementation.
 
 ---
@@ -34,28 +35,36 @@ Produce a complete PRP saved to `PRPs/{feature-name}.md` that contains all conte
 ## Step 2. Research Process (Optimal Execution Order)
 
 ### 2.1 Requirements Deep Dive (Foundation First)
+
 **MANDATORY**: Read requirements document 3x for different perspectives:
+
 - **Pass 1**: Overview and high-level understanding
-- **Pass 2**: Technical details and constraints  
+- **Pass 2**: Technical details and constraints
 - **Pass 3**: Content frameworks and integration points
 - Document all explicit requirements, success criteria, and brand guidelines
 
 ### 2.2 Codebase Analysis First (Reality Check)
+
 **MANDATORY**: Use filesystem MCP to explore existing project structure:
+
 - Map current components, layouts, and utilities
 - Identify reusable patterns and existing integrations
 - Document current tech stack implementation and gaps
 - Analyze existing architecture before planning new work
 
 ### 2.3 Tech Stack Research (Context7 MCP)
+
 Use **context7 MCP tools** to discover existing patterns, dependencies, and architecture:
+
 - Research best practices for specified technologies
 - Find reference implementations for complex requirements
 - Document reusable modules, services, and helpers
 - Identify file paths and structure conventions
 
 ### 2.4 Web Research & Knowledge Base (Archon RAG)
+
 Gather authoritative information and search knowledge bases:
+
 - Use `mcp_archon__rag_get_available_sources()` to find relevant documentation
 - Search for implementation patterns: `mcp_archon__rag_search_knowledge_base(query="...")`
 - Find code examples: `mcp_archon__rag_search_code_examples(query="...")`
@@ -69,9 +78,11 @@ Gather authoritative information and search knowledge bases:
 | Pitfalls | Known issues or version quirks | Warning list |
 
 ### 2.5 Sequential Reasoning Validation (Critical Thinking)
+
 **MANDATORY**: Use SequentialThinking MCP to validate all findings:
+
 1. **Analyze** input requirements against existing patterns
-2. **Decompose** into minimal sequential subtasks (≤4 hours each)
+2. **Decompose** into minimal sequential subtasks
 3. **Validate** each subtask has clear acceptance criteria
 4. **Iterate** internally until all validations succeed
 
@@ -82,14 +93,18 @@ Gather authoritative information and search knowledge bases:
 Based on your research, create a detailed plan that includes:
 
 ### 3.1 Task Breakdown
+
 Create a prioritized list of implementation tasks:
-- Each task should be specific and actionable (≤4 hours)
+
+- Each task should be specific and actionable
 - Include clear acceptance criteria and validation steps
 - Document dependencies between tasks
 - Order tasks logically for implementation flow
 
 ### 3.2 Technical Architecture
+
 Define the technical approach:
+
 - Component structure and organization
 - Data flow and state management
 - API design (if applicable)
@@ -97,7 +112,9 @@ Define the technical approach:
 - Integration points with existing code
 
 ### 3.3 Implementation References
+
 Document key resources for implementation:
+
 - Existing code files to reference or modify (with specific paths)
 - Documentation links for technologies used
 - Code examples from research with citations
@@ -137,19 +154,17 @@ Write a comprehensive plan to `PRPs/[feature-name].md` with roughly this structu
 ### Implementation Tasks
 
 ### Phase 1: Foundation
-1. **Task Name** (≤4 hours)
+1. **Task Name**
    - Description: [What needs to be done]
    - Files to modify/create: [Specific file paths]
    - Dependencies: [Prerequisites]
    - Acceptance Criteria: [How to validate completion]
-   - Estimated effort: [time estimate]
 
-2. **Task Name** (≤4 hours)
+2. **Task Name**
    - Description: [What needs to be done]
    - Files to modify/create: [Specific file paths]
    - Dependencies: [Prerequisites]
    - Acceptance Criteria: [How to validate completion]
-   - Estimated effort: [time estimate]
 
 ### Phase 2: Core Implementation
 [Continue with numbered tasks...]
@@ -171,7 +186,9 @@ Write a comprehensive plan to `PRPs/[feature-name].md` with roughly this structu
 - [Pattern n from codebase with file path reference]
 
 ## Technical Design
+
 ### Architecture Diagram (if applicable)
+
 [ASCII diagram or description]
 
 ### Data Flow
@@ -208,7 +225,7 @@ Write a comprehensive plan to `PRPs/[feature-name].md` with roughly this structu
 
 Before finalizing the plan:
 1. **Requirements Coverage**: Cross-reference every requirement from $ARGUMENTS against the plan
-2. **Task Validation**: Ensure all tasks are ≤4 hours with clear acceptance criteria
+2. **Task Validation**: Ensure all tasks have clear acceptance criteria
 3. **Research Backing**: Verify all decisions are supported by research findings
 4. **Integration Clarity**: Confirm all file paths and code references are specific
 5. **AI Executability**: Test plan clarity for autonomous implementation
@@ -217,11 +234,11 @@ Before finalizing the plan:
 ## Important Guidelines
 
 - **Be thorough in research**: Quality depends on understanding best practices through MCP tools
-- **Keep tasks actionable**: Every task must be completable within 4 hours with clear validation
+- **Keep tasks actionable**: Every task must be completable with clear validation
 - **Reference everything**: Include specific file paths, code snippets, and source citations
 - **Consider the existing codebase**: Leverage existing patterns and architecture
 - **Include validation gates**: Every task needs acceptance criteria and testing strategy
-- **Size tasks appropriately**: Maximum 4 hours per task, break down complex work
+- **Size tasks appropriately**: Break down complex work into manageable units
 - **Use MCP tools systematically**: Follow the optimal execution order for research
 
 ## Output
