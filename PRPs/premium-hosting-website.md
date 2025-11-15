@@ -16,15 +16,24 @@
 ## Overview
 Implementation of a WCAG 2.2 Level AA compliant, ultra-modern hosting website using Astro 5 with content collections, comprehensive accessibility features, and automated testing. The site features 100+ pages across hosting products, services, and company information with full content management system.
 
+**BRAND ALIGNMENT REQUIREMENTS:**
+- **MANDATORY**: All content must align with Premium Hosting brand guidelines in INITIAL.md
+- **MANDATORY**: Use company information, core values, personality, voice, and visual identity from brand reference
+- **MANDATORY**: Implement service portfolio, audience definition, and content guidelines as specified
+- **MANDATORY**: Follow verbal identity, prohibited content rules, and implementation checklist
+
 **TEMPLATE TRANSFORMATION APPROACH:**
 - **MANDATORY**: This is a template transformation project - use existing template components and architecture
 - **MANDATORY**: Do NOT create new components from scratch - adapt and extend existing ones
 - **MANDATORY**: Leverage current Astro 5 + Tailwind CSS setup, component structure, and styling patterns
-- **MANDATORY**: Transform "Kreatif Software" placeholder content to Premium Hosting branding
+- **MANDATORY**: Transform "Kreatif Software" placeholder content to Premium Hosting branding per INITIAL.md
 
 **CONTENT SOURCING REQUIREMENTS:**
 - **MANDATORY**: All pricing data sourced from `examples\pricing\` directory
 - **MANDATORY**: All page content sourced from `examples\pages\` directory
+- **MANDATORY**: All content must follow INITIAL.md guidelines for voice, tone, and messaging
+- **MANDATORY**: Service descriptions must align with INITIAL.md Service Portfolio section
+- **MANDATORY**: Audience targeting must match INITIAL.md Audience Definition
 - Build system will automatically read and integrate content from these directories
 
 ## Requirements Summary
@@ -40,11 +49,14 @@ Implementation of a WCAG 2.2 Level AA compliant, ultra-modern hosting website us
 ## Design Preservation Requirements
 
 ### Color Scheme Standards
-**MANDATORY: All new components and pages must use the established color palette:**
+**MANDATORY: All new components and pages must use the established color palette from INITIAL.md:**
 - **Gold**: `#D4AF37` (primary brand color, used for accents and highlights)
 - **Black**: `rgb(0, 0, 0)` and `#191a23` (text and dark backgrounds)
-- **White**: `#f3f3f3` (off-white for backgrounds and text)
+- **Dark Purple**: `#1B002E` (secondary color for depth and contrast)
+- **Cream**: `#FCFBE6` (soft neutral for balance)
 - **NO OTHER COLORS** unless specifically approved for functional purposes (error states, etc.)
+
+**Reference**: See INITIAL.md Visual Identity section for complete color palette specifications.
 
 ### 3D Block Effects Standards
 **MANDATORY: All cards and blocks must maintain the signature 3D appearance:**
@@ -72,6 +84,13 @@ Implementation of a WCAG 2.2 Level AA compliant, ultra-modern hosting website us
 - **Content Collections**: Frontmatter must support design variant selection
 - **Testing**: Visual regression tests to ensure design consistency
 - **Accessibility**: All design elements must maintain WCAG 2.2 Level AA compliance
+
+### Primary Colors
+Color Name	HEX	RGB	CMYK	Usage
+Gold	#D4AF37	212, 175, 55	16, 28, 92, 3	Primary accent color symbolizing quality and excellence. Used for highlights, icons, buttons, and key visual elements.
+Black	#000000	0, 0, 0	75, 68, 67, 90	Core color representing strength, precision, and professionalism. Used for backgrounds, typography, and core layouts.
+Dark Purple	#1B002E	27, 0, 46	86, 100, 0, 64	Secondary color adding depth and contrast. Often used for headers, gradients, or background sections to convey luxury.
+Cream	#FCFBE6	252, 251, 230	2, 1, 15, 0	Soft neutral balance to the dark palette. Used for backgrounds, supporting elements, or to enhance readability.
 
 ### Success Criteria for Design Preservation
 - [ ] All new pages use gold (#D4AF37) as primary accent color

@@ -1,0 +1,414 @@
+{
+  "hostingAddons": {
+    "additionalMailboxQuota": {
+      "name": "Additional 10GB Mailbox Quota Pro",
+      "price": 9.99,
+      "billing": "monthly"
+    },
+    "malwareScanning": {
+      "name": "Malware Scanning Pro",
+      "price": 9.99,
+      "billing": "monthly"
+    },
+    "additionalMssqlDatabase": {
+      "name": "Additional MSSQL Database Pro",
+      "price": 19.99,
+      "billing": "monthly"
+    },
+    "premiumMailbox": {
+      "name": "Premium Mailbox Pro",
+      "price": 14.99,
+      "billing": "monthly"
+    },
+    "websiteBoost": {
+      "name": "Website Boost Pro",
+      "price": 14.99,
+      "billing": "monthly"
+    }
+  },
+  "vpsAddons": {
+    "cPanel": {
+      "starterLite": {
+        "name": "cPanel Starter Lite - Up To 5 Sites",
+        "sites": 5,
+        "monthlyPrice": 39.99,
+        "yearlyPrice": 399.99
+      },
+      "starterPro": {
+        "name": "cPanel Stater Pro - Up To 30 Sites",
+        "sites": 30,
+        "monthlyPrice": 49.99,
+        "yearlyPrice": 499.99
+      },
+      "growth": {
+        "name": "cPanel Growth Pro - Up To 50 sites",
+        "sites": 50,
+        "monthlyPrice": 66.99,
+        "yearlyPrice": 669.99
+      },
+      "scaleLite": {
+        "name": "cPanel Scale lite - Up To 100 Sites",
+        "sites": 100,
+        "monthlyPrice": 99.99,
+        "yearlyPrice": 999.99
+      },
+      "scalePro": {
+        "name": "cPanel Scale Pro - Up To 250 Sites",
+        "sites": 250,
+        "monthlyPrice": 139.99,
+        "yearlyPrice": 1399.99
+      }
+    },
+    "additionalIp": {
+      "name": "VPS Additional IP Address",
+      "monthlyPrice": 9.99,
+      "yearlyPrice": 99.99
+    },
+    "backups": {
+      "starterLite": {
+        "name": "VPS Backup Starter Lite (1GB VPS)",
+        "vpsSize": "1GB",
+        "monthlyPrice": 9.99,
+        "yearlyPrice": 99.99
+      },
+      "starter": {
+        "name": "VPS Backup Starter (2GB VPS)",
+        "vpsSize": "2GB",
+        "monthlyPrice": 15.99,
+        "yearlyPrice": 159.99
+      },
+      "starterPro": {
+        "name": "VPS Backup Starter Pro (4GB VPS)",
+        "vpsSize": "4GB",
+        "monthlyPrice": 24.99,
+        "yearlyPrice": 249.99
+      },
+      "growthLite": {
+        "name": "VPS Backup Growth Lite (8GB VPS)",
+        "vpsSize": "8GB",
+        "monthlyPrice": 49.99,
+        "yearlyPrice": 499.99
+      },
+      "growth": {
+        "name": "VPS Backup Growth (16GB VPS)",
+        "vpsSize": "16GB",
+        "monthlyPrice": 59.99,
+        "yearlyPrice": 599.99
+      },
+      "growthPro": {
+        "name": "VPS Backup Growth Pro (32GB VPS)",
+        "vpsSize": "32GB",
+        "monthlyPrice": 119.99,
+        "yearlyPrice": 1199.99
+      },
+      "scaleLite": {
+        "name": "VPS Backup Scale Lite (64GB VPS)",
+        "vpsSize": "64GB",
+        "monthlyPrice": 249.99,
+        "yearlyPrice": 2499.99
+      },
+      "scale": {
+        "name": "VPS Backup Scale (96GB VPS)",
+        "vpsSize": "96GB",
+        "monthlyPrice": 299.99,
+        "yearlyPrice": 2999.99
+      },
+      "scalePro": {
+        "name": "VPS Backup Scale Pro (128GB VPS)",
+        "vpsSize": "128GB",
+        "monthlyPrice": 359.99,
+        "yearlyPrice": 3599.99
+      }
+    },
+    "windowsLicenses": {
+      "server2016": {
+        "name": "Windows Server 2016",
+        "monthlyPrice": 29.99,
+        "yearlyPrice": 299.99
+      },
+      "vpsStarterPro": {
+        "name": "Windows VPS Starter Pro - 2012 R2",
+        "monthlyPrice": 19.99,
+        "yearlyPrice": 199.99
+      }
+    },
+    "additionalDisk": {
+      "50gb": {
+        "name": "VPS 50GB Disk",
+        "size": 50,
+        "price": 9.99,
+        "billing": "monthly"
+      },
+      "60gb": {
+        "name": "VPS 60GB Disk",
+        "size": 60,
+        "price": 12.99,
+        "billing": "monthly"
+      },
+      "70gb": {
+        "name": "VPS 70GB Disk",
+        "size": 70,
+        "price": 14.99,
+        "billing": "monthly"
+      },
+      "80gb": {
+        "name": "VPS 80GB Disk",
+        "size": 80,
+        "price": 16.99,
+        "billing": "monthly"
+      },
+      "90gb": {
+        "name": "VPS 90GB Disk",
+        "size": 90,
+        "price": 18.99,
+        "billing": "monthly"
+      },
+      "100gb": {
+        "name": "VPS 100GB Disk",
+        "size": 100,
+        "price": 19.99,
+        "billing": "monthly"
+      },
+      "110gb": {
+        "name": "VPS 110GB Disk",
+        "size": 110,
+        "price": 20.99,
+        "billing": "monthly"
+      },
+      "120gb": {
+        "name": "VPS 120GB Disk",
+        "size": 120,
+        "price": 21.99,
+        "billing": "monthly"
+      },
+      "130gb": {
+        "name": "VPS 130GB Disk",
+        "size": 130,
+        "price": 22.99,
+        "billing": "monthly"
+      },
+      "140gb": {
+        "name": "VPS 140GB Disk",
+        "size": 140,
+        "price": 23.99,
+        "billing": "monthly"
+      },
+      "150gb": {
+        "name": "VPS 150GB Disk",
+        "size": 150,
+        "price": 24.99,
+        "billing": "monthly"
+      },
+      "160gb": {
+        "name": "VPS 160GB Disk",
+        "size": 160,
+        "price": 25.99,
+        "billing": "monthly"
+      },
+      "170gb": {
+        "name": "VPS 170GB Disk",
+        "size": 170,
+        "price": 27.99,
+        "billing": "monthly"
+      },
+      "180gb": {
+        "name": "VPS 180GB Disk",
+        "size": 180,
+        "price": 28.99,
+        "billing": "monthly"
+      },
+      "190gb": {
+        "name": "VPS 190GB Disk",
+        "size": 190,
+        "price": 29.99,
+        "billing": "monthly"
+      },
+      "200gb": {
+        "name": "VPS 200GB Disk",
+        "size": 200,
+        "price": 31.99,
+        "billing": "monthly"
+      },
+      "210gb": {
+        "name": "VPS 210GB Disk",
+        "size": 210,
+        "price": 32.99,
+        "billing": "monthly"
+      },
+      "220gb": {
+        "name": "VPS 220GB Disk",
+        "size": 220,
+        "price": 33.99,
+        "billing": "monthly"
+      },
+      "230gb": {
+        "name": "VPS 230GB Disk",
+        "size": 230,
+        "price": 34.99,
+        "billing": "monthly"
+      },
+      "240gb": {
+        "name": "VPS 240GB Disk",
+        "size": 240,
+        "price": 35.99,
+        "billing": "monthly"
+      },
+      "250gb": {
+        "name": "VPS 250GB Disk",
+        "size": 250,
+        "price": 36.99,
+        "billing": "monthly"
+      },
+      "300gb": {
+        "name": "VPS 300GB Disk",
+        "size": 300,
+        "price": 40.99,
+        "billing": "monthly"
+      },
+      "350gb": {
+        "name": "VPS 350GB Disk",
+        "size": 350,
+        "price": 45.99,
+        "billing": "monthly"
+      },
+      "400gb": {
+        "name": "VPS 400GB Disk",
+        "size": 400,
+        "price": 50.99,
+        "billing": "monthly"
+      },
+      "450gb": {
+        "name": "VPS 450GB Disk",
+        "size": 450,
+        "price": 55.99,
+        "billing": "monthly"
+      },
+      "500gb": {
+        "name": "VPS 500GB Disk",
+        "size": 500,
+        "price": 60.99,
+        "billing": "monthly"
+      },
+      "550gb": {
+        "name": "VPS 550GB Disk",
+        "size": 550,
+        "price": 65.99,
+        "billing": "monthly"
+      },
+      "600gb": {
+        "name": "VPS 600GB Disk",
+        "size": 600,
+        "price": 70.99,
+        "billing": "monthly"
+      },
+      "650gb": {
+        "name": "VPS 650GB Disk",
+        "size": 650,
+        "price": 75.99,
+        "billing": "monthly"
+      },
+      "700gb": {
+        "name": "VPS 700GB Disk",
+        "size": 700,
+        "price": 80.99,
+        "billing": "monthly"
+      },
+      "750gb": {
+        "name": "VPS 750GB Disk",
+        "size": 750,
+        "price": 85.99,
+        "billing": "monthly"
+      },
+      "800gb": {
+        "name": "VPS 800GB Disk",
+        "size": 800,
+        "price": 90.99,
+        "billing": "monthly"
+      },
+      "850gb": {
+        "name": "VPS 850GB Disk",
+        "size": 850,
+        "price": 95.99,
+        "billing": "monthly"
+      },
+      "900gb": {
+        "name": "VPS 900GB Disk",
+        "size": 900,
+        "price": 100.99,
+        "billing": "monthly"
+      },
+      "950gb": {
+        "name": "VPS 950GB Disk",
+        "size": 950,
+        "price": 105.99,
+        "billing": "monthly"
+      },
+      "1000gb": {
+        "name": "VPS 1000GB Disk",
+        "size": 1000,
+        "price": 110.99,
+        "billing": "monthly"
+      },
+      "1100gb": {
+        "name": "VPS 1100GB Disk",
+        "size": 1100,
+        "price": 120.99,
+        "billing": "monthly"
+      },
+      "1200gb": {
+        "name": "VPS 1200GB Disk",
+        "size": 1200,
+        "price": 130.99,
+        "billing": "monthly"
+      },
+      "1300gb": {
+        "name": "VPS 1300GB Disk",
+        "size": 1300,
+        "price": 140.99,
+        "billing": "monthly"
+      },
+      "1400gb": {
+        "name": "VPS 1400GB Disk",
+        "size": 1400,
+        "price": 150.99,
+        "billing": "monthly"
+      },
+      "1500gb": {
+        "name": "VPS 1500GB Disk",
+        "size": 1500,
+        "price": 160.99,
+        "billing": "monthly"
+      },
+      "1600gb": {
+        "name": "VPS 1600GB Disk",
+        "size": 1600,
+        "price": 170.99,
+        "billing": "monthly"
+      },
+      "1700gb": {
+        "name": "VPS 1700GB Disk",
+        "size": 1700,
+        "price": 180.99,
+        "billing": "monthly"
+      },
+      "1800gb": {
+        "name": "VPS 1800GB Disk",
+        "size": 1800,
+        "price": 190.99,
+        "billing": "monthly"
+      },
+      "1900gb": {
+        "name": "VPS 1900GB Disk",
+        "size": 1900,
+        "price": 200.99,
+        "billing": "monthly"
+      },
+      "2000gb": {
+        "name": "VPS 2000GB Disk",
+        "size": 2000,
+        "price": 210.99,
+        "billing": "monthly"
+      }
+    }
+  }
+}
