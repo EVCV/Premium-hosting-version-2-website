@@ -1,6 +1,15 @@
 {
   "windows": {
-    "starter": {
+    "billing": {
+      "currency": "GBP",
+      "monthly": true,
+      "yearly": true,
+      "biennial": true,
+      "triennial": true,
+      "yearly_discount_note": "Save up to 25% on annual billing"
+    },
+    "plans": {
+      "starter": {
       "name": "Windows Starter Pro",
       "pricing": {
         "monthly": 14.99,
@@ -324,7 +333,16 @@
     }
   },
   "linux": {
-    "starter": {
+    "billing": {
+      "currency": "GBP",
+      "monthly": true,
+      "yearly": true,
+      "biennial": true,
+      "triennial": true,
+      "yearly_discount_note": "Save up to 25% on annual billing"
+    },
+    "plans": {
+      "starter": {
       "name": "Linux Starter Pro",
       "pricing": {
         "monthly": 14.99,
@@ -651,9 +669,19 @@
         "defaultPhpVersion": "8.3"
       }
     }
-  },
-  "wordpress": {
-    "starter": {
+  }
+},
+"wordpress": {
+    "billing": {
+      "currency": "GBP",
+      "monthly": true,
+      "yearly": true,
+      "biennial": true,
+      "triennial": true,
+      "yearly_discount_note": "Save up to 25% on annual billing"
+    },
+    "plans": {
+      "starter": {
       "name": "WordPress Starter Pro",
       "pricing": {
         "monthly": 24.99,
@@ -1017,4 +1045,6 @@
       }
     }
   }
+}
+}
 }

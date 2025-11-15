@@ -5,7 +5,7 @@ This directory contains structured pricing data for Premium Hosting's complete p
 ## 📁 File Structure
 
 ```
-examples/pricing/
+src/pricing/
 ├── hosting-packages.json    # Windows, Linux, and WordPress hosting packages
 ├── vps-instances.json       # VPS instances across all global locations
 ├── addons.json             # Hosting and VPS add-on products

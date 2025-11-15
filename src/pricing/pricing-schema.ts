@@ -8,6 +8,25 @@ const pricingSchema = z.object({
   triennially: z.number().positive(),
 });
 
+// Promotional pricing schema
+const promotionalPricingSchema = z.object({
+  promoMonthly: z.number().positive().optional(),
+  promoYearlyMonthlyEquivalent: z.number().positive().optional(),
+  promoCopy: z.string().optional(),
+  promoStart: z.string().optional(), // ISO date string
+  promoEnd: z.string().optional(), // ISO date string
+});
+
+// Billing metadata schema
+const billingMetadataSchema = z.object({
+  currency: z.string().default("GBP"),
+  monthly: z.boolean().default(true),
+  yearly: z.boolean().default(true),
+  biennial: z.boolean().default(true),
+  triennial: z.boolean().default(true),
+  yearly_discount_note: z.string().optional(),
+});
+
 // Specifications schema
 const hostingSpecificationsSchema = z.object({
   webspace: z.number().positive(),
@@ -156,27 +175,26 @@ const hostingFeaturesSchema = z.object({
 const hostingPackageSchema = z.object({
   name: z.string(),
   pricing: pricingSchema,
+  promotionalPricing: promotionalPricingSchema.optional(),
   specifications: hostingSpecificationsSchema,
   features: hostingFeaturesSchema,
 });
 
-// Hosting packages schema
+// Hosting packages schema (per service type)
+const serviceHostingPackagesSchema = z.object({
+  billing: billingMetadataSchema,
+  plans: z.object({
+    starter: hostingPackageSchema,
+    growth: hostingPackageSchema,
+    scale: hostingPackageSchema,
+  }),
+});
+
+// Overall hosting packages schema
 const hostingPackagesSchema = z.object({
-  windows: z.object({
-    starter: hostingPackageSchema,
-    growth: hostingPackageSchema,
-    scale: hostingPackageSchema,
-  }),
-  linux: z.object({
-    starter: hostingPackageSchema,
-    growth: hostingPackageSchema,
-    scale: hostingPackageSchema,
-  }),
-  wordpress: z.object({
-    starter: hostingPackageSchema,
-    growth: hostingPackageSchema,
-    scale: hostingPackageSchema,
-  }),
+  windows: serviceHostingPackagesSchema,
+  linux: serviceHostingPackagesSchema,
+  wordpress: serviceHostingPackagesSchema,
 });
 
 // VPS instance schema

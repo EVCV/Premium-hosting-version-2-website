@@ -2,20 +2,27 @@ Of course. Here is the complete, unified Product Requirements Document. It integ
 
 ---
 
-This file is the single source of truth for the end‑to‑end Product Quick2Print.
+This file is the single source of truth for the end‑to‑end Product Premium Hosting Website.
 
-This document is the single source of truth for Quick2Print.
+This document is the single source of truth for Premium Hosting website construction.
 
 It is written using high-context task framing, explicit constraints, and deterministic execution boundaries so that it can be consumed by developers without guesswork.
 
 This file covers:
 
-- Features
+- Current Implementation Status
+- Overview
+- Feature
+- PAGE STRUCTURE → TEMPLATE INVENTORIES
+- Dynamic Content & Seasonal Logic
 - Tools
 - Dependencies
 - Examples
 - Documentation
 - Other Considerations
+- COMPETITIVE INTELLIGENCE & MARKET RESEARCH
+- Content Generation Frameworks
+
 
 ## CURRENT IMPLEMENTATION STATUS
 
@@ -1369,36 +1376,375 @@ sections:
     "billing": {
       "monthly": true,
       "yearly": true,
-      "yearly_discount_note": "Save 20% on annual billing"
+      "biennial": true,
+      "triennial": true,
+      "yearly_discount_note": "Save up to 25% on annual billing"
     },
-    "plans": [
-      {
-        "id": "wp-starter",
-        "name": "Starter",
-        "priceMonthly": 9.99,
-        "priceYearlyMonthlyEquivalent": 7.99,
-        "tag": null,
-        "features": [
-          "1 WordPress Site",
-          "10 GB NVMe Storage",
-          "Free SSL & CDN",
-          "Daily Backups"
-        ]
+    "plans": {
+      "starter": {
+        "name": "WordPress Starter Pro",
+        "pricing": {
+          "monthly": 24.99,
+          "annually": 249.99,
+          "biennially": 449.99,
+          "triennially": 629.99
+        },
+        "specifications": {
+          "webspace": 50000,
+          "bandwidth": 500000,
+          "mysql": 1,
+          "subdomains": 10,
+          "additionalFtp": 2,
+          "additionalDomains": 0
+        },
+        "features": {
+          "wordpressFeatures": {
+            "coreChecksumReport": true,
+            "wordpressAdminQuickLink": true,
+            "manageAdminUsers": true,
+            "managePlugins": true,
+            "manageThemes": true,
+            "manageUsers": true,
+            "manageWordpressUpdates": true,
+            "reinstallWordpress": true,
+            "wordpressDatabaseManagement": true,
+            "wordpressSiteSettings": true,
+            "wordpressStaging": true,
+            "wordpressManager": false,
+            "wordpressSearchAndReplace": false
+          },
+          "cdn": {
+            "edgeCaching": true,
+            "websiteOptimisationSuite": true,
+            "blockVisitors": true,
+            "cdnStatistics": true,
+            "securityHeaders": false
+          },
+          "webFiles": {
+            "fileManager": true,
+            "ftpAccounts": true,
+            "backupRestore": true,
+            "filePermission": true,
+            "gitVersionControl": false
+          },
+          "email": {
+            "setNotificationThreshold": true,
+            "catchAllForwarders": true,
+            "junkMailFilters": true,
+            "webmail": true,
+            "emailSummary": true,
+            "emailMigration": true,
+            "domainkeysDkim": true,
+            "dmarcWizard": true
+          },
+          "webTools": {
+            "phpmyadmin": true,
+            "remoteMysqlAccess": true,
+            "changePhpVersion": true,
+            "phpConfiguration": true,
+            "scheduledTasks": true,
+            "webRedirects": true,
+            "sitemapGenerator": true,
+            "customErrors": true,
+            "autoDiagnostics": true,
+            "maintenanceMode": true
+          },
+          "domainNames": {
+            "changeNameservers": true,
+            "domainPrivacy": true,
+            "manageContacts": true,
+            "manageDns": true,
+            "dnssec": true,
+            "transferAway": true,
+            "whois": true,
+            "customDocRootAllDomains": true,
+            "customDocRootPrimaryDomain": false,
+            "makePrimaryDomain": false
+          },
+          "security": {
+            "sshAccess": false,
+            "hotlinkProtection": true,
+            "freeSsl": true,
+            "allowExternalSsl": true,
+            "passwordProtection": true,
+            "directoryIndexing": true,
+            "malwareScan": false,
+            "malwareReport": false,
+            "autoActivateFreeSsl": true,
+            "allowForceSslRedirect": true
+          },
+          "logsAndStatistics": {
+            "awstats": true,
+            "webalizer": true,
+            "accessErrorLogs": true,
+            "mailLogs": true
+          },
+          "sidebar": {
+            "accountInformation": true,
+            "temporaryUrl": true,
+            "primaryFtpLock": true,
+            "usageInformation": true,
+            "nameserversSetup": true,
+            "viewBandwidthStats": true,
+            "viewDiskUsageStats": true
+          },
+          "generalInformation": {
+            "googleTranslate": true
+          },
+          "emailLimits": {
+            "emailAccounts": 50,
+            "emailForwarding": "unlimited",
+            "emailAutoresponders": "unlimited",
+            "maxMailboxSize": "1GB",
+            "lowEmailNotification": 50,
+            "highEmailNotification": 90
+          },
+          "defaultPhpVersion": "8.3"
+        }
       },
-      {
-        "id": "wp-growth",
-        "name": "Growth",
-        "priceMonthly": 19.99,
-        "priceYearlyMonthlyEquivalent": 15.99,
-        "tag": "Most Popular",
-        "features": [
-          "Up to 5 Sites",
-          "50 GB NVMe Storage",
-          "Priority Support",
-          "Staging Environments"
-        ]
+      "growth": {
+        "name": "WordPress Growth Pro",
+        "pricing": {
+          "monthly": 39.99,
+          "annually": 399.99,
+          "biennially": 719.99,
+          "triennially": 999.99
+        },
+        "specifications": {
+          "webspace": 120000,
+          "bandwidth": 1200000,
+          "mysql": 1,
+          "subdomains": 30,
+          "additionalFtp": 10,
+          "additionalDomains": 4
+        },
+        "features": {
+          "wordpressFeatures": {
+            "coreChecksumReport": true,
+            "wordpressAdminQuickLink": true,
+            "manageAdminUsers": true,
+            "managePlugins": true,
+            "manageThemes": true,
+            "manageUsers": true,
+            "manageWordpressUpdates": true,
+            "reinstallWordpress": true,
+            "wordpressDatabaseManagement": true,
+            "wordpressSiteSettings": true,
+            "wordpressStaging": true,
+            "wordpressManager": true,
+            "wordpressSearchAndReplace": true
+          },
+          "cdn": {
+            "edgeCaching": true,
+            "websiteOptimisationSuite": true,
+            "blockVisitors": true,
+            "cdnStatistics": true,
+            "securityHeaders": true
+          },
+          "webFiles": {
+            "fileManager": true,
+            "ftpAccounts": true,
+            "backupRestore": true,
+            "filePermission": true,
+            "gitVersionControl": true
+          },
+          "email": {
+            "setNotificationThreshold": true,
+            "catchAllForwarders": true,
+            "junkMailFilters": true,
+            "webmail": true,
+            "emailSummary": true,
+            "emailMigration": true,
+            "domainkeysDkim": true,
+            "dmarcWizard": true
+          },
+          "webTools": {
+            "phpmyadmin": true,
+            "remoteMysqlAccess": true,
+            "changePhpVersion": true,
+            "phpConfiguration": true,
+            "scheduledTasks": true,
+            "webRedirects": true,
+            "sitemapGenerator": true,
+            "customErrors": true,
+            "autoDiagnostics": true,
+            "maintenanceMode": true
+          },
+          "domainNames": {
+            "changeNameservers": true,
+            "domainPrivacy": true,
+            "manageContacts": true,
+            "manageDns": true,
+            "dnssec": true,
+            "transferAway": true,
+            "whois": true,
+            "customDocRootAllDomains": true,
+            "customDocRootPrimaryDomain": true,
+            "makePrimaryDomain": true
+          },
+          "security": {
+            "sshAccess": true,
+            "hotlinkProtection": true,
+            "freeSsl": true,
+            "allowExternalSsl": true,
+            "passwordProtection": true,
+            "directoryIndexing": true,
+            "malwareScan": true,
+            "malwareReport": true,
+            "autoActivateFreeSsl": true,
+            "allowForceSslRedirect": true
+          },
+          "logsAndStatistics": {
+            "awstats": true,
+            "webalizer": true,
+            "accessErrorLogs": true,
+            "mailLogs": true
+          },
+          "sidebar": {
+            "accountInformation": true,
+            "temporaryUrl": true,
+            "primaryFtpLock": true,
+            "usageInformation": true,
+            "nameserversSetup": true,
+            "viewBandwidthStats": true,
+            "viewDiskUsageStats": true
+          },
+          "generalInformation": {
+            "googleTranslate": true
+          },
+          "emailLimits": {
+            "emailAccounts": 200,
+            "emailForwarding": "unlimited",
+            "emailAutoresponders": "unlimited",
+            "maxMailboxSize": "10GB",
+            "lowEmailNotification": 50,
+            "highEmailNotification": 90
+          },
+          "defaultPhpVersion": "8.3"
+        }
+      },
+      "scale": {
+        "name": "WordPress Scale Pro",
+        "pricing": {
+          "monthly": 59.99,
+          "annually": 599.99,
+          "biennially": 1079.99,
+          "triennially": 1499.99
+        },
+        "specifications": {
+          "webspace": 300000,
+          "bandwidth": 6000000,
+          "mysql": 1,
+          "subdomains": 60,
+          "additionalFtp": 30,
+          "additionalDomains": 19
+        },
+        "features": {
+          "wordpressFeatures": {
+            "coreChecksumReport": true,
+            "wordpressAdminQuickLink": true,
+            "manageAdminUsers": true,
+            "managePlugins": true,
+            "manageThemes": true,
+            "manageUsers": true,
+            "manageWordpressUpdates": true,
+            "reinstallWordpress": true,
+            "wordpressDatabaseManagement": true,
+            "wordpressSiteSettings": true,
+            "wordpressStaging": true,
+            "wordpressManager": true,
+            "wordpressSearchAndReplace": true
+          },
+          "cdn": {
+            "edgeCaching": true,
+            "websiteOptimisationSuite": true,
+            "blockVisitors": true,
+            "cdnStatistics": true,
+            "securityHeaders": true
+          },
+          "webFiles": {
+            "fileManager": true,
+            "ftpAccounts": true,
+            "backupRestore": true,
+            "filePermission": true,
+            "gitVersionControl": true
+          },
+          "email": {
+            "setNotificationThreshold": true,
+            "catchAllForwarders": true,
+            "junkMailFilters": true,
+            "webmail": true,
+            "emailSummary": true,
+            "emailMigration": true,
+            "domainkeysDkim": true,
+            "dmarcWizard": true
+          },
+          "webTools": {
+            "phpmyadmin": true,
+            "remoteMysqlAccess": true,
+            "changePhpVersion": true,
+            "phpConfiguration": true,
+            "scheduledTasks": true,
+            "webRedirects": true,
+            "sitemapGenerator": true,
+            "customErrors": true,
+            "autoDiagnostics": true,
+            "maintenanceMode": true
+          },
+          "domainNames": {
+            "changeNameservers": true,
+            "domainPrivacy": true,
+            "manageContacts": true,
+            "manageDns": true,
+            "dnssec": true,
+            "transferAway": true,
+            "whois": true,
+            "customDocRootAllDomains": true,
+            "customDocRootPrimaryDomain": true,
+            "makePrimaryDomain": true
+          },
+          "security": {
+            "sshAccess": true,
+            "hotlinkProtection": true,
+            "freeSsl": true,
+            "allowExternalSsl": true,
+            "passwordProtection": true,
+            "directoryIndexing": true,
+            "malwareScan": true,
+            "malwareReport": true,
+            "autoActivateFreeSsl": true,
+            "allowForceSslRedirect": true
+          },
+          "logsAndStatistics": {
+            "awstats": true,
+            "webalizer": true,
+            "accessErrorLogs": true,
+            "mailLogs": true
+          },
+          "sidebar": {
+            "accountInformation": true,
+            "temporaryUrl": true,
+            "primaryFtpLock": true,
+            "usageInformation": true,
+            "nameserversSetup": true,
+            "viewBandwidthStats": true,
+            "viewDiskUsageStats": true
+          },
+          "generalInformation": {
+            "googleTranslate": true
+          },
+          "emailLimits": {
+            "emailAccounts": 400,
+            "emailForwarding": "unlimited",
+            "emailAutoresponders": "unlimited",
+            "maxMailboxSize": "10GB",
+            "lowEmailNotification": 50,
+            "highEmailNotification": 90
+          },
+          "defaultPhpVersion": "8.3"
+        }
       }
-    ]
+    }
   }
 }
 ```
@@ -2374,9 +2720,9 @@ XXXXXXXXXXXXXXXXXXXX
 
 ## DOCUMENTATION
 
-## MCP Server Quick Reference
+### MCP Server Quick Reference
 
-### ARCHON - Premium Hosting Knowledge
+#### ARCHON - Premium Hosting Knowledge
 
 **What's stored here:** Everything related to YOUR hosting infrastructure
 
@@ -2395,32 +2741,32 @@ XXXXXXXXXXXXXXXXXXXX
 
 ---
 
-### CONTEXT7 - Latest Development Guidelines
+#### CONTEXT7 - Latest Development Guidelines
 
 **What's stored here:** Current web standards and best practices
 
-#### Accessibility Standards
+##### Accessibility Standards
 
 - WCAG 2.2 Specification → <https://www.w3.org/TR/WCAG22/>
 - ARIA Authoring Practices → <https://www.w3.org/WAI/ARIA/apg/>
 - WebAIM Guidelines → <https://webaim.org/>
 - Deque axe Documentation → <https://www.deque.com/>
 
-#### Schema.org & SEO
+##### Schema.org & SEO
 
 - Schema.org Documentation → <https://schema.org/>
 - Google Structured Data → <https://developers.google.com/search/docs/>
 - JSON-LD Best Practices.
 - Technical SEO Guidelines.
 
-#### Frameworks & Tools
+##### Frameworks & Tools
 
 - Astro Documentation → <https://docs.astro.build/>
 - Modern CSS Standards (W3C).
 - JavaScript ES6+ & Web APIs (MDN).
 - Testing Tools: axe-core, Pa11y, Lighthouse, Playwright.
 
-#### Animation Standards
+##### Animation Standards
 
 - CSS Animations Specification.
 - prefers-reduced-motion Guidelines.
@@ -2431,7 +2777,7 @@ XXXXXXXXXXXXXXXXXXXX
 
 ---
 
-### FILESYSTEM - Local Project Files
+#### FILESYSTEM - Local Project Files
 
 **What's stored here:** All source code and documentation
 
@@ -2445,7 +2791,7 @@ XXXXXXXXXXXXXXXXXXXX
 
 ---
 
-### GIT - Version Control
+#### GIT - Version Control
 
 **What's stored here:** Code history and branches
 
@@ -2457,7 +2803,7 @@ XXXXXXXXXXXXXXXXXXXX
 
 ---
 
-### GITHUB - Repository & CI/CD
+#### GITHUB - Repository & CI/CD
 
 **What's stored here:** Automation and collaboration
 
@@ -2471,7 +2817,7 @@ XXXXXXXXXXXXXXXXXXXX
 
 ---
 
-### PLAYWRIGHT - Testing
+#### PLAYWRIGHT - Testing
 
 **What's stored here:** Automated tests
 
@@ -2486,7 +2832,7 @@ XXXXXXXXXXXXXXXXXXXX
 
 ---
 
-### 🔍 FETCH - External APIs & Validation
+#### 🔍 FETCH - External APIs & Validation
 
 **What's stored here:** External service calls
 
@@ -2500,7 +2846,7 @@ XXXXXXXXXXXXXXXXXXXX
 
 ---
 
-### SEQUENTIAL THINKING - Problem Solving
+#### SEQUENTIAL THINKING - Problem Solving
 
 **What's stored here:** Complex decision-making processes
 
@@ -2514,42 +2860,11 @@ XXXXXXXXXXXXXXXXXXXX
 
 ---
 
-### SERENA
+#### SERENA
 
 **What's stored here:** [To be defined]
 
 **Use this when:** [To be defined]
-
----
-
-## Quick Lookup Table
-
-| I need to... | Check... |
-|--------------|----------|
-| Deploy the site | ARCHON |
-| Reference WCAG criteria | CONTEXT7 |
-| Find Astro documentation | CONTEXT7 |
-| Look at source code | FILESYSTEM |
-| Review commit history | GIT |
-| Set up CI/CD | GITHUB |
-| Run accessibility tests | PLAYWRIGHT |
-| Validate Schema markup | FETCH |
-| Make architecture decision | SEQUENTIAL THINKING |
-| Configure hosting | ARCHON |
-| Learn animation best practices | CONTEXT7 |
-
----
-
-## Development Workflow (Simplified)
-
-```
-1. Reference guidelines → CONTEXT7
-2. Write code → FILESYSTEM
-3. Commit changes → GIT
-4. Push to repo → GITHUB
-5. Tests run automatically → GITHUB + PLAYWRIGHT + FETCH
-6. Deploy to hosting → ARCHON
-```
 
 ---
 
@@ -3348,24 +3663,23 @@ const { plans, currency, billing } = wordpressHosting['wordpress-hosting'];
 ---
 
 <div class="pricing-grid">
-  {plans.map((plan) => (
-    <div class="pricing-card" class:list={[plan.tag === "Most Popular" && "popular"]}>
+  {Object.entries(plans).map(([planKey, plan]) => (
+    <div class="pricing-card" class:list={[planKey === "growth" && "popular"]}>
       <h3>{plan.name}</h3>
       <div class="price">
         <span class="currency">{currency === 'GBP' ? '£' : '$'}</span>
-        <span class="amount">{plan.priceMonthly}</span>
+        <span class="amount">{plan.pricing.monthly}</span>
         <span class="period">/month</span>
       </div>
       {billing.yearly && (
         <div class="yearly-price">
-          <p>Annual: £{plan.priceYearlyMonthlyEquivalent}/month ({billing.yearly_discount_note})</p>
+          <p>Annual: £{plan.pricing.annually / 12}/month ({billing.yearly_discount_note})</p>
         </div>
       )}
-      <ul class="features">
-        {plan.features.map((feature) => (
-          <li>{feature}</li>
-        ))}
-      </ul>
+      <div class="specifications">
+        <p>Webspace: {Math.round(plan.specifications.webspace / 1000)}GB</p>
+        <p>Bandwidth: {Math.round(plan.specifications.bandwidth / 1000000)}GB/month</p>
+      </div>
       <button class="cta-button">Get My {plan.name} Plan</button>
     </div>
   ))}
