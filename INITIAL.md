@@ -2793,7 +2793,7 @@ Always show “Was £X” for accessibility.
 
 ## EXAMPLE PAGE
 
-XXXXXXXXXXXXXXXXXXXX
+- Homepage example content - `examples\homepage`
 
 ## DOCUMENTATION
 

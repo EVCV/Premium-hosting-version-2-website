@@ -7,7 +7,6 @@ argument-hint: [requirements-file-path]
 
 > **Purpose**
 > To generate a self-contained, research-backed, AI-executable plan that enables an autonomous coding agent to implement a feature or requirement in one pass with built-in validation.
->
 > The human researcher performs the deep research, analysis, and review.
 > The AI agent executes sequentially and self-validates.
 
