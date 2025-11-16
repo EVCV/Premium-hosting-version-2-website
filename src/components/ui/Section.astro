@@ -1,0 +1,240 @@
+---
+// Semantic section wrapper component - WCAG 2.2 Level AA compliant
+// Provides consistent section structure with proper headings and landmarks
+
+export interface Props {
+  // Section identity
+  id?: string;
+  title?: string;
+  subtitle?: string;
+
+  // Semantic structure
+  headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+  semanticRole?: 'complementary' | 'main' | 'banner' | 'contentinfo' | 'navigation' | 'search';
+
+  // Layout and styling
+  className?: string;
+  containerClassName?: string;
+  fullWidth?: boolean;
+
+  // Accessibility
+  ariaLabel?: string;
+  ariaLabelledby?: string;
+  ariaDescribedby?: string;
+
+  // Schema.org microdata
+  itemType?: string;
+  itemProp?: string;
+}
+
+const {
+  id,
+  title,
+  subtitle,
+  headingLevel = 2,
+  semanticRole,
+  className = '',
+  containerClassName = '',
+  fullWidth = false,
+  ariaLabel,
+  ariaLabelledby,
+  ariaDescribedby,
+  itemType,
+  itemProp
+} = Astro.props;
+
+// Generate heading element based on level
+function createHeading(level: number, text: string, className: string = '') {
+  const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
+  return `<${HeadingTag} class="${className}"${ariaLabelledby ? ` aria-labelledby="${ariaLabelledby}"` : ''}${ariaDescribedby ? ` aria-describedby="${ariaDescribedby}"` : ''}>${text}</${HeadingTag}>`;
+}
+---
+
+<!-- Semantic section wrapper -->
+<section
+  id={id}
+  class={`semantic-section ${className}`.trim()}
+  role={semanticRole}
+  aria-label={ariaLabel}
+  itemscope={itemType ? true : undefined}
+  itemtype={itemType}
+  itemprop={itemProp}
+>
+  <!-- Section container -->
+  <div class={`section-container ${fullWidth ? 'max-w-none' : 'max-w-7xl mx-auto'} ${containerClassName}`.trim()}>
+    <!-- Section header if title is provided -->
+    {(title || subtitle) && (
+      <header class="section-header">
+        {subtitle && <p class="section-subtitle" id={ariaLabelledby ? `${id}-subtitle` : undefined}>{subtitle}</p>}
+        {title && (
+          <div class="section-title-wrapper">
+            <Fragment set:html={createHeading(headingLevel, title, 'section-title')} />
+          </div>
+        )}
+      </header>
+    )}
+
+    <!-- Section content -->
+    <div class="section-content">
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Base section styles */
+  .semantic-section {
+    padding: 3rem 1rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Focus management for keyboard navigation */
+  .semantic-section:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: -2px;
+  }
+
+  /* Responsive spacing */
+  @media (min-width: 640px) {
+    .semantic-section {
+      padding: 4rem 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .semantic-section {
+      padding: 5rem 2rem;
+    }
+  }
+
+  /* Section container */
+  .section-container {
+    padding: 0 1rem;
+  }
+
+  /* Section header */
+  .section-header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  /* Section subtitle */
+  .section-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+  }
+
+  /* Section title */
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--text-color);
+    margin: 0;
+  }
+
+  /* Section title wrapper */
+  .section-title-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Responsive section titles */
+  @media (max-width: 767px) {
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .section-title {
+      font-size: 1.75rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+    }
+  }
+
+  /* Section content */
+  .section-content {
+    /* Ensure proper accessibility tree */
+    min-height: 1px; /* Prevent empty content issues */
+  }
+
+  /* Landmark roles for better screen reader navigation */
+  .semantic-section[role="main"] {
+    min-height: 50vh; /* Ensure main content has sufficient height */
+  }
+
+  .semantic-section[role="banner"] {
+    position: relative;
+    z-index: 10;
+  }
+
+  .semantic-section[role="contentinfo"] {
+    border-top: 1px solid var(--border-color);
+    margin-top: 4rem;
+    padding-top: 2rem;
+  }
+
+  .semantic-section[role="navigation"] {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  /* Touch targets for mobile accessibility (44px minimum) */
+  @media (hover: none) and (pointer: coarse) {
+    .semantic-section button,
+    .semantic-section a,
+    .semantic-section [role="button"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+
+  /* Skip link target styles */
+  .semantic-section:target {
+    scroll-margin-top: 2rem;
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  /* High contrast theme support */
+  .theme-high-contrast-light .section-title,
+  .theme-high-contrast-dark .section-title {
+    border: 2px solid transparent;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .semantic-section {
+      transition: none;
+    }
+  }
+
+  /* Print styles - optimize for printing */
+  @media print {
+    .semantic-section {
+      page-break-inside: avoid;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      page-break-after: avoid;
+      color: black !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+</style>

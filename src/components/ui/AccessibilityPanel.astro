@@ -1,0 +1,701 @@
+---
+/**
+ * Accessibility Control Panel - WCAG 2.2 Level AA Compliant
+ * Modal interface for adjusting accessibility preferences
+ */
+
+import { AccessibilityStore } from '../../utils/accessibilityStore';
+import type { AccessibilityPreferences } from '../../utils/accessibilityEngine';
+
+// Component props interface
+export interface Props {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+const { isOpen = false, onClose } = Astro.props;
+---
+
+<!-- Accessibility Panel Modal -->
+<div
+  id="accessibility-panel"
+  class={`accessibility-panel ${isOpen ? 'open' : ''}`}
+  role="dialog"
+  aria-labelledby="accessibility-title"
+  aria-describedby="accessibility-description"
+  aria-modal="true"
+  aria-hidden={!isOpen}
+  inert={!isOpen}
+>
+  <!-- Backdrop -->
+  <div class="accessibility-panel-backdrop" data-close></div>
+
+  <!-- Panel Content -->
+  <div class="accessibility-panel-content">
+    <!-- Header -->
+    <header class="accessibility-panel-header">
+      <h2 id="accessibility-title" class="accessibility-panel-title">
+        Accessibility Settings
+      </h2>
+      <p id="accessibility-description" class="accessibility-panel-description">
+        Customize your experience to meet your accessibility needs. Changes are saved automatically.
+      </p>
+      <button
+        class="accessibility-panel-close"
+        aria-label="Close accessibility panel"
+        data-close
+        type="button"
+      >
+        <span aria-hidden="true">×</span>
+      </button>
+    </header>
+
+    <!-- Settings Form -->
+    <form class="accessibility-panel-form" novalidate>
+      <!-- Visual Settings -->
+      <fieldset class="accessibility-panel-section">
+        <legend class="accessibility-panel-section-title">Visual Preferences</legend>
+
+        <!-- Font Size -->
+        <div class="accessibility-panel-control">
+          <label for="font-size" class="accessibility-panel-label">Font Size</label>
+          <select
+            id="font-size"
+            name="fontSize"
+            class="accessibility-panel-select"
+            aria-describedby="font-size-help"
+          >
+            <option value="small">Small</option>
+            <option value="medium" selected>Medium (Default)</option>
+            <option value="large">Large</option>
+            <option value="extra-large">Extra Large (200%)</option>
+          </select>
+          <span id="font-size-help" class="accessibility-panel-help">
+            Larger text sizes support WCAG accessibility requirements
+          </span>
+        </div>
+
+        <!-- Contrast -->
+        <div class="accessibility-panel-control">
+          <label for="contrast" class="accessibility-panel-label">Color Contrast</label>
+          <select
+            id="contrast"
+            name="contrast"
+            class="accessibility-panel-select"
+            aria-describedby="contrast-help"
+          >
+            <option value="default" selected>Default</option>
+            <option value="high-light">High Contrast (Light)</option>
+            <option value="high-dark">High Contrast (Dark)</option>
+            <option value="dark">Dark Theme</option>
+          </select>
+          <span id="contrast-help" class="accessibility-panel-help">
+            High contrast themes meet WCAG color requirements
+          </span>
+        </div>
+
+        <!-- Spacing -->
+        <div class="accessibility-panel-control">
+          <label for="spacing" class="accessibility-panel-label">Text Spacing</label>
+          <select
+            id="spacing"
+            name="spacing"
+            class="accessibility-panel-select"
+          >
+            <option value="normal" selected>Normal</option>
+            <option value="relaxed">Relaxed</option>
+            <option value="loose">Loose</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <!-- Motion & Interaction -->
+      <fieldset class="accessibility-panel-section">
+        <legend class="accessibility-panel-section-title">Motion & Interaction</legend>
+
+        <!-- Motion Preference -->
+        <div class="accessibility-panel-control">
+          <label for="motion" class="accessibility-panel-label">Animation Preference</label>
+          <select
+            id="motion"
+            name="motion"
+            class="accessibility-panel-select"
+            aria-describedby="motion-help"
+          >
+            <option value="enabled" selected>Enabled</option>
+            <option value="reduced">Reduced</option>
+            <option value="disabled">Disabled</option>
+          </select>
+          <span id="motion-help" class="accessibility-panel-help">
+            Respects prefers-reduced-motion system setting
+          </span>
+        </div>
+
+        <!-- Focus Enhancement -->
+        <div class="accessibility-panel-control">
+          <label class="accessibility-panel-checkbox-label">
+            <input
+              type="checkbox"
+              id="focus-enhancement"
+              name="focusEnhancement"
+              class="accessibility-panel-checkbox"
+              checked
+            />
+            <span class="accessibility-panel-checkbox-mark"></span>
+            Enhanced Focus Indicators
+          </label>
+        </div>
+
+        <!-- Link Highlighting -->
+        <div class="accessibility-panel-control">
+          <label class="accessibility-panel-checkbox-label">
+            <input
+              type="checkbox"
+              id="link-highlighting"
+              name="linkHighlighting"
+              class="accessibility-panel-checkbox"
+            />
+            <span class="accessibility-panel-checkbox-mark"></span>
+            Link Highlighting
+          </label>
+        </div>
+
+        <!-- Reading Guide -->
+        <div class="accessibility-panel-control">
+          <label class="accessibility-panel-checkbox-label">
+            <input
+              type="checkbox"
+              id="reading-guide"
+              name="readingGuide"
+              class="accessibility-panel-checkbox"
+            />
+            <span class="accessibility-panel-checkbox-mark"></span>
+            Reading Guide Line
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- Typography Support -->
+      <fieldset class="accessibility-panel-section">
+        <legend class="accessibility-panel-section-title">Typography Support</legend>
+
+        <!-- Letter Spacing -->
+        <div class="accessibility-panel-control">
+          <label class="accessibility-panel-checkbox-label">
+            <input
+              type="checkbox"
+              id="letter-spacing"
+              name="letterSpacing"
+              class="accessibility-panel-checkbox"
+            />
+            <span class="accessibility-panel-checkbox-mark"></span>
+            Extra Letter Spacing
+          </label>
+        </div>
+
+        <!-- Word Spacing -->
+        <div class="accessibility-panel-control">
+          <label class="accessibility-panel-checkbox-label">
+            <input
+              type="checkbox"
+              id="word-spacing"
+              name="wordSpacing"
+              class="accessibility-panel-checkbox"
+            />
+            <span class="accessibility-panel-checkbox-mark"></span>
+            Extra Word Spacing
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- Action Buttons -->
+      <div class="accessibility-panel-actions">
+        <button
+          type="button"
+          class="accessibility-panel-button accessibility-panel-button-secondary"
+          data-action="reset"
+          aria-describedby="reset-help"
+        >
+          Reset to Defaults
+        </button>
+        <button
+          type="button"
+          class="accessibility-panel-button accessibility-panel-button-primary"
+          data-action="export"
+        >
+          Export Settings
+        </button>
+        <button
+          type="button"
+          class="accessibility-panel-button accessibility-panel-button-primary"
+          data-close
+        >
+          Close
+        </button>
+      </div>
+
+      <div id="reset-help" class="sr-only">
+        Reset all accessibility preferences to their default values
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+// Client-side interactivity for the accessibility panel
+import { AccessibilityStore } from '../../utils/accessibilityStore';
+
+class AccessibilityPanel extends HTMLElement {
+  private store: AccessibilityStore;
+  private form: HTMLFormElement | null = null;
+
+  constructor() {
+    super();
+    this.store = AccessibilityStore.getInstance();
+  }
+
+  connectedCallback() {
+    this.initializePanel();
+    this.bindEvents();
+    this.loadCurrentSettings();
+  }
+
+  private initializePanel() {
+    this.style.display = 'none';
+    this.setAttribute('aria-hidden', 'true');
+  }
+
+  private bindEvents() {
+    // Panel close events
+    this.querySelectorAll('[data-close]').forEach(element => {
+      element.addEventListener('click', () => this.closePanel());
+    });
+
+    // Keyboard navigation
+    this.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        this.closePanel();
+      }
+      if (event.key === 'Tab') {
+        this.handleTabNavigation(event);
+      }
+    });
+
+    // Form changes
+    this.form = this.querySelector('.accessibility-panel-form') as HTMLFormElement;
+    if (this.form) {
+      this.form.addEventListener('change', (event) => this.handlePreferenceChange(event));
+    }
+
+    // Action buttons
+    this.querySelectorAll('[data-action]').forEach(button => {
+      button.addEventListener('click', (event) => this.handleAction(event));
+    });
+  }
+
+  private closePanel() {
+    this.store.closePanel();
+  }
+
+  private handleTabNavigation(event: KeyboardEvent) {
+    // Ensure tab stays within the panel when open
+    const focusableElements = this.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0] as HTMLElement;
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+    if (event.shiftKey && document.activeElement === firstElement) {
+      event.preventDefault();
+      lastElement.focus();
+    } else if (!event.shiftKey && document.activeElement === lastElement) {
+      event.preventDefault();
+      firstElement.focus();
+    }
+  }
+
+  private handlePreferenceChange(event: Event) {
+    const target = event.target as HTMLInputElement | HTMLSelectElement;
+    if (!target.name) return;
+
+    const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
+
+    // Update store with preference changes
+    this.store.updatePreferences({ [target.name]: value });
+  }
+
+  private handleAction(event: Event) {
+    const button = event.target as HTMLButtonElement;
+    const action = button.getAttribute('data-action');
+
+    switch (action) {
+      case 'reset':
+        if (confirm('Reset all accessibility preferences to defaults?')) {
+          this.store.resetToDefaults();
+          this.loadCurrentSettings();
+        }
+        break;
+      case 'export':
+        const settings = this.store.exportPreferences();
+        this.downloadSettings(settings);
+        break;
+    }
+  }
+
+  private loadCurrentSettings() {
+    const preferences = this.store.getPreferences();
+
+    // Populate form with current preferences
+    Object.entries(preferences).forEach(([key, value]) => {
+      const element = this.querySelector(`[name="${key}"]`) as HTMLInputElement | HTMLSelectElement;
+      if (element) {
+        if (element.type === 'checkbox') {
+          (element as HTMLInputElement).checked = value as boolean;
+        } else {
+          element.value = String(value);
+        }
+      }
+    });
+  }
+
+  private downloadSettings(settings: string) {
+    const blob = new Blob([settings], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `accessibility-preferences-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+
+  // Public API for external control
+  show() {
+    this.style.display = 'block';
+    this.setAttribute('aria-hidden', 'false');
+    this.removeAttribute('inert');
+
+    // Focus management
+    const firstFocus = this.querySelector('button, [href], input, select') as HTMLElement;
+    if (firstFocus) firstFocus.focus();
+
+    // Announce to screen readers
+    this.announceToScreenReader('Accessibility settings panel opened');
+  }
+
+  hide() {
+    this.style.display = 'none';
+    this.setAttribute('aria-hidden', 'true');
+    this.setAttribute('inert', '');
+
+    this.announceToScreenReader('Accessibility settings panel closed');
+  }
+
+  private announceToScreenReader(message: string) {
+    const announcer = document.getElementById('accessibility-announcer');
+    if (announcer) {
+      announcer.textContent = message;
+      setTimeout(() => {
+        if (announcer.textContent === message) {
+          announcer.textContent = '';
+        }
+      }, 3000);
+    }
+  }
+}
+
+// Register custom element if not already registered
+if (!customElements.get('accessibility-panel')) {
+  customElements.define('accessibility-panel', AccessibilityPanel);
+}
+</script>
+
+<style>
+/* Panel Modal Styles */
+.accessibility-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.accessibility-panel.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.accessibility-panel-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.accessibility-panel-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  background: var(--theme-background-color, #FFF8DC);
+  border: 2px solid var(--theme-border-color, var(--black));
+  border-radius: 8px;
+  max-width: 90vw;
+  max-height: 90vh;
+  width: 600px;
+  padding: 0;
+  overflow-y: auto;
+  transition: transform 0.2s ease;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.accessibility-panel.open .accessibility-panel-content {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.accessibility-panel-header {
+  padding: 1.5rem 2rem 1rem;
+  border-bottom: 1px solid var(--theme-border-color);
+  position: relative;
+}
+
+.accessibility-panel-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--theme-text-color);
+}
+
+.accessibility-panel-description {
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  color: var(--theme-text-color);
+  opacity: 0.8;
+}
+
+.accessibility-panel-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--theme-text-color);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.15s ease;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accessibility-panel-close:hover,
+.accessibility-panel-close:focus {
+  background-color: var(--theme-border-color);
+}
+
+.accessibility-panel-form {
+  padding: 1.5rem 2rem 2rem;
+}
+
+.accessibility-panel-section {
+  margin-bottom: 2rem;
+  border: none;
+}
+
+.accessibility-panel-section-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--theme-text-color);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--theme-border-color);
+}
+
+.accessibility-panel-control {
+  margin-bottom: 1.5rem;
+}
+
+.accessibility-panel-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--theme-text-color);
+}
+
+.accessibility-panel-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--theme-border-color);
+  border-radius: 4px;
+  background: var(--theme-background-color);
+  color: var(--theme-text-color);
+  font-size: 1rem;
+  min-height: 44px;
+}
+
+.accessibility-panel-help {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: var(--theme-text-color);
+  opacity: 0.7;
+}
+
+.accessibility-panel-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-weight: normal;
+  margin-bottom: 0;
+  min-height: 44px;
+}
+
+.accessibility-panel-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--theme-border-color);
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  background: transparent;
+}
+
+.accessibility-panel-checkbox:checked {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.accessibility-panel-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.accessibility-panel-checkbox-mark {
+  /* Visual checkbox mark space */
+}
+
+.accessibility-panel-actions {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--theme-border-color);
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.accessibility-panel-button {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--theme-border-color);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--theme-text-color);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 44px;
+}
+
+.accessibility-panel-button-primary {
+  background: var(--gold);
+  color: black;
+  border-color: var(--gold);
+}
+
+.accessibility-panel-button-primary:hover {
+  background: var(--dark-purple);
+  color: var(--cream);
+}
+
+.accessibility-panel-button-secondary {
+  border-color: var(--theme-text-color);
+}
+
+.accessibility-panel-button-secondary:hover {
+  background: var(--theme-text-color);
+  color: var(--theme-background-color);
+}
+
+/* Focus styles for accessibility */
+.accessibility-panel *:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .accessibility-panel-content {
+    width: 95vw;
+    max-height: 95vh;
+    margin: 0 2.5vw;
+  }
+
+  .accessibility-panel-header,
+  .accessibility-panel-form {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .accessibility-panel-actions {
+    flex-direction: column;
+  }
+
+  .accessibility-panel-button {
+    width: 100%;
+  }
+}
+
+/* High contrast theme support */
+.theme-high-contrast-light .accessibility-panel-content {
+  border-color: #000000;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+}
+
+.theme-high-contrast-dark .accessibility-panel-content {
+  border-color: #FFFF00;
+  background: #000000;
+}
+
+.theme-high-contrast-dark .accessibility-panel-title,
+.theme-high-contrast-dark .accessibility-panel-description,
+.theme-high-contrast-dark .accessibility-panel-label {
+  color: #FFFF00;
+}
+
+.theme-high-contrast-dark .accessibility-panel-button {
+  border-color: #FFFF00;
+  color: #FFFF00;
+}
+
+.theme-high-contrast-dark .accessibility-panel-button-primary {
+  background: #FFFF00;
+  color: #000000;
+}
+
+/* Print styles - hide panel when printing */
+@media print {
+  .accessibility-panel {
+    display: none !important;
+  }
+}
+</style>

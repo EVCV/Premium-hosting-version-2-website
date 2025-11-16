@@ -1,33 +1,249 @@
 ---
+// Enhanced main layout with WCAG 2.2 Level AA compliance
+// Integrates SEO, accessibility panel, and semantic HTML structure
+
 import Footer from "../components/ui/Footer.astro";
 import Navbar from "../components/ui/Navbar.astro";
 import MainHead from "./MainHead.astro";
+import Seo from "../components/seo/Seo.astro";
+import AccessibilityPanel from "../components/ui/AccessibilityPanel.astro";
 
-const { ...props } = Astro.props;
+export interface Props {
+  title: string;
+  description: string;
+  image?: { src: string; alt: string };
+  breadcrumbs?: { name: string; href?: string }[];
+  frontmatter?: any;
+  robots?: boolean;
+}
+
+const {
+  title,
+  description,
+  image,
+  breadcrumbs = [],
+  frontmatter,
+  robots
+} = Astro.props;
+
+// Accessibility initialization script import
+const accessibilityInit = `
+  import('../utils/applyAccessibility.ts').then(({ initializeAccessibility }) => {
+    initializeAccessibility();
+  }).catch(error => {
+    console.warn('Accessibility initialization failed:', error);
+  });
+`;
 ---
 
-<html lang="en">
-  <MainHead {...props} />
-  <style>
-    html.lenis {
-      height: auto;
-    }
-    .lenis.lenis-smooth {
-      scroll-behavior: auto;
-    }
-    .lenis.lenis-smooth [data-lenis-prevent] {
-      overscroll-behavior: contain;
-    }
-    .lenis.lenis-stopped {
-      overflow: hidden;
-    }
-  </style>
-  <script src="../utils/lenis"></script>
-  <body>
-    <main>
+<!DOCTYPE html>
+<html
+  lang="en-GB"
+  itemscope
+  itemtype="https://schema.org/WebSite"
+>
+  <head>
+    <MainHead {...Astro.props} />
+    <Seo
+      title={title}
+      description={description}
+      image={image}
+      breadcrumbs={breadcrumbs}
+      frontmatter={frontmatter}
+      robots={robots}
+    />
+  </head>
+
+  <body class="min-h-screen bg-background text-foreground">
+    <!-- Skip Links - WCAG AA Requirement -->
+    <a
+      href="#main-content"
+      class="skip-link accessibility-skip-link"
+      aria-label="Skip to main content"
+    >
+      Skip to main content
+    </a>
+
+    <a
+      href="#main-navigation"
+      class="skip-link accessibility-skip-link"
+      aria-label="Skip to navigation"
+    >
+      Skip to navigation
+    </a>
+
+    <!-- Screen reader announcements region -->
+    <div
+      id="accessibility-announcer"
+      aria-live="polite"
+      aria-atomic="true"
+      class="sr-only"
+    ></div>
+
+    <!-- Header/Navigation Landmark -->
+    <header
+      role="banner"
+      class="header-landmark"
+      itemscope
+      itemtype="https://schema.org/WPHeader"
+    >
       <Navbar />
+    </header>
+
+    <!-- Main Content Area -->
+    <main
+      id="main-content"
+      role="main"
+      class="main-content"
+      itemscope
+      itemtype="https://schema.org/WebPageElement"
+    >
       <slot />
-      <Footer />
     </main>
+
+    <!-- Footer Landmark -->
+    <footer
+      role="contentinfo"
+      class="footer-landmark"
+      itemscope
+      itemtype="https://schema.org/WPFooter"
+    >
+      <Footer />
+    </footer>
+
+    <!-- Accessibility Control Panel -->
+    <AccessibilityPanel client:load />
+
+    <!-- Lenis Smooth Scrolling Styles -->
+    <style>
+      html.lenis {
+        height: auto;
+      }
+
+      .lenis.lenis-smooth {
+        scroll-behavior: auto;
+      }
+
+      .lenis.lenis-smooth [data-lenis-prevent] {
+        overscroll-behavior: contain;
+      }
+
+      .lenis.lenis-stopped {
+        overflow: hidden;
+      }
+
+      /* Accessibility enhancements */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 6px;
+        background: var(--background-color);
+        color: var(--text-color);
+        padding: 8px;
+        text-decoration: none;
+        z-index: 1000;
+        border: 2px solid var(--border-color);
+        transition: top 0.2s ease;
+      }
+
+      .skip-link:focus {
+        top: 6px;
+        outline: 3px solid var(--gold);
+        outline-offset: 2px;
+      }
+
+      /* Landmark roles for better screen reader navigation */
+      .header-landmark {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 100;
+      }
+
+      .main-content {
+        margin-top: 80px; /* Adjust for fixed header */
+        min-height: calc(100vh - 160px);
+      }
+
+      .footer-landmark {
+        /* Footer styling handled in component */
+      }
+
+      /* Focus management */
+      *:focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 2px;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .main-content {
+          margin-top: 60px;
+        }
+      }
+    </style>
+
+    <!-- Smooth Scrolling Library -->
+    <script src="../utils/lenis"></script>
+
+    <!-- Accessibility System Initialization -->
+    <script define:vars={{ accessibilityInit }}>
+      // Initialize accessibility system after DOM load
+      document.addEventListener('DOMContentLoaded', () => {
+        // Execute accessibility init script
+        try {
+          new Function(accessibilityInit)();
+        } catch (error) {
+          console.warn('Failed to initialize accessibility:', error);
+        }
+      });
+    </script>
+
+    <!-- Analytics Placeholder (to be implemented in later phase) -->
+    <!-- TODO: Add Google Analytics, Facebook Pixel, etc. -->
+
+    <!-- Accessibility keyboard navigation helpers -->
+    <script>
+      // Enhanced keyboard navigation support
+      document.addEventListener('keydown', (event) => {
+        // Alt + H: Skip to home
+        if (event.altKey && (event.key === 'h' || event.key === 'H')) {
+          event.preventDefault();
+          window.location.href = '/';
+        }
+
+        // Alt + S: Focus search (when implemented)
+        if (event.altKey && (event.key === 's' || event.key === 'S')) {
+          event.preventDefault();
+          const searchInput = document.querySelector('input[type="search"]') as HTMLInputElement;
+          if (searchInput) {
+            searchInput.focus();
+          }
+        }
+
+        // Alt + A: Toggle accessibility panel
+        if (event.altKey && (event.key === 'a' || event.key === 'A')) {
+          event.preventDefault();
+          // Trigger accessibility panel toggle through store
+          import('../utils/accessibilityStore').then(({ AccessibilityStore }) => {
+            const store = AccessibilityStore.getInstance();
+            store.togglePanel();
+          });
+        }
+      });
+
+      // Announce route changes to screen readers
+      document.addEventListener('astro:page-load', () => {
+        const announcer = document.getElementById('accessibility-announcer');
+        if (announcer && document.title) {
+          announcer.textContent = `Page loaded: ${document.title}`;
+          setTimeout(() => {
+            if (announcer.textContent === `Page loaded: ${document.title}`) {
+              announcer.textContent = '';
+            }
+          }, 3000);
+        }
+      });
+    </script>
   </body>
 </html>

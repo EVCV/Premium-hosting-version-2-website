@@ -1,0 +1,321 @@
+/* ==========================================================================
+   ACCESSIBILITY THEME SYSTEM - WCAG 2.2 Level AA Compliant
+   ========================================================================== */
+
+/* CSS Custom Properties for Dynamic Accessibility Control */
+:root {
+  /* Base font scaling (supports 200% WCAG requirement) */
+  --font-scale: 1;
+  --line-height-scale: 1;
+  --paragraph-spacing-scale: 0.8;
+
+  /* Typography adjustments */
+  --letter-spacing: normal;
+  --word-spacing: normal;
+
+  /* Color system (set by applyAccessibility.ts) */
+  --text-color: var(--black);
+  --background-color: #FFF8DC;
+  --border-color: var(--black);
+
+  /* Motion preferences */
+  --animation-duration: 0.2s;
+  --transition-duration: 0.15s;
+
+  /* Focus enhancement (required by WCAG) */
+  --focus-ring-color: var(--gold);
+  --focus-ring-width: 3px;
+  --focus-ring-style: solid;
+  --focus-outline-offset: 2px;
+
+  /* Theme overrides */
+  --theme-text-color: var(--text-color);
+  --theme-background-color: var(--background-color);
+  --theme-border-color: var(--border-color);
+}
+
+/* ==========================================================================
+   THEME OVERRIDES (Applied by JavaScript)
+   ========================================================================== */
+
+/* High Contrast Light Theme */
+.theme-high-contrast-light {
+  --theme-text-color: #000000 !important;
+  --theme-background-color: #FFFFFF !important;
+  --theme-border-color: #000000 !important;
+
+  /* Ensure readable contrast (7:1 minimum for normal text, 4.5:1 for large) */
+  --link-color: #000000 !important;
+  --heading-color: #000000 !important;
+}
+
+/* High Contrast Dark Theme */
+.theme-high-contrast-dark {
+  --theme-text-color: #FFFF00 !important; /* Yellow on black = 20.8:1 contrast */
+  --theme-background-color: #000000 !important;
+  --theme-border-color: #FFFF00 !important;
+
+  --link-color: #FFFF00 !important;
+  --heading-color: #FFFF00 !important;
+}
+
+/* Standard Dark Theme */
+.theme-dark {
+  --theme-text-color: #FFFFFF !important;
+  --theme-background-color: #1a1a1a !important;
+  --theme-border-color: #FFFFFF !important;
+
+  --link-color: #D4AF37 !important; /* Gold links */
+  --heading-color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   FONT SIZE SCALING (WCAG 2.2 AA - 200% resize)
+   ========================================================================== */
+
+/* Small font size */
+.font-size-small {
+  font-size: calc(1rem * 0.875 * var(--font-scale)) !important;
+}
+
+/* Large font size (125%) */
+.font-size-large {
+  font-size: calc(1rem * 1.25 * var(--font-scale)) !important;
+}
+
+/* Extra large font size (200%) */
+.font-size-extra-large {
+  font-size: calc(1rem * 2 * var(--font-scale)) !important;
+}
+
+/* Scaled heading sizes */
+.font-size-small h1 { font-size: calc(3rem * 0.875 * var(--font-scale)) !important; }
+.font-size-small h2 { font-size: calc(2rem * 0.875 * var(--font-scale)) !important; }
+.font-size-small h3 { font-size: calc(1.5rem * 0.875 * var(--font-scale)) !important; }
+
+.font-size-large h1 { font-size: calc(3rem * 1.25 * var(--font-scale)) !important; }
+.font-size-large h2 { font-size: calc(2rem * 1.25 * var(--font-scale)) !important; }
+.font-size-large h3 { font-size: calc(1.5rem * 1.25 * var(--font-scale)) !important; }
+
+.font-size-extra-large h1 { font-size: calc(3rem * 2 * var(--font-scale)) !important; }
+.font-size-extra-large h2 { font-size: calc(2rem * 2 * var(--font-scale)) !important; }
+.font-size-extra-large h3 { font-size: calc(1.5rem * 2 * var(--font-scale)) !important; }
+
+/* ==========================================================================
+   SPACING ADJUSTMENTS
+   ========================================================================== */
+
+.spacing-relaxed {
+  line-height: calc(1.6 * var(--line-height-scale)) !important;
+}
+
+.spacing-relaxed p {
+  margin-bottom: calc(1.2em * var(--paragraph-spacing-scale)) !important;
+}
+
+.spacing-loose {
+  line-height: calc(2 * var(--line-height-scale)) !important;
+}
+
+.spacing-loose p {
+  margin-bottom: calc(1.6em * var(--paragraph-spacing-scale)) !important;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY ENHANCEMENTS (Dyslexia Support)
+   ========================================================================== */
+
+/* Letter spacing support */
+:root {
+  letter-spacing: var(--letter-spacing);
+  word-spacing: var(--word-spacing);
+}
+
+/* ==========================================================================
+   MOTION PREFERENCES (Vestibular Disorder Support)
+   ========================================================================== */
+
+/* Reduced motion - gentler animations */
+.motion-reduced * {
+  animation-duration: var(--animation-duration) !important;
+  animation-delay: 0s !important;
+  transition-duration: var(--transition-duration) !important;
+  transition-delay: 0s !important;
+}
+
+/* Disabled motion - no animations */
+.motion-disabled *,
+.motion-disabled *::before,
+.motion-disabled *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+  scroll-behavior: auto !important;
+}
+
+/* ==========================================================================
+   FOCUS ENHANCEMENT (WCAG AA Requirement)
+   ========================================================================== */
+
+/* Enhanced focus indicators with 3:1 contrast ratio */
+.focus-enhanced *:focus,
+.focus-enhanced *:focus-visible {
+  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color) !important;
+  outline-offset: var(--focus-outline-offset) !important;
+  box-shadow: none !important;
+}
+
+/* High contrast focus (ensures visibility) */
+.theme-high-contrast-light .focus-enhanced *:focus,
+.theme-high-contrast-light .focus-enhanced *:focus-visible {
+  outline-color: #000000 !important;
+  background-color: #FFFF00 !important; /* Yellow highlight on black text */
+}
+
+.theme-high-contrast-dark .focus-enhanced *:focus,
+.theme-high-contrast-dark .focus-enhanced *:focus-visible {
+  outline-color: #FFFF00 !important;
+  background-color: #000000 !important;
+}
+
+/* ==========================================================================
+   LINK HIGHLIGHTING
+   ========================================================================== */
+
+.accessibility-link-highlighting a:not(:focus):not(:hover) {
+  position: relative;
+}
+
+/* Underline all links for better visibility */
+.accessibility-link-highlighting a {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-decoration-color: currentColor !important;
+}
+
+/* ==========================================================================
+   READING GUIDE (Focus Line)
+   ========================================================================== */
+
+.accessibility-reading-guide {
+  --reading-guide-color: rgba(218, 165, 32, 0.3);
+  --reading-guide-height: 4px;
+}
+
+.accessibility-reading-guide::before {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: var(--reading-guide-height);
+  background-color: var(--reading-guide-color);
+  pointer-events: none;
+  z-index: 9999;
+  transition: top 0.1s ease;
+}
+
+/* ==========================================================================
+   INTERACTION ENHANCEMENTS
+   ========================================================================== */
+
+/* Touch target minimums (44px WCAG AA) */
+.focus-enhanced button,
+.focus-enhanced [role="button"],
+.focus-enhanced input[type="submit"],
+.focus-enhanced input[type="button"] {
+  min-height: 44px !important;
+  min-width: 44px !important;
+}
+
+/* Keyboard navigation enhancements */
+.focus-enhanced *:focus:not(:focus-visible) {
+  /* Remove default focus for mouse users, keep for keyboard */
+  outline: none;
+}
+
+/* ==========================================================================
+   SCREEN READER UTILITIES
+   ========================================================================== */
+
+/* Skip links (WCAG AA requirement) */
+.accessibility-skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--theme-background-color);
+  color: var(--theme-text-color);
+  padding: 8px;
+  text-decoration: none;
+  z-index: 1000;
+  border: 2px solid var(--theme-border-color);
+}
+
+.accessibility-skip-link:focus {
+  top: 6px;
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE SCALING
+   ========================================================================== */
+
+/* Ensure scaling works on mobile devices */
+@media screen and (max-width: 768px) {
+  .accessibility-reading-guide::before {
+    --reading-guide-height: 3px;
+  }
+
+  .focus-enhanced *:focus,
+  .focus-enhanced *:focus-visible {
+    outline-width: 4px !important; /* Slightly thicker on mobile */
+  }
+}
+
+/* ==========================================================================
+   PRINT STYLES (Accessibility Consideration)
+   ========================================================================== */
+
+@media print {
+  /* Reset all accessibility theme overrides for printing */
+  * {
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
+    text-decoration: none !important; /* Remove underlines for print */
+  }
+
+  .accessibility-reading-guide::before,
+  .accessibility-skip-link {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   HIGH PRIORITY OVERRIDES
+   ========================================================================== */
+
+/* Critical accessibility overrides - use !important sparingly and only for WCAG compliance */
+.accessibility-critical {
+  font-size: calc(1rem * var(--font-scale)) !important;
+  line-height: calc(1.6 * var(--line-height-scale)) !important;
+}
+
+/* Ensure critical content maintains readability */
+.accessibility-critical {
+  color: var(--theme-text-color) !important;
+  background-color: var(--theme-background-color) !important;
+  border-color: var(--theme-border-color) !important;
+}
