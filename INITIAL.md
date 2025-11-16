@@ -2370,6 +2370,16 @@ This consolidated standards document ensures Premium Hosting maintains world-cla
 - Form validation and interactions.
 - Progressive enhancement approach.
 
+**AJAX Loading Standards**
+
+- All dynamic content loads via AJAX for enhanced performance
+- Progressive enhancement ensures functionality without JavaScript
+- Loading states with proper ARIA live regions for screen readers
+- Error handling with user-friendly messages and retry mechanisms
+- Cache management for optimal performance (service worker integration)
+- Graceful degradation when JavaScript is disabled
+- Minimum 44px touch targets for all AJAX-triggered elements
+
 **Budget:** Total JS < 50KB
 
 **Animation Approach:**
@@ -2982,6 +2992,27 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 - Configure Dependabot for automated security updates.
 - Review all dependency updates in PRs.
 - Pin major versions, allow minor/patch updates.
+
+#### Form Security Standards
+- All forms MUST use reCAPTCHA V3 for bot protection
+- Honeypot fields required on all contact/lead forms
+- Rate limiting implementation (max 5 submissions per IP per hour)
+- Input sanitization and validation using Zod schemas
+- CSRF protection tokens for all form submissions
+- GDPR-compliant data collection with explicit consent checkboxes
+- Form data encryption in transit and at rest
+- Automatic data deletion after 30 days for non-converted leads
+
+#### Webhook Integration Requirements
+- All form submissions trigger webhooks to:
+  - Primary CRM system (HubSpot/Zoho/Salesforce)
+  - Email inbox (support@premium-hosting.co.uk)
+  - Backup logging system for audit trails
+- Webhook payload includes: timestamp, IP, user agent, sanitized form data
+- Failed webhook retry mechanism (3 attempts with exponential backoff)
+- GDPR-compliant data retention (30 days max for non-converted leads)
+- Webhook authentication using API keys or JWT tokens
+- Real-time monitoring and alerting for webhook failures
 
 **Form Security (if applicable):**
 
