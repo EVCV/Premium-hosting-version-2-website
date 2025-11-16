@@ -83,7 +83,8 @@ Gather authoritative information and search knowledge bases:
 1. **Analyze** input requirements against existing patterns
 2. **Decompose** into minimal sequential subtasks
 3. **Validate** each subtask has clear acceptance criteria
-4. **Iterate** internally until all validations succeed
+4. **Include Systematic Page Generation** for large sitemaps (100+ pages)
+5. **Iterate** internally until all validations succeed
 
 ---
 
@@ -171,6 +172,31 @@ Write a comprehensive plan to `PRPs/[feature-name].md` with roughly this structu
 ### Phase 3: Integration & Testing
 [Continue with numbered tasks...]
 
+### Phase 3.5: Systematic Page Generation (MANDATORY for 50+ pages)
+1. **Sitemap URL Extraction**
+   - Description: Parse all URLs from requirements sitemap and categorize by page type
+   - Files to modify/create: `scripts/generate-pages.js`, `src/content/config.ts`
+   - Dependencies: Content collections configured
+   - Acceptance Criteria: All URLs extracted and assigned to template types
+
+2. **Automated Content Generation**
+   - Description: Generate frontmatter and placeholder content for each page type
+   - Files to modify/create: `src/content/pages/*.md`, `src/content/blog/*.md`, etc.
+   - Dependencies: URL extraction and categorization complete
+   - Acceptance Criteria: All pages created with proper frontmatter and content structure
+
+3. **Template Application**
+   - Description: Apply appropriate Astro layouts and component configurations
+   - Files to modify/create: Page template files with correct layout assignments
+   - Dependencies: Content generation complete
+   - Acceptance Criteria: All pages render with correct templates and layouts
+
+4. **URL Routing Validation**
+   - Description: Ensure all sitemap URLs map to created pages and are accessible
+   - Files to modify/create: `astro.config.mjs` (route configuration if needed)
+   - Dependencies: Template application complete
+   - Acceptance Criteria: All sitemap URLs functional and return 200 status
+
 ## Codebase Integration Points
 ### Files to Modify
 - `path/to/file1.js` - [Specific changes needed with code examples]
@@ -228,7 +254,17 @@ Before finalizing the plan:
 3. **Research Backing**: Verify all decisions are supported by research findings
 4. **Integration Clarity**: Confirm all file paths and code references are specific
 5. **AI Executability**: Test plan clarity for autonomous implementation
-6. **Iterate** until zero gaps remain
+6. **For Large Sitemaps**: Include Phase 3.5 Systematic Page Generation with complete sitemap URL coverage
+7. **Iterate** until zero gaps remain
+
+## Step 5.1: Sitemap Coverage Validation (MANDATORY for 50+ pages)
+
+**MANDATORY for projects with sitemaps**: Before finalizing the plan:
+
+7. **Sitemap Coverage**: Verify plan includes systematic creation of every URL listed in requirements sitemap
+8. **Page Type Validation**: Ensure appropriate templates exist for each page category (service, landing, content, utility)
+9. **Content Requirements**: Confirm placeholder content meets specified word counts and structure
+10. **SEO Compliance**: Validate metadata generation for all pages
 
 ## Important Guidelines
 
@@ -239,6 +275,8 @@ Before finalizing the plan:
 - **Include validation gates**: Every task needs acceptance criteria and testing strategy
 - **Size tasks appropriately**: Break down complex work into manageable units
 - **Use MCP tools systematically**: Follow the optimal execution order for research
+- **MANDATORY Systematic Page Generation**: For projects with 50+ pages, include Phase 3.5 with complete sitemap URL coverage
+- **Sitemap-Driven Development**: Treat sitemaps as single source of truth for page creation requirements
 
 ## Output
 
