@@ -1,3 +1,5 @@
+# INITIAL.md
+
 This file is the single source of truth for the end‑to‑end Product Premium Hosting Website.
 
 This document is the single source of truth for Premium Hosting website construction.
@@ -1460,7 +1462,15 @@ This implementation provides a robust, accessible, and maintainable accessibilit
 
 ### Content Management System
 
-## Dynamic Content & Seasonal Logic
+## PAGE STRUCTURE → TEMPLATE INVENTORIES
+
+This section defines the structural blueprint for all page types across Premium Hosting.
+It ensures design, content, and development alignment by specifying section inventories, content models, and reusable layout patterns.
+These templates form the foundation for consistent, accessible, and conversion-focused pages.
+
+---
+
+### HIGH-CONVERSION HOSTING PAGE LAYOUT
 
 ### Pricing Content Model
 
@@ -2022,6 +2032,7 @@ The site uses a component-first architecture with clearly defined base component
 **Core Component Inventory:**
 
 **UI Components (Located: `/src/components/ui/`):**
+
 - `Navbar.astro` - Main navigation with keyboard accessibility
 - `Footer.astro` - Site footer with contact links
 - `Button.astro` - Accessible button component with variants
@@ -2033,6 +2044,7 @@ The site uses a component-first architecture with clearly defined base component
 - `TeamsCard.astro` - Team member display component
 
 **Section Components (Located: `/src/components/sections/`):**
+
 - `Hero.astro` - Page hero with responsive imagery
 - `Services.astro` - Service listing and navigation
 - `Process.astro` - Step-by-step process visualization
@@ -2044,6 +2056,7 @@ The site uses a component-first architecture with clearly defined base component
 - `Cases.astro` - Case studies and success stories
 
 **Layout Components (Located: `/src/layouts/`):**
+
 - `MainLayout.astro` - Root layout with SEO and analytics
 - `MainHead.astro` - Head section with meta tags and scripts
 
@@ -2099,6 +2112,7 @@ The site uses a component-first architecture with clearly defined base component
 **Core Component Inventory:**
 
 **UI Components (Located: `/src/components/ui/`):**
+
 - `Navbar.astro` - Main navigation with keyboard accessibility
 - `Footer.astro` - Site footer with contact links
 - `Button.astro` - Accessible button component with variants
@@ -2110,6 +2124,7 @@ The site uses a component-first architecture with clearly defined base component
 - `TeamsCard.astro` - Team member display component
 
 **Section Components (Located: `/src/components/sections/`):**
+
 - `Hero.astro` - Page hero with responsive imagery
 - `Services.astro` - Service listing and navigation
 - `Process.astro` - Step-by-step process visualization
@@ -2121,6 +2136,7 @@ The site uses a component-first architecture with clearly defined base component
 - `Cases.astro` - Case studies and success stories
 
 **Layout Components (Located: `/src/layouts/`):**
+
 - `MainLayout.astro` - Root layout with SEO and analytics
 - `MainHead.astro` - Head section with meta tags and scripts
 
@@ -2994,6 +3010,7 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 - Pin major versions, allow minor/patch updates.
 
 #### Form Security Standards
+
 - All forms MUST use reCAPTCHA V3 for bot protection
 - Honeypot fields required on all contact/lead forms
 - Rate limiting implementation (max 5 submissions per IP per hour)
@@ -3004,9 +3021,10 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 - Automatic data deletion after 30 days for non-converted leads
 
 #### Webhook Integration Requirements
+
 - All form submissions trigger webhooks to:
   - Primary CRM system (HubSpot/Zoho/Salesforce)
-  - Email inbox (support@premium-hosting.co.uk)
+  - Email inbox (<support@premium-hosting.co.uk>)
   - Backup logging system for audit trails
 - Webhook payload includes: timestamp, IP, user agent, sanitized form data
 - Failed webhook retry mechanism (3 attempts with exponential backoff)
